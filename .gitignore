@@ -1,0 +1,37 @@
+# Local planning, notes, and machine-specific configuration
+.local/
+.DS_Store
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Credentials
+*.pem
+*.key
+kubeconfig
+kubeconfig.*
+.kube/
+
+# Runtime state; DVC metadata and sanitized evidence remain versioned
+.dvc/cache/
+.dvc/tmp/
+.dvc/config.local
+mlruns/
+mlartifacts/
+*.db
+*.db-shm
+*.db-wal
+logs/
+artifacts/
+tmp/
