@@ -1,6 +1,7 @@
 # Architecture
 
-Status: proposed design; implementations and live verification are pending.
+Status: DVC tools and deterministic data storage are implemented and live-verified.
+The other operational adapters, training and agent orchestration remain planned.
 
 ```mermaid
 flowchart TD
@@ -40,6 +41,11 @@ Every training run must record the dataset path, DVC content hash, dataset Git
 revision, code Git revision, split seed, and model configuration in MLflow. The
 inference image must identify its application version, model run ID, and dataset
 reference. Comparisons must identify the evaluation split and metric direction.
+
+DVC implements the lineage keys `dataset_path`, `dataset_dvc_md5` and
+`dataset_git_revision`. Its MLflow run resolver accepts a bounded run-lookup
+callback, which must be connected to the MLflow adapter during that milestone;
+an absent callback produces an explicit unavailable response.
 
 A local DVC remote is sufficient for a local demonstration only if the repository
 documents how a fresh checkout obtains the data. A remote stored outside Git is

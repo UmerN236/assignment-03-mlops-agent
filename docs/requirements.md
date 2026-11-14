@@ -1,17 +1,20 @@
 # Acceptance checklist
 
-All boxes are intentionally open until implementation and verification provide
-evidence. Mocked test results do not satisfy a live demonstration requirement.
+Boxes are checked only when implementation and verification provide evidence.
+Mocked test results do not satisfy a live demonstration requirement.
 
 ## DVC data management - 15 marks
 
-- [ ] At least three separately callable, structured DVC tools.
-- [ ] List DVC-tracked datasets.
-- [ ] Retrieve dataset content version and Git revision.
-- [ ] Compare dataset revisions and detect workspace changes.
+- [x] At least three separately callable, structured DVC tools (seven registered).
+- [x] List DVC-tracked datasets.
+- [x] Retrieve dataset content version and Git revision.
+- [x] Compare dataset revisions and detect workspace changes.
 - [ ] Resolve the dataset reference recorded for an MLflow training run.
-- [ ] Explain and demonstrate checkout of an earlier dataset revision.
-- [ ] Restrict subprocess operations to an approved command and path allowlist.
+      Callback and supplied-reference tools implemented/tested; real run pending MLflow stage.
+- [x] Explain and demonstrate checkout of an earlier dataset revision.
+- [x] Restrict subprocess operations to an approved command and path allowlist.
+      [Tool contract](data.md), [live historical restore/bootstrap](evidence/dvc-bootstrap.json),
+      and `tests/test_dvc_tools.py`; only one genuine dataset revision exists so far.
 
 ## MLflow experiment intelligence - 15 marks
 
@@ -62,12 +65,13 @@ evidence. Mocked test results do not satisfy a live demonstration requirement.
 
 ## Testing, reliability, safety - 10 marks
 
-- [ ] At least eight meaningful pytest tests; external services mocked in ordinary CI.
+- [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
+      42 config/dataset/DVC tests pass; later service/authorization cases remain below.
 - [ ] Test successful tool selection and execution.
-- [ ] Test timeouts, invalid requests, and service failures.
-- [ ] Test that an unavailable tool cannot produce invented operational results.
+- [x] Test timeouts, invalid requests, and service failures (DVC cases).
+- [x] Test that an unavailable tool cannot produce invented operational results (registry/DVC).
 - [ ] Test rejection of unauthorized Kubernetes modifications.
-- [ ] Structured logs include tool name, status, duration, and request ID without secrets.
+- [x] Structured logs include tool name, status, duration, and request ID without secrets.
 - [ ] Inject at least two failures and explain diagnosis, root cause, and resolution.
 
 ## Repository and CI - 5 marks

@@ -9,6 +9,8 @@ export DVC_NO_ANALYTICS := true
 export DVC_SITE_CACHE_DIR := $(CURDIR)/.local/cache/dvc
 export DVC_GLOBAL_CONFIG_DIR := $(CURDIR)/.local/config/dvc
 export DVC_SYSTEM_CONFIG_DIR := $(CURDIR)/.local/config/dvc-system
+# Also support macOS volumes that reapply hidden flags to editable-install .pth files.
+export PYTHONPATH := $(CURDIR)/src
 export KUBECONFIG := $(CURDIR)/.local/kubeconfig
 export LOCAL_UID := $(shell id -u)
 UV := .local/bin/uv
