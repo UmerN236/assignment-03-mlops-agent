@@ -20,7 +20,6 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from mlops_agent.dataset import DATASET
-from mlops_agent.dvc_tools import DatasetInput, DvcTools
 
 FEATURES = ["sepal_length", "sepal_width", "petal_length", "petal_width"]
 EVALUATION_POLICY = "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
@@ -140,6 +139,8 @@ def evaluate_classifier(model, data: PreparedData) -> tuple[dict, dict]:
 
 
 def training_lineage(root: Path) -> dict:
+    from mlops_agent.dvc_tools import DatasetInput, DvcTools
+
     dvc = DvcTools(root)
     version = dvc.get_version(DatasetInput())
     if not version["workspace_matches_revision"]:

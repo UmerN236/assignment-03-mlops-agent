@@ -70,13 +70,13 @@ def test_training_refuses_uncommitted_or_mismatched_lineage(tmp_path, monkeypatc
     from types import SimpleNamespace
 
     monkeypatch.setattr(
-        "mlops_agent.training.DvcTools.get_version",
+        "mlops_agent.dvc_tools.DvcTools.get_version",
         lambda *args: {"workspace_matches_revision": False},
     )
     with pytest.raises(ValueError, match="committed DVC"):
         training_lineage(tmp_path)
     monkeypatch.setattr(
-        "mlops_agent.training.DvcTools.get_version",
+        "mlops_agent.dvc_tools.DvcTools.get_version",
         lambda *args: {"workspace_matches_revision": True},
     )
     monkeypatch.setattr("subprocess.run", lambda *a, **kw: SimpleNamespace(stdout=" M source.py"))

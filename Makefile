@@ -15,6 +15,9 @@ export KUBECONFIG := $(CURDIR)/.local/kubeconfig
 export LOCAL_UID := $(shell id -u)
 UV := .local/bin/uv
 COMPOSE := docker compose --env-file /dev/null -p mlops-assignment3 -f infra/compose.yaml
+# Preserve the selected local training image on subsequent service starts.
+-include .local/airflow-image.mk
+export AIRFLOW_IMAGE
 
 .PHONY: tools setup check lint test config services cluster smoke data-bootstrap data-status train-models verify-mlflow
 tools:
@@ -60,3 +63,9 @@ deploy-kubernetes:
 	$(UV) run --frozen python scripts/deploy-kubernetes.py
 verify-kubernetes:
 	$(UV) run --frozen python scripts/verify-kubernetes.py
+
+.PHONY: airflow-image verify-airflow-dag
+airflow-image:
+	$(UV) run --frozen python scripts/build-airflow.py
+verify-airflow-dag:
+	$(UV) run --frozen python scripts/verify-airflow-dag.py
