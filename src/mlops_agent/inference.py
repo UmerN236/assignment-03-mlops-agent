@@ -35,7 +35,7 @@ class PredictionRequest(BaseModel):
 
 
 def create_app(bundle_path: Path | None = None, app_version: str | None = None) -> FastAPI:
-    directory = bundle_path or Path(os.getenv("MODEL_BUNDLE_PATH", "artifacts/inference"))
+    directory = bundle_path or Path(os.getenv("MODEL_BUNDLE_PATH") or "artifacts/inference")
     if app_version is None:
         version_file = Path("/app/app-version")
         app_version = version_file.read_text().strip() if version_file.is_file() else "development"

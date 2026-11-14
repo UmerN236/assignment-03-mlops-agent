@@ -114,6 +114,17 @@ def test_missing_model_liveness_is_independent(tmp_path):
         assert str(tmp_path) not in client.get("/readyz").text
 
 
+def test_empty_bundle_environment_uses_local_default(bundle, tmp_path, monkeypatch):
+    path, _, _ = bundle
+    destination = tmp_path / "artifacts/inference"
+    destination.parent.mkdir()
+    path.rename(destination)
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("MODEL_BUNDLE_PATH", "")
+    with TestClient(create_app()) as client:
+        assert client.get("/readyz").status_code == 200
+
+
 def test_corruption_rejected_before_deserialization(bundle, monkeypatch):
     path, manifest, _ = bundle
     (path / "model.pkl").write_bytes(b"corrupt")
