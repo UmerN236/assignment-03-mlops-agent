@@ -7,7 +7,9 @@ operations, and Kubernetes application diagnosis.
 
 The reproducible development environment, validated configuration, initial tests,
 CI, and local service bootstrap are implemented. Service observations are recorded
-in [environment evidence](docs/evidence/environment.md). The operational adapters,
+in [environment evidence](docs/evidence/environment.md). The first deterministic
+Iris dataset is DVC-tracked with a local remote; see [data bootstrap](docs/data.md).
+The operational adapters,
 training DAG, inference service, and conversational agent are still pending.
 This repository does not yet provide a runnable operations agent.
 
