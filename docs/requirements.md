@@ -9,23 +9,25 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] List DVC-tracked datasets.
 - [x] Retrieve dataset content version and Git revision.
 - [x] Compare dataset revisions and detect workspace changes.
-- [ ] Resolve the dataset reference recorded for an MLflow training run.
-      Callback and supplied-reference tools implemented/tested; real run pending MLflow stage.
+- [x] Resolve the dataset reference recorded for an MLflow training run.
+      Live retrieved reference matches the committed pointer in [MLflow evidence](evidence/mlflow-live.json).
 - [x] Explain and demonstrate checkout of an earlier dataset revision.
 - [x] Restrict subprocess operations to an approved command and path allowlist.
       [Tool contract](data.md), [live historical restore/bootstrap](evidence/dvc-bootstrap.json),
-      and `tests/test_dvc_tools.py`; only one genuine dataset revision exists so far.
+      and `tests/test_dvc_tools.py`; two genuine revisions and [v2 recovery](evidence/dvc-v2.json).
 
 ## MLflow experiment intelligence - 15 marks
 
-- [ ] At least three separately callable, structured MLflow tools.
-- [ ] Use MlflowClient or supported Python APIs, not UI scraping.
-- [ ] List experiments and training runs.
-- [ ] Retrieve recorded metrics, parameters, and artifacts.
-- [ ] Select the best eligible recent run using a requested metric and direction.
-- [ ] Compare at least two experiments and the last five training runs.
-- [ ] Retrieve registered model versions where available; explain absent registry data.
-- [ ] Explain selection limitations and avoid equating highest F1 with readiness.
+- [x] At least three separately callable, structured MLflow tools (seven registered).
+- [x] Use MlflowClient or supported Python APIs, not UI scraping.
+- [x] List experiments and training runs.
+- [x] Retrieve recorded metrics, parameters, and artifacts.
+- [x] Select the best eligible recent run using a requested metric and direction.
+- [x] Compare at least two experiments and the last five training runs.
+- [x] Retrieve registered model versions where available; explain absent registry data.
+- [x] Explain selection limitations and avoid equating highest F1 with readiness.
+      [Policy/tools](mlflow.md), [actual five-run evidence](evidence/mlflow.md),
+      and `tests/test_mlflow_tools.py`; candidate version 1 READY, no production approval.
 
 ## Airflow workflow operations - 15 marks
 
@@ -66,7 +68,7 @@ Mocked test results do not satisfy a live demonstration requirement.
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      42 config/dataset/DVC tests pass; later service/authorization cases remain below.
+      82 config/dataset/DVC/MLflow/training tests pass; later service/authorization cases remain below.
 - [ ] Test successful tool selection and execution.
 - [x] Test timeouts, invalid requests, and service failures (DVC cases).
 - [x] Test that an unavailable tool cannot produce invented operational results (registry/DVC).
@@ -88,8 +90,9 @@ Mocked test results do not satisfy a live demonstration requirement.
 
 ## Demonstration and submission - 10 marks
 
-- [ ] Demonstrate dataset provenance with a reproducible DVC reference.
-- [ ] Demonstrate model selection with real MLflow metrics and justification.
+- [x] Demonstrate dataset provenance with a reproducible DVC reference.
+- [x] Demonstrate model selection with real MLflow metrics and justification.
+      [MLflow results](evidence/mlflow.md); integrated conversations remain pending.
 - [ ] Demonstrate pipeline execution with a real Airflow run and task statuses.
 - [ ] Demonstrate Kubernetes diagnosis with actual health data and logs.
 - [ ] Demonstrate multi-tool reasoning using all four technologies.

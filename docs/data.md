@@ -1,9 +1,14 @@
 # Dataset and local DVC storage
 
-Recipe v1 writes 150 ordered Iris classification rows with four numeric features
-and target classes 0, 1, 2. It uses scikit-learn 1.7.2's bundled data, decimal
-formatting and LF CSV lines; no network download or random generation is involved.
-Training and split policy belong to the subsequent training milestone.
+Recipe v2 writes 150 ordered Iris classification rows with four numeric features
+and target classes 0, 1, 2. It rounds the two sepal measurements to the nearest
+0.5 cm (half-up) to simulate a coarser sensor. Petal measurements, labels and row
+order remain from scikit-learn 1.7.2's bundled data. This is an intentional
+measurement-resolution experiment, not a claimed correction to Iris. Decimal
+formatting and LF CSV lines make the recipe reproducible without network data.
+V2 MD5: `c53cf26bbf3cda572dfcbfeee37b4b37`. The earlier unmodified v1 remains
+recoverable at `6193fbd83e994dec9607a61c46134cd7654b845f` using that commit's recipe
+or the local DVC remote (MD5 `4224576f0267bf88902f87f0f6200967`).
 
 After `make setup`, run `make data-bootstrap` from the repository root. This
 regenerates missing data, verifies its MD5 against the committed `.dvc` metadata,
@@ -15,7 +20,7 @@ versioned in Git. MD5 is DVC content identity, not a security signature.
 The default `local` remote URL is `../.local/dvc-remote` relative to `.dvc/config`,
 so storage is inside this checkout's ignored `.local/dvc-remote`. It is **not**
 uploaded to GitHub or available to a reviewer automatically. A clean clone can
-rebuild v1 using `make data-bootstrap`; no access to this machine is required.
+rebuild the checked-out recipe using `make data-bootstrap`; no access to this machine is required.
 Alternatively, copy an authorized DVC object store locally and configure it using
 `dvc remote modify --local local url /absolute/path/to/copied-store`, then run
 `dvc pull data/iris.csv.dvc`. Do not commit machine-specific paths or credentials.
@@ -44,13 +49,14 @@ contract. Omitted `revision` means HEAD; explicit revisions must be full lowerca
 | `dvc_resolve_run_reference` | `run_id`, `dataset_path`, `dataset_git_revision`, `dataset_dvc_md5` | Checks supplied lineage against Git metadata; does not verify the run record |
 | `dvc_resolve_mlflow_run` | `run_id` | Fetches lineage through an injected run lookup and verifies the recorded reference |
 
-The MLflow stage must supply a bounded callback to `DvcTools(run_lookup=...)`:
-use `MlflowClient.get_run(run_id).data.params`, with the three exact lineage keys
+The DVC CLI supplies `MlflowTools.run_params` to `DvcTools(run_lookup=...)`.
+It uses a bounded `MlflowClient.get_run(run_id)` worker with the three exact lineage keys
 `dataset_path`, `dataset_git_revision`, `dataset_dvc_md5`. Missing lookup returns
 unavailable, missing lineage returns an error, and a differing hash returns
-`reference_matches=false`. Callback behavior is unit-tested with mocks; **no real
-training run lineage has been demonstrated yet**. CLI therefore leaves this lookup
-unconfigured. Supplied run fields are never presented as retrieved facts.
+`reference_matches=false`. A real training run's retrieved reference and matching
+committed pointer are captured in [MLflow live evidence](evidence/mlflow-live.json).
+Supplied run fields are never presented as retrieved facts. The earlier DVC-only
+exports predate that correlation; their pending notes are historical observations.
 
 All agent tools are read-only. Fixed argument lists cover only DVC list/status/diff
 and Git revision/metadata reads. No generic shell, push, add, pull or checkout tool
@@ -62,10 +68,9 @@ arguments, output or exception bodies. Tool responses include observation times.
 Infrastructure bootstrap and the isolated verification script are explicit
 engineering operations, separate from agent permissions.
 
-The first committed dataset is one genuine data revision. The live evidence
-compares its addition with the preceding Git commit and demonstrates restoration
-from that historical commit after isolated workspace corruption. A second
-intentional dataset revision belongs to the subsequent training milestone.
+There are two genuine dataset revisions. Earlier DVC evidence demonstrates v1
+restoration after isolated workspace corruption; the MLflow milestone compares
+v1 with the intentional v2 sensor-resolution revision.
 
 Validated with DVC 3.64.0 and pathspec 0.12.1. The pathspec pin repairs an observed
 runtime import failure in DVC's ignore implementation with pathspec 1.x. On macOS,

@@ -16,7 +16,7 @@ export LOCAL_UID := $(shell id -u)
 UV := .local/bin/uv
 COMPOSE := docker compose --env-file /dev/null -p mlops-assignment3 -f infra/compose.yaml
 
-.PHONY: tools setup check lint test config services cluster smoke data-bootstrap data-status
+.PHONY: tools setup check lint test config services cluster smoke data-bootstrap data-status train-models verify-mlflow
 tools:
 	./scripts/install-tools.sh
 setup:
@@ -42,3 +42,7 @@ data-bootstrap:
 	$(UV) run --frozen python scripts/bootstrap-data.py
 data-status:
 	$(UV) run --frozen dvc status --json data/iris.csv.dvc
+train-models:
+	$(UV) run --frozen python scripts/train-models.py
+verify-mlflow:
+	$(UV) run --frozen python scripts/verify-mlflow.py

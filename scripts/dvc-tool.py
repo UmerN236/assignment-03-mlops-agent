@@ -4,9 +4,13 @@ import json
 import sys
 from pathlib import Path
 
+from mlops_agent.config import load_settings
 from mlops_agent.dvc_tools import DvcTools
+from mlops_agent.mlflow_tools import MlflowTools
 
-tools = DvcTools(Path(__file__).resolve().parents[1]).registry
+settings = load_settings()
+mlflow = MlflowTools(settings.mlflow_tracking_uri, settings.tool_timeout_seconds)
+tools = DvcTools(Path(__file__).resolve().parents[1], run_lookup=mlflow.run_params).registry
 if sys.argv[1:] == ["--schemas"]:
     print(json.dumps([tool.schema() for tool in tools.tools.values()], indent=2))
 elif len(sys.argv) == 3:

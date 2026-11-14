@@ -1,7 +1,8 @@
 # Architecture
 
-Status: DVC tools and deterministic data storage are implemented and live-verified.
-The other operational adapters, training and agent orchestration remain planned.
+Status: DVC and MLflow tools, two dataset revisions, deterministic training and
+model-artifact/lineage retrieval are implemented and live-verified. Airflow and
+Kubernetes adapters, inference and agent orchestration remain planned.
 
 ```mermaid
 flowchart TD
@@ -30,10 +31,12 @@ The agent API provides conversational operations. The inference API loads a
 specific trained model and predicts from validated feature inputs. These are
 separate application responsibilities, even if they share a repository.
 
-Training uses a small reproducible classification dataset, deterministic splitting,
-and a documented F1 policy. The exact dataset, dependency versions, and acceptance
-threshold will be recorded with the implementation. A high score alone does not
-establish production readiness.
+Training uses the bundled Iris dataset with a deterministic sensor-resolution
+revision, stratified 70/30 splitting (seed 42), and macro F1 over labels 0/1/2.
+Standardized logistic regression and random forests share one evaluation cohort.
+Accuracy, F1 and log loss plus artifacts and exact provenance are recorded in
+MLflow 3.6.0. A later workflow quality gate will define promotion policy; a high
+score alone does not establish production readiness. See [training policy](docs/mlflow.md).
 
 ## Provenance
 
@@ -44,8 +47,12 @@ reference. Comparisons must identify the evaluation split and metric direction.
 
 DVC implements the lineage keys `dataset_path`, `dataset_dvc_md5` and
 `dataset_git_revision`. Its MLflow run resolver accepts a bounded run-lookup
-callback, which must be connected to the MLflow adapter during that milestone;
-an absent callback produces an explicit unavailable response.
+callback, now connected to the MLflow adapter by the DVC CLI. The isolated client
+worker bounds run lookup and artifact inspection; an absent callback still
+produces an explicit unavailable response. Evaluation cohort IDs bind data bytes,
+split indices and metric policy. Different cohorts cannot produce a global ranked
+winner. Logged models use MLflow 3 model IDs and HTTP-proxied artifacts, rather
+than host filesystem artifact paths.
 
 A local DVC remote is sufficient for a local demonstration only if the repository
 documents how a fresh checkout obtains the data. A remote stored outside Git is

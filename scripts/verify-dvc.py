@@ -4,6 +4,7 @@ Reuses the current frozen Python runtime; copies no .env, runtime state or cache
 Leaves clones under .local for review and exports compact, sanitized observations.
 """
 
+import argparse
 import hashlib
 import json
 import os
@@ -71,7 +72,7 @@ added = observe(
         "new_revision": revision,
     },
 )
-assert added["changes"].get("added")
+assert added["changes"].get("added") or added["changes"].get("modified")
 
 
 def clone(name: str) -> Path:
@@ -134,7 +135,11 @@ export = {
     "mlflow_lineage_live": "Pending real training runs and MLflow adapter wiring",
     "observations": observations,
 }
-output = root / "docs/evidence/dvc-bootstrap.json"
+parser = argparse.ArgumentParser()
+parser.add_argument("--output", default="docs/evidence/dvc-bootstrap.json")
+output = root / parser.parse_args().output
+if output.parent.resolve() != (root / "docs/evidence").resolve() or output.suffix != ".json":
+    raise SystemExit("Evidence output must be a JSON file inside docs/evidence")
 output.write_text(json.dumps(export, indent=2) + "\n")
 print(
     json.dumps(
