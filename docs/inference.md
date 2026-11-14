@@ -23,7 +23,9 @@ The packaging subprocess has a 120-second deadline, with 20-second HTTP requests
 and no HTTP retries. Service URLs contain no embedded credentials.
 
 Build from committed code: the image records the current full Git SHA in its
-read-only application version file and OCI label. The base image uses a digest;
+read-only application version file and OCI label. Python and the temporary uv
+build-tool image use digests; uv downloads dependencies concurrently without
+installing the build tool into the runtime image. The
 runtime dependencies are resolved in `infra/inference/requirements.lock` and
 installed with required hashes. The Docker context is denied by default and
 includes only runtime source, the lock, Dockerfile, and staged model bundle.
