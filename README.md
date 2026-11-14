@@ -7,8 +7,11 @@ operations, and Kubernetes application diagnosis.
 
 The reproducible development environment, validated configuration, initial tests,
 CI, and local service bootstrap are implemented. Service observations are recorded
-in [environment evidence](docs/evidence/environment.md). The operational adapters,
-training DAG, inference service, and conversational agent are still pending.
+in [environment evidence](docs/evidence/environment.md). The first deterministic
+Iris dataset is DVC-tracked with a local remote; see [data bootstrap](docs/data.md).
+Seven structured DVC tools are callable through the registry and command-line
+helper. MLflow, Airflow and Kubernetes adapters, the training DAG, inference
+service, and conversational agent are still pending.
 This repository does not yet provide a runnable operations agent.
 
 ## Development setup
@@ -49,6 +52,25 @@ still enforce read-only defaults and exact confirmations for writes.
 
 See [development notes](docs/development.md) for version decisions, service paths,
 Linux CI instructions, and current limitations.
+
+## DVC tools
+
+```sh
+make data-bootstrap
+make data-status
+PYTHONPATH=src .venv/bin/python scripts/dvc-tool.py --schemas
+PYTHONPATH=src .venv/bin/python scripts/dvc-tool.py dvc_get_dataset_version '{}'
+PYTHONPATH=src .venv/bin/python scripts/dvc-tool.py dvc_list_datasets '{}'
+PYTHONPATH=src .venv/bin/python scripts/verify-dvc.py
+```
+
+The verification script creates isolated clones under ignored local storage,
+checks an earlier committed dataset out, pulls from the real local DVC remote,
+detects changed data and restores cached bytes. A second clone rebuilds the data
+with no pre-existing cache or remote. It exports real tool responses to
+[DVC evidence](docs/evidence/dvc-bootstrap.json). It reuses the installed frozen
+Python runtime. See [dataset operations](docs/data.md) for inputs, safety policy,
+fresh-clone instructions and MLflow lineage integration limits.
 
 ## Intended capabilities
 
