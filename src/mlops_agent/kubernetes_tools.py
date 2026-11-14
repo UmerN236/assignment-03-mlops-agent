@@ -347,7 +347,7 @@ class KubernetesTools:
                 env={
                     "PATH": os.defpath,
                     "PYTHONPATH": str(root / "src"),
-                    "HOME": str(root / ".local"),
+                    "XDG_CACHE_HOME": str(root / ".local/cache"),
                     "PYTHONDONTWRITEBYTECODE": "1",
                 },
             )

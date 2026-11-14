@@ -213,6 +213,8 @@ def test_denied_api_response_is_sanitized(monkeypatch):
     assert "private-sentinel" not in result.model_dump_json()
     assert runner.call_args.kwargs["shell"] is False
     assert "OPENROUTER_API_KEY" not in runner.call_args.kwargs["env"]
+    assert "HOME" not in runner.call_args.kwargs["env"]
+    assert runner.call_args.kwargs["env"]["XDG_CACHE_HOME"].endswith("/.local/cache")
     assert runner.call_args.kwargs["timeout"] == 30
 
 
