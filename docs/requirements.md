@@ -43,16 +43,19 @@ Mocked test results do not satisfy a live demonstration requirement.
 
 ## Kubernetes application operations - 15 marks
 
-- [ ] At least three separately callable, structured Kubernetes tools.
-- [ ] List application Pods and Deployments; inspect Services.
-- [ ] Retrieve Pod state, logs, relevant events, and restart counts.
-- [ ] Identify unhealthy Pods and deployed application/model versions.
-- [ ] Deploy a working containerized FastAPI inference service.
-- [ ] Deployment has at least two desired replicas and becomes Ready.
-- [ ] Include a ClusterIP Service, readiness/liveness probes, CPU/memory requests/limits.
-- [ ] Include a ConfigMap for non-sensitive settings.
-- [ ] Limit operations to an approved namespace.
-- [ ] Require explicit confirmation for any agent operation changing cluster state.
+- [x] At least three separately callable, structured Kubernetes tools.
+- [x] List application Pods and Deployments; inspect Services.
+- [x] Retrieve Pod state, logs, relevant events, and restart counts.
+- [x] Identify unhealthy Pods and deployed application/model versions.
+- [x] Deploy a working containerized FastAPI inference service.
+- [x] Deployment has at least two desired replicas and becomes Ready.
+- [x] Include a ClusterIP Service, readiness/liveness probes, CPU/memory requests/limits.
+- [x] Include a ConfigMap for non-sensitive settings.
+- [x] Limit operations to an approved namespace.
+- [x] Require explicit confirmation for any agent operation changing cluster state.
+
+      [Tool/runbook policy](kubernetes.md), [actual deployment/RBAC export](evidence/kubernetes-live.json).
+      Agent mutations are unsupported and rejected even with claimed confirmation.
 
 ### Inference prerequisite verified locally
 
@@ -62,7 +65,7 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] Digest-pinned image and hash-locked dependencies run as a non-root user.
 - [x] Built image matches all 45 holdout predictions/probabilities; missing model
       remains live but returns 503 for readiness and prediction.
-      [Observed Docker evidence](evidence/inference.md). Kubernetes acceptance remains pending.
+      [Observed Docker evidence](evidence/inference.md); [cluster evidence](evidence/kubernetes.md).
 
 ## Integrated agent - 15 marks
 
@@ -78,12 +81,12 @@ Mocked test results do not satisfy a live demonstration requirement.
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      107 config/dataset/DVC/MLflow/training/inference tests pass; later
+      144 config/dataset/DVC/MLflow/training/inference/Kubernetes tests pass; later
       service/authorization cases remain below.
 - [ ] Test successful tool selection and execution.
 - [x] Test timeouts, invalid requests, and service failures (DVC cases).
 - [x] Test that an unavailable tool cannot produce invented operational results (registry/DVC).
-- [ ] Test rejection of unauthorized Kubernetes modifications.
+- [x] Test rejection of unauthorized Kubernetes modifications; read-only tool and live RBAC checks.
 - [x] Structured logs include tool name, status, duration, and request ID without secrets.
 - [ ] Inject at least two failures and explain diagnosis, root cause, and resolution.
 
@@ -105,7 +108,8 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] Demonstrate model selection with real MLflow metrics and justification.
       [MLflow results](evidence/mlflow.md); integrated conversations remain pending.
 - [ ] Demonstrate pipeline execution with a real Airflow run and task statuses.
-- [ ] Demonstrate Kubernetes diagnosis with actual health data and logs.
+- [x] Demonstrate Kubernetes diagnosis with actual health data and logs.
+      [Direct tool export](evidence/kubernetes-live.json); LLM conversation remains pending.
 - [ ] Demonstrate multi-tool reasoning using all four technologies.
 - [ ] README covers installation, configuration, each service, tests, and interaction.
 - [ ] Short technical report covers architecture and tool definitions/permissions.

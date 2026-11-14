@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     airflow_token: SecretStr | None = None
     airflow_training_dag_id: str = "assignment_training"
     kubeconfig: Path = Path(".local/kubeconfig")
+    kubernetes_readonly_kubeconfig: Path = Path(".local/kubeconfig-agent")
     kubernetes_context: Literal["kind-mlops-assignment3"] = "kind-mlops-assignment3"
     kubernetes_namespace: Literal["mlops-agent"] = "mlops-agent"
     dvc_repo_path: Path = Path(".")
