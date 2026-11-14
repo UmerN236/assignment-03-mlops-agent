@@ -3,8 +3,9 @@
 Status: DVC and MLflow tools, two dataset revisions, deterministic training and
 model-artifact/lineage retrieval are implemented and live-verified. Versioned
 inference and validated artifact packaging are implemented and live-verified in
-a non-root Docker container against all 45 holdout predictions. Airflow and
-Kubernetes adapters, cluster deployment and agent orchestration remain planned.
+a non-root Docker container against all 45 holdout predictions.
+Kubernetes reads and two-replica cluster deployment are live-verified. Airflow
+adapter/workflow and agent orchestration remain planned.
 
 ```mermaid
 flowchart TD

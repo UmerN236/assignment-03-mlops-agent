@@ -15,8 +15,11 @@ registered model candidate have been verified; see [MLflow evidence](docs/eviden
 The versioned inference API and exact-artifact image packaging are implemented
 and verified in Docker against all 45 holdout predictions; see
 [inference setup](docs/inference.md) and [live evidence](docs/evidence/inference.md).
-Airflow and Kubernetes adapters, the training DAG, cluster deployment and
-conversational agent are still pending.
+Five read-only Kubernetes tools and a two-replica kind deployment are verified:
+Service DNS/ClusterIP routing, prediction, logs/events, deployed lineage, and
+RBAC denials. See [Kubernetes setup](docs/kubernetes.md) and
+[live evidence](docs/evidence/kubernetes.md).
+The Airflow adapter/training DAG and conversational agent are still pending.
 This repository does not yet provide a runnable operations agent.
 
 ## Development setup
