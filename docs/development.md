@@ -7,10 +7,11 @@
   **0.121.1**, Pydantic **2.12.4**, Kubernetes client **34.1.0**; all direct
   dependencies are pinned in `pyproject.toml`.
 - Airflow **3.1.3**, official **Python 3.12** container, isolated from the agent's
-  dependencies. Its complete upstream environment is fixed by image digest.
+  dependencies. Its upstream environment is fixed by image digest; the custom
+  training image adds a separate hash-locked scientific environment at `/opt/training`.
 - kind **0.30.0**, kubectl **1.34.0**, Kubernetes node **1.34.0** with the kind
-  release's published image digest. The cluster runs inference later; this is
-  not an Airflow KubernetesExecutor deployment.
+  release's published image digest. The cluster runs two inference replicas;
+  Airflow uses its local executor in the separate Compose service.
 
 Airflow's [version-specific prerequisites](https://airflow.apache.org/docs/apache-airflow/3.1.3/installation/prerequisites.html)
 include Python 3.12. The
@@ -44,25 +45,31 @@ needs neither Docker nor API keys. Dependency changes require an intentional
 `mlops-assignment3` prefix. It does not import `.env` into Compose. Runtime preparation
 creates a random Airflow password with mode 0600 only when absent. Existing `.env`
 and passwords are preserved. Use `make services` again after Docker restarts;
-containers are intentionally not configured as system services.
+containers are intentionally not configured as system services. After
+`make airflow-image`, the chosen versioned image is preserved locally and reused
+by `make services`. See [training workflow setup](airflow.md) before triggering runs.
 
 | Host path/address | Container path/address | Purpose |
 | --- | --- | --- |
 | Docker volume `mlops-assignment3-mlflow-data` | `/mlflow` | SQLite tracking store and server-managed artifacts on Linux filesystem |
 | `127.0.0.1:5000` | `http://mlflow:5000` from Airflow | MLflow tracking and proxied artifact access |
-| Docker volume `mlops-assignment3-airflow-data` | `/opt/airflow` | Airflow database and logs on Linux filesystem |
+| Docker volume `mlops-assignment3-airflow-data` | `/opt/airflow` | Airflow metadata/logs and persistent per-workflow training artifacts |
 | `.local/runtime/airflow/simple_auth_manager_passwords.json.generated` | Same filename in `/opt/airflow` | Preserved local admin password, never printed |
-| `infra/airflow/dags` | `/opt/project/infra/airflow/dags` | Read-only DAG source (initially empty) |
-| `src` | `/opt/project/src` | Read-only application source for later DAG packaging |
+| `infra/airflow/dags` | `/opt/project/dags` | Committed DAG baked into the versioned custom image |
+| Selected training modules under `src/mlops_agent` | `/opt/project/src/mlops_agent` | Committed code baked into the image; exact SHA at `/opt/project/revision` |
+| Prepared `artifacts/airflow-input` | `/opt/project/input` | Read-only canonical data and DVC/Git lineage, checked during validation |
+| `infra/airflow/requirements.lock` | `/opt/training` | Hash-checked ML runtime isolated from Airflow packages |
 | `.local/kubeconfig` | Not mounted into services | Explicit assignment cluster access |
 
 MLflow serves artifacts through HTTP using `--serve-artifacts`, keeping the
-server's `/mlflow/artifacts` filesystem private to the tracking container. Future
-training and inference code must use supported download APIs instead of assuming
-that the host or Airflow can read that server path. Airflow presently has no
-training dependencies, data mount, or training DAG: its image will be extended
-with compatible locked dependencies and shared paths during the DAG milestone.
-No inference deployment or model artifacts are supplied by this bootstrap.
+server's `/mlflow/artifacts` filesystem private to the tracking container.
+Training and inference packaging use supported MLflow APIs instead of assuming
+that the host or Airflow can read that server path. Real Airflow training and
+container-side model reload are verified in [workflow evidence](evidence/airflow-dag.md).
+Inference images package explicitly selected validated model bytes; see
+[inference setup](inference.md) and [cluster deployment](kubernetes.md). The initial
+base-image bootstrap starts service metadata only; `make airflow-image` adds the
+training workflow and runtime after data bootstrap and committed source are ready.
 
 `make cluster` inspects existing kind cluster names, creates only the dedicated
 cluster if absent, exports only its kubeconfig locally, and applies the dedicated
