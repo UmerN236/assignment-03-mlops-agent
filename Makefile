@@ -46,3 +46,11 @@ train-models:
 	$(UV) run --frozen python scripts/train-models.py
 verify-mlflow:
 	$(UV) run --frozen python scripts/verify-mlflow.py
+
+.PHONY: package-inference inference-image verify-inference
+package-inference:
+	$(UV) run --frozen python -c 'import subprocess,sys; sys.exit(subprocess.run([sys.executable,"scripts/package-inference.py"],timeout=120).returncode)'
+inference-image: package-inference
+	$(UV) run --frozen python scripts/build-inference.py
+verify-inference:
+	$(UV) run --frozen python scripts/verify-inference.py --image mlops-assignment3-inference:$(shell git rev-parse --short=12 HEAD)

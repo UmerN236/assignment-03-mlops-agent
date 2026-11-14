@@ -1,0 +1,14 @@
+# Deny by default. No environment, Git, runner, credentials, or training data.
+**
+!infra/
+!infra/inference/
+!infra/inference/Dockerfile
+!infra/inference/requirements.lock
+!src/
+!src/mlops_agent/
+!src/mlops_agent/__init__.py
+!src/mlops_agent/model_bundle.py
+!src/mlops_agent/inference.py
+!artifacts/
+!artifacts/inference/
+!artifacts/inference/**

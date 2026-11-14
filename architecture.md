@@ -1,8 +1,9 @@
 # Architecture
 
 Status: DVC and MLflow tools, two dataset revisions, deterministic training and
-model-artifact/lineage retrieval are implemented and live-verified. Airflow and
-Kubernetes adapters, inference and agent orchestration remain planned.
+model-artifact/lineage retrieval are implemented and live-verified. Versioned
+inference and validated artifact packaging are implemented. Airflow and
+Kubernetes adapters, cluster deployment and agent orchestration remain planned.
 
 ```mermaid
 flowchart TD
