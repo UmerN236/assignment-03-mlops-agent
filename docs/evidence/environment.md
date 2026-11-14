@@ -9,6 +9,13 @@ observations, not completed operational-agent demonstration requirements.
   Coverage here concerns configuration boundaries, secret-safe errors, missing
   credentials, model selection configuration, and execution bounds. Operational
   tool selection, failure, timeout, and authorization tests remain future work.
+- [PR #1](https://github.com/UmerN236/assignment-03-mlops-agent/pull/1)
+  [Linux CI run](https://github.com/UmerN236/assignment-03-mlops-agent/actions/runs/43563756356)
+  passed frozen setup, lint, formatting, and pytest on commit `68cdfcc`.
+- Repeating cluster bootstrap reused the Ready node and left the namespace
+  unchanged. Repeating runtime preparation preserved the existing `.env` and
+  Airflow credential byte-for-byte. MLflow, scikit-learn, FastAPI, and Kubernetes
+  client runtime imports passed.
 - uv 0.9.9, kind 0.30.0, and kubectl 1.34.0 downloaded from official release
   sources and verified against fixed SHA-256 values before installation.
 - MLflow 3.6.0: health HTTP 200; supported client experiment listing returned one
