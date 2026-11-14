@@ -30,6 +30,9 @@ runtime dependencies are resolved in `infra/inference/requirements.lock` and
 installed with required hashes. The Docker context is denied by default and
 includes only runtime source, the lock, Dockerfile, and staged model bundle.
 `.env`, Git, local runtime/runner files, and training data cannot enter the image.
+Copied source and model files are made readable by the non-root runtime even
+when the host files have restrictive permissions. A build step imports the API
+and loads/smoke-predicts the real artifact as UID 10001 before producing the image.
 Buildx configuration, activity and logs use a workspace-local directory through
 Docker's documented [BUILDX_CONFIG setting](https://docs.docker.com/build/building/variables/#buildx_config).
 The local image build has a 40-minute hard timeout for cold dependency downloads.
@@ -89,5 +92,7 @@ Startup uses FastAPI's documented [lifespan mechanism](https://fastapi.tiangolo.
 Unit tests use real local sklearn serialization without requiring external
 services; Docker verification is separately observed live evidence. Local
 readiness is process/model availability, not a production approval or drift check.
+The [live verification export](evidence/inference.md) records the tested image,
+exact provenance, holdout agreement and negative HTTP cases.
 Kubernetes replicas, probes, resources, ConfigMap and operations tools belong to
 the next milestone and remain pending.

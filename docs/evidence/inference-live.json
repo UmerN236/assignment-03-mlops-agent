@@ -1,0 +1,597 @@
+{
+  "observed_at": "2026-11-14T11:12:49.689017+00:00",
+  "image_tag": "mlops-assignment3-inference:c20e0106c52d",
+  "image_id": "sha256:c3d340652266361752a16347e5e8779d143c734f6aff46ea7ffa2bc21ea523ae",
+  "platform": "linux/arm64",
+  "container": "mlops-assignment3-inference",
+  "review_url": "http://127.0.0.1:62185",
+  "user": "10001:10001",
+  "model_selection": {
+    "run_id": "f1aa8c88b5d645418f17e18898805dba",
+    "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+    "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+    "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+    "dataset": {
+      "path": "data/iris.csv",
+      "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+      "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+    },
+    "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+    "sklearn_version": "1.7.2",
+    "numpy_version": "2.5.4",
+    "cloudpickle_version": "3.1.2"
+  },
+  "holdout_predictions_matched": 45,
+  "artifact_reload_metrics": {
+    "accuracy": 0.9111111111111111,
+    "f1_macro": 0.9107142857142857,
+    "log_loss": 0.2077641840906652
+  },
+  "observations": [
+    {
+      "route": "/livez",
+      "status": 200,
+      "body": {
+        "status": "alive"
+      }
+    },
+    {
+      "route": "/readyz",
+      "status": 200,
+      "body": {
+        "status": "ready",
+        "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+      }
+    },
+    {
+      "route": "/version",
+      "status": 200,
+      "body": {
+        "application": "assignment-iris-inference",
+        "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+        "model_ready": true,
+        "model": {
+          "run_id": "f1aa8c88b5d645418f17e18898805dba",
+          "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+          "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+          "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset": {
+            "path": "data/iris.csv",
+            "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+          },
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "sklearn_version": "1.7.2",
+          "numpy_version": "2.5.4",
+          "cloudpickle_version": "3.1.2"
+        },
+        "feature_order": [
+          "sepal_length",
+          "sepal_width",
+          "petal_length",
+          "petal_width"
+        ],
+        "feature_units": "centimeters",
+        "classes": [
+          "setosa",
+          "versicolor",
+          "virginica"
+        ]
+      }
+    },
+    {
+      "route": "/predict",
+      "status": 200,
+      "body": {
+        "predictions": [
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.09238799092096411,
+              0.9076120090790354
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.026152056297350602,
+              0.9179277966148146,
+              0.05592014708783492
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.009368032442549553,
+              0.5067385162227757,
+              0.4838934513346748
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.025420570845138116,
+              0.6817493797896165,
+              0.29283004936524526
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.009271989354863326,
+              0.3336819290605126,
+              0.6570460815846241
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.07031765095638133,
+              0.9296823490436185
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.026152056297350602,
+              0.9202403656247522,
+              0.05360757807789748
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.026152056297350602,
+              0.9202403656247522,
+              0.05360757807789748
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.8787852324992736,
+              0.11387159694692617,
+              0.007343170553800393
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.061785154041531475,
+              0.9382148459584683
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.8187852324992737,
+              0.16352136384669308,
+              0.017693403654033497
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.9653668237980771,
+              0.03361361471302469,
+              0.0010195614888981596
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.10092048783581395,
+              0.8990795121641857
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.10092048783581395,
+              0.8990795121641857
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.998,
+              0.002,
+              0.0
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.01336466165413534,
+              0.12237067322766988,
+              0.8642646651181946
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.01736682379807715,
+              0.936368768677826,
+              0.0462644075240971
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.8787852324992736,
+              0.11387159694692617,
+              0.007343170553800393
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.998,
+              0.002,
+              0.0
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.8787852324992736,
+              0.11387159694692617,
+              0.007343170553800393
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.026152056297350602,
+              0.9179277966148146,
+              0.05592014708783492
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.998,
+              0.002,
+              0.0
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.022787394643215268,
+              0.8719608549296065,
+              0.10525175042717823
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.07031765095638133,
+              0.9296823490436185
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.01678402385480105,
+              0.48919897455432493,
+              0.49401700159087414
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.022787394643215268,
+              0.8719608549296065,
+              0.10525175042717823
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.026152056297350602,
+              0.9202403656247522,
+              0.05360757807789748
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.01736682379807715,
+              0.936368768677826,
+              0.0462644075240971
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.026152056297350602,
+              0.9202403656247522,
+              0.05360757807789748
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.9653668237980771,
+              0.03361361471302469,
+              0.0010195614888981596
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.012732694096684892,
+              0.5527054579079835,
+              0.4345618479953317
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.07031765095638133,
+              0.9296823490436185
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.03878523249927346,
+              0.732254783013286,
+              0.22895998448744045
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.998,
+              0.002,
+              0.0
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.07925382116914728,
+              0.9207461788308524
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.998,
+              0.002,
+              0.0
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.9653668237980771,
+              0.03361361471302469,
+              0.0010195614888981596
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.9653668237980771,
+              0.03361361471302469,
+              0.0010195614888981596
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.998,
+              0.002,
+              0.0
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.10092048783581395,
+              0.8990795121641857
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.026152056297350602,
+              0.9202403656247522,
+              0.05360757807789748
+            ]
+          },
+          {
+            "class_id": 0,
+            "class_name": "setosa",
+            "probabilities": [
+              0.998,
+              0.002,
+              0.0
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.005224400871459696,
+              0.5927318089494925,
+              0.4020437901790476
+            ]
+          },
+          {
+            "class_id": 2,
+            "class_name": "virginica",
+            "probabilities": [
+              0.0,
+              0.07031765095638133,
+              0.9296823490436185
+            ]
+          },
+          {
+            "class_id": 1,
+            "class_name": "versicolor",
+            "probabilities": [
+              0.022787394643215268,
+              0.8719608549296065,
+              0.10525175042717823
+            ]
+          }
+        ],
+        "model_run_id": "f1aa8c88b5d645418f17e18898805dba",
+        "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353"
+      }
+    },
+    {
+      "case": "empty_batch",
+      "status": 422
+    },
+    {
+      "case": "missing_feature",
+      "status": 422
+    },
+    {
+      "case": "string_value",
+      "status": 422
+    },
+    {
+      "case": "boolean_value",
+      "status": 422
+    },
+    {
+      "case": "negative_value",
+      "status": 422
+    },
+    {
+      "case": "oversized_batch",
+      "status": 422
+    },
+    {
+      "case": "extra_field",
+      "status": 422
+    },
+    {
+      "case": "nonfinite_json",
+      "status": 422
+    },
+    {
+      "case": "missing_model",
+      "observed": {
+        "livez": 200,
+        "readyz": 503,
+        "predict": 503,
+        "version": {
+          "application": "assignment-iris-inference",
+          "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+          "model_ready": false,
+          "model": null,
+          "feature_order": [
+            "sepal_length",
+            "sepal_width",
+            "petal_length",
+            "petal_width"
+          ],
+          "feature_units": "centimeters",
+          "classes": [
+            "setosa",
+            "versicolor",
+            "virginica"
+          ]
+        }
+      }
+    }
+  ],
+  "structured_log_sample": [
+    {
+      "tool_name": "inference.prediction",
+      "status": "error",
+      "http_status": 422,
+      "duration_ms": 0.184,
+      "request_id": "14cee1e7-e66b-413a-9054-8e2ce97560ea"
+    },
+    {
+      "tool_name": "inference.prediction",
+      "status": "error",
+      "http_status": 422,
+      "duration_ms": 0.309,
+      "request_id": "03de3ae9-9400-405f-9414-6275742ed2df"
+    },
+    {
+      "tool_name": "inference.prediction",
+      "status": "error",
+      "http_status": 422,
+      "duration_ms": 0.399,
+      "request_id": "571bf6b7-e725-4474-a4ef-c44b35863244"
+    },
+    {
+      "tool_name": "inference.prediction",
+      "status": "error",
+      "http_status": 422,
+      "duration_ms": 0.29,
+      "request_id": "4f6660e4-ca63-4f44-9b62-a621c71d0cd1"
+    },
+    {
+      "tool_name": "inference.prediction",
+      "status": "error",
+      "http_status": 422,
+      "duration_ms": 0.192,
+      "request_id": "3b358514-5767-4850-9797-d1019d1e9a15"
+    }
+  ],
+  "limitations": [
+    "Local Docker verification; Kubernetes deployment is a later milestone.",
+    "Candidate selection is explicit; no production promotion or drift claim."
+  ]
+}

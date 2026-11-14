@@ -54,6 +54,16 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [ ] Limit operations to an approved namespace.
 - [ ] Require explicit confirmation for any agent operation changing cluster state.
 
+### Inference prerequisite verified locally
+
+- [x] Separate FastAPI prediction application loads the selected real MLflow artifact.
+- [x] Validate named feature batches and reject invalid inputs with 422.
+- [x] Independent liveness/readiness and application/model/dataset provenance routes.
+- [x] Digest-pinned image and hash-locked dependencies run as a non-root user.
+- [x] Built image matches all 45 holdout predictions/probabilities; missing model
+      remains live but returns 503 for readiness and prediction.
+      [Observed Docker evidence](evidence/inference.md). Kubernetes acceptance remains pending.
+
 ## Integrated agent - 15 marks
 
 - [ ] Use a supported LLM API or suitable agent framework with structured tool calling.
@@ -68,7 +78,8 @@ Mocked test results do not satisfy a live demonstration requirement.
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      82 config/dataset/DVC/MLflow/training tests pass; later service/authorization cases remain below.
+      107 config/dataset/DVC/MLflow/training/inference tests pass; later
+      service/authorization cases remain below.
 - [ ] Test successful tool selection and execution.
 - [x] Test timeouts, invalid requests, and service failures (DVC cases).
 - [x] Test that an unavailable tool cannot produce invented operational results (registry/DVC).

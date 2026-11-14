@@ -12,8 +12,9 @@ Iris dataset has two genuine DVC revisions; see [data bootstrap](docs/data.md).
 Seven DVC tools and seven MLflow tools are callable through structured registries
 and command-line helpers. Five real training runs across two experiments and a
 registered model candidate have been verified; see [MLflow evidence](docs/evidence/mlflow.md).
-The versioned inference API and exact-artifact image packaging are implemented;
-see [inference setup and HTTP contract](docs/inference.md).
+The versioned inference API and exact-artifact image packaging are implemented
+and verified in Docker against all 45 holdout predictions; see
+[inference setup](docs/inference.md) and [live evidence](docs/evidence/inference.md).
 Airflow and Kubernetes adapters, the training DAG, cluster deployment and
 conversational agent are still pending.
 This repository does not yet provide a runnable operations agent.
