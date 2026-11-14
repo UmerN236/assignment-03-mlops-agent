@@ -1,9 +1,13 @@
 """Build a dedicated image only when the recorded Git SHA identifies clean code."""
 
+import os
 import subprocess
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
+# Keep Buildx activity/state inside the writable workspace; retain the existing
+# Docker connection and credential helper without reading credential contents.
+os.environ["BUILDX_CONFIG"] = str(root / ".local/docker-buildx")
 status = subprocess.run(
     ["git", "status", "--porcelain"],
     cwd=root,

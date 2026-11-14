@@ -11,4 +11,6 @@
 !src/mlops_agent/inference.py
 !artifacts/
 !artifacts/inference/
-!artifacts/inference/**
+!artifacts/inference/MLmodel
+!artifacts/inference/model.pkl
+!artifacts/inference/manifest.json

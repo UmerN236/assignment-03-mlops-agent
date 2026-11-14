@@ -28,6 +28,8 @@ runtime dependencies are resolved in `infra/inference/requirements.lock` and
 installed with required hashes. The Docker context is denied by default and
 includes only runtime source, the lock, Dockerfile, and staged model bundle.
 `.env`, Git, local runtime/runner files, and training data cannot enter the image.
+Buildx configuration, activity and logs use a workspace-local directory through
+Docker's documented [BUILDX_CONFIG setting](https://docs.docker.com/build/building/variables/#buildx_config).
 
 `make verify-inference` leaves a labeled, non-root, read-only Docker container
 `mlops-assignment3-inference` available at its printed loopback URL. It refuses to
