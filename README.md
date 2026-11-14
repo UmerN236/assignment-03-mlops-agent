@@ -19,7 +19,10 @@ Five read-only Kubernetes tools and a two-replica kind deployment are verified:
 Service DNS/ClusterIP routing, prediction, logs/events, deployed lineage, and
 RBAC denials. See [Kubernetes setup](docs/kubernetes.md) and
 [live evidence](docs/evidence/kubernetes.md).
-The Airflow adapter/training DAG and conversational agent are still pending.
+The Airflow 3 training DAG is verified with real smoke, validation/gate failure,
+and recovery runs; see [workflow setup](docs/airflow.md) and
+[live evidence](docs/evidence/airflow-dag.md). The Airflow agent tools and
+conversational agent remain pending.
 This repository does not yet provide a runnable operations agent.
 
 ## Development setup
@@ -60,6 +63,22 @@ still enforce read-only defaults and exact confirmations for writes.
 
 See [development notes](docs/development.md) for version decisions, service paths,
 Linux CI instructions, and current limitations.
+
+## Airflow training DAG
+
+```sh
+# Requires clean committed code and bootstrapped DVC data:
+make airflow-image
+# Explicit engineering smoke + isolated validation/gate failures + recovery:
+make verify-airflow-dag
+```
+
+The five required stages run sequentially with retries, bounded execution and
+structured logs. A sixth task approves only candidates that pass the fixed
+quality gate. Artifacts persist across tasks; the scientific runtime is isolated
+from Airflow, and MLflow models reload over container-network HTTP. No registry
+promotion or Kubernetes deployment is automatic. See the [workflow policy and
+authentication runbook](docs/airflow.md). Agent-facing workflow tools remain pending.
 
 ## DVC tools
 

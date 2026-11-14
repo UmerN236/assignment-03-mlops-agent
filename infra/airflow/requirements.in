@@ -1,0 +1,7 @@
+# Separate scientific runtime; never replace Airflow's own dependency environment.
+mlflow-skinny==3.6.0
+scikit-learn==1.7.2
+numpy==2.5.4
+pandas==2.3.3
+cloudpickle==3.1.2
+pydantic==2.12.4

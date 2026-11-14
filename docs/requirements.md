@@ -36,10 +36,12 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [ ] List DAGs and retrieve DAG run status.
 - [ ] Trigger only an approved training DAG on an explicit request.
 - [ ] Identify failed tasks and retrieve execution details and available diagnostics.
-- [ ] Implement validation -> preprocessing -> training -> evaluation/MLflow -> quality gate.
-- [ ] Configure task dependencies, retries, and logging.
-- [ ] Failed validation or quality gate blocks inappropriate promotion.
-- [ ] Demonstrate a real DAG run and its actual task states.
+- [x] Implement validation -> preprocessing -> training -> evaluation/MLflow -> quality gate.
+- [x] Configure task dependencies, retries, and logging.
+- [x] Failed validation or quality gate blocks inappropriate promotion.
+- [x] Demonstrate a real DAG run and its actual task states.
+      [Workflow policy](airflow.md), [four real runs and both failure retries](evidence/airflow-dag.md).
+      Agent-facing authenticated Airflow tools remain a separate milestone.
 
 ## Kubernetes application operations - 15 marks
 
@@ -81,7 +83,7 @@ Mocked test results do not satisfy a live demonstration requirement.
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      144 config/dataset/DVC/MLflow/training/inference/Kubernetes tests pass; later
+      176 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow tests pass; later
       service/authorization cases remain below.
 - [ ] Test successful tool selection and execution.
 - [x] Test timeouts, invalid requests, and service failures (DVC cases).
@@ -89,6 +91,9 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] Test rejection of unauthorized Kubernetes modifications; read-only tool and live RBAC checks.
 - [x] Structured logs include tool name, status, duration, and request ID without secrets.
 - [ ] Inject at least two failures and explain diagnosis, root cause, and resolution.
+      Isolated validation and candidate-gate failures are observed and recovered in
+      [workflow evidence](evidence/airflow-dag.md); the required Kubernetes readiness
+      exercise and combined final investigations remain pending.
 
 ## Repository and CI - 5 marks
 
@@ -107,7 +112,9 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] Demonstrate dataset provenance with a reproducible DVC reference.
 - [x] Demonstrate model selection with real MLflow metrics and justification.
       [MLflow results](evidence/mlflow.md); integrated conversations remain pending.
-- [ ] Demonstrate pipeline execution with a real Airflow run and task statuses.
+- [x] Demonstrate pipeline execution with a real Airflow run and task statuses.
+      [Actual smoke/failure/recovery export](evidence/airflow-dag-live.json);
+      conversational trigger demonstration remains pending.
 - [x] Demonstrate Kubernetes diagnosis with actual health data and logs.
       [Direct tool export](evidence/kubernetes-live.json); LLM conversation remains pending.
 - [ ] Demonstrate multi-tool reasoning using all four technologies.
