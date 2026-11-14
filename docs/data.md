@@ -49,13 +49,14 @@ contract. Omitted `revision` means HEAD; explicit revisions must be full lowerca
 | `dvc_resolve_run_reference` | `run_id`, `dataset_path`, `dataset_git_revision`, `dataset_dvc_md5` | Checks supplied lineage against Git metadata; does not verify the run record |
 | `dvc_resolve_mlflow_run` | `run_id` | Fetches lineage through an injected run lookup and verifies the recorded reference |
 
-The MLflow stage must supply a bounded callback to `DvcTools(run_lookup=...)`:
-use `MlflowClient.get_run(run_id).data.params`, with the three exact lineage keys
+The DVC CLI supplies `MlflowTools.run_params` to `DvcTools(run_lookup=...)`.
+It uses a bounded `MlflowClient.get_run(run_id)` worker with the three exact lineage keys
 `dataset_path`, `dataset_git_revision`, `dataset_dvc_md5`. Missing lookup returns
 unavailable, missing lineage returns an error, and a differing hash returns
-`reference_matches=false`. Callback behavior is unit-tested with mocks; **no real
-training run lineage has been demonstrated yet**. CLI therefore leaves this lookup
-unconfigured. Supplied run fields are never presented as retrieved facts.
+`reference_matches=false`. A real training run's retrieved reference and matching
+committed pointer are captured in [MLflow live evidence](evidence/mlflow-live.json).
+Supplied run fields are never presented as retrieved facts. The earlier DVC-only
+exports predate that correlation; their pending notes are historical observations.
 
 All agent tools are read-only. Fixed argument lists cover only DVC list/status/diff
 and Git revision/metadata reads. No generic shell, push, add, pull or checkout tool

@@ -231,6 +231,10 @@ class ClientReader:
             result["logged_model"] = None
         return result
 
+    def lineage(self, args: RunInput) -> dict:
+        # DVC provenance remains available when artifact storage is unavailable.
+        return {"parameters": summarize_run(self.client.get_run(args.run_id))["parameters"]}
+
     def selection(self, args: SelectionInput) -> dict:
         evidence = self.runs(args)
         return {**evidence, **rank_runs(evidence["runs"], args)}
@@ -281,6 +285,7 @@ OPERATIONS = {
     "experiments": ExperimentsInput,
     "runs": RunsInput,
     "details": RunInput,
+    "lineage": RunInput,
     "selection": SelectionInput,
     "comparison": ComparisonInput,
     "registry": RegistryInput,
@@ -334,7 +339,7 @@ class MlflowTools:
 
     def run_params(self, run_id: str) -> dict[str, str]:
         args = RunInput(run_id=run_id)
-        return self.transport("details", args.model_dump())["parameters"]
+        return self.transport("lineage", args.model_dump())["parameters"]
 
     def _worker(self, operation: str, args: dict) -> dict:
         root = Path(__file__).resolve().parents[2]
@@ -378,6 +383,7 @@ class MlflowTools:
 
 
 def worker_main() -> None:
+    import mlflow
     from mlflow import MlflowClient
 
     try:
@@ -385,6 +391,10 @@ def worker_main() -> None:
         operation = request["operation"]
         args = OPERATIONS[operation].model_validate(request["arguments"])
         uri = Settings.service_url(request["uri"])
+        # In 3.6, artifact repository resolution also consults the fluent URI,
+        # even when MlflowClient has an explicit URI. This is process-local.
+        mlflow.set_tracking_uri(uri)
+        mlflow.set_registry_uri(uri)
         reader = ClientReader(MlflowClient(tracking_uri=uri, registry_uri=uri))
         print(json.dumps(getattr(reader, operation)(args), allow_nan=False))
     except Exception:

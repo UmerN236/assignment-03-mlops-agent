@@ -237,6 +237,21 @@ def test_bounded_worker_success_and_dvc_lookup(monkeypatch):
     assert tools.run_params("a" * 32) == response["parameters"]
 
 
+def test_dvc_run_lookup_does_not_depend_on_model_artifact_storage():
+    client = Mock()
+    client.get_run.return_value = actual_entity(run_record())
+    client.list_artifacts.side_effect = RuntimeError("storage unavailable")
+    reader = ClientReader(client)
+
+    def transport(op, args):
+        return getattr(reader, op)(RunInput.model_validate(args))
+
+    tools = MlflowTools("http://127.0.0.1:5000", transport=transport)
+    assert tools.run_params("a" * 32)["dataset_dvc_md5"] == "c" * 32
+    client.list_artifacts.assert_not_called()
+    client.list_logged_model_artifacts.assert_not_called()
+
+
 def test_experiment_listing_uses_supported_client_and_exposes_pagination():
     class Page(list):
         token = "next-page"
@@ -269,3 +284,52 @@ def test_registry_present_and_missing_model_metadata():
         )
     ]
     assert ClientReader(client).registry(RegistryInput())["versions"][0]["status"] == "READY"
+
+
+def test_worker_artifact_resolution_uses_configured_fluent_uri(monkeypatch, capsys):
+    """Regression: MLflow 3.6 artifact factories also consult fluent configuration."""
+    import io
+    import sys
+
+    import mlflow
+
+    from mlops_agent.mlflow_tools import worker_main
+
+    original_tracking, original_registry = mlflow.get_tracking_uri(), mlflow.get_registry_uri()
+    uri = "http://127.0.0.1:5011"
+    client = Mock()
+    client.get_run.return_value = actual_entity(run_record())
+    client.list_artifacts.return_value = []
+    client.get_logged_model.return_value = SimpleNamespace(
+        model_id="m-example",
+        model_uri="models:/m-example",
+        source_run_id="a" * 32,
+    )
+
+    def artifacts(*args):
+        assert mlflow.get_tracking_uri() == uri
+        assert mlflow.get_registry_uri() == uri
+        return [FileInfo("model.pkl", False, 100)]
+
+    client.list_logged_model_artifacts.side_effect = artifacts
+    monkeypatch.setattr(mlflow, "MlflowClient", lambda **kwargs: client)
+    monkeypatch.setattr(
+        sys,
+        "stdin",
+        io.StringIO(
+            json.dumps(
+                {
+                    "uri": uri,
+                    "operation": "details",
+                    "arguments": {"run_id": "a" * 32},
+                }
+            )
+        ),
+    )
+    try:
+        worker_main()
+        result = json.loads(capsys.readouterr().out)
+        assert result["logged_model"]["artifacts"][0]["path"] == "model.pkl"
+    finally:
+        mlflow.set_tracking_uri(original_tracking)
+        mlflow.set_registry_uri(original_registry)

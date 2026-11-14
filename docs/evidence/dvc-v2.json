@@ -1,0 +1,226 @@
+{
+  "observed_at": "2026-11-14T08:11:06.334601+00:00",
+  "dataset_revision": "be5c46d12b26109929d99b5412584f814658555c",
+  "dvc_version": "3.64.0",
+  "content_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+  "size_bytes": 2757,
+  "isolated_clones": ".local/dvc-verification-ac3fa5c3",
+  "historical_pull_stdout": "A       data/iris.csv\n1 file fetched and 1 file added",
+  "historical_checkout_stdout": "A       data/iris.csv",
+  "independent_bootstrap_stdout": "1 file pushed",
+  "runtime": "Reused frozen Python runtime; both clones started with no data, cache or remote",
+  "mlflow_lineage_live": "Pending real training runs and MLflow adapter wiring",
+  "observations": [
+    {
+      "request_id": "84993dee-07f7-4652-8401-d06546004aab",
+      "tool": "dvc_get_dataset_version",
+      "observed_at": "2026-11-14T08:10:48.481408Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "dataset_git_revision": "be5c46d12b26109929d99b5412584f814658555c",
+        "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "size_bytes": 2757,
+        "workspace_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "workspace_matches_revision": true
+      },
+      "error": null,
+      "duration_ms": 104.99704198446125
+    },
+    {
+      "request_id": "fc13a1b5-0865-4695-af95-53dbf297ada5",
+      "tool": "dvc_list_datasets",
+      "observed_at": "2026-11-14T08:10:49.801788Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_git_revision": "be5c46d12b26109929d99b5412584f814658555c",
+        "directory": "data",
+        "datasets": [
+          {
+            "isout": true,
+            "isdir": false,
+            "isexec": false,
+            "size": 2757,
+            "md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "path": "iris.csv"
+          }
+        ],
+        "scope": [
+          "data/iris.csv"
+        ]
+      },
+      "error": null,
+      "duration_ms": 1318.0180419876706
+    },
+    {
+      "request_id": "53ce1629-7ba4-4967-8763-de514001decb",
+      "tool": "dvc_get_data_status",
+      "observed_at": "2026-11-14T08:10:50.724382Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "changes": {},
+        "clean": true
+      },
+      "error": null,
+      "duration_ms": 921.7042500094976
+    },
+    {
+      "request_id": "e3e72317-bb02-4c93-8320-2ab2b5952f02",
+      "tool": "dvc_explain_reproduction",
+      "observed_at": "2026-11-14T08:10:50.817433Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "dataset_git_revision": "be5c46d12b26109929d99b5412584f814658555c",
+        "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "size_bytes": 2757,
+        "executes_checkout": false,
+        "steps": [
+          "Create a separate clone; preserve the main workspace",
+          "git checkout --detach be5c46d12b26109929d99b5412584f814658555c",
+          "make setup",
+          "Configure a local DVC remote containing the required hash, or make data-bootstrap",
+          "dvc pull data/iris.csv.dvc fetches and checks out; dvc checkout uses cached data only",
+          "Verify content hash and clean DVC status before using the dataset"
+        ]
+      },
+      "error": null,
+      "duration_ms": 92.74474999983795
+    },
+    {
+      "request_id": "d5b3efb5-3f6c-4e54-ab52-69e406864c47",
+      "tool": "dvc_compare_versions",
+      "observed_at": "2026-11-14T08:10:52.343098Z",
+      "status": "ok",
+      "evidence": {
+        "old_revision": "15d29e925022bf22fd1acb5f1cbf6a40dde3ae2f",
+        "new_revision": "be5c46d12b26109929d99b5412584f814658555c",
+        "new_is_workspace": false,
+        "changes": {
+          "added": [],
+          "deleted": [],
+          "modified": [
+            {
+              "path": "data/iris.csv",
+              "hash": {
+                "old": "4224576f0267bf88902f87f0f6200967",
+                "new": "c53cf26bbf3cda572dfcbfeee37b4b37"
+              }
+            }
+          ],
+          "renamed": []
+        }
+      },
+      "error": null,
+      "duration_ms": 1482.5062500021886
+    },
+    {
+      "request_id": "f9f911cf-50c9-4e40-a918-44e10a74adab",
+      "tool": "dvc_get_dataset_version",
+      "observed_at": "2026-11-14T08:10:54.505841Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "dataset_git_revision": "be5c46d12b26109929d99b5412584f814658555c",
+        "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "size_bytes": 2757,
+        "workspace_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "workspace_matches_revision": true
+      },
+      "error": null,
+      "duration_ms": 81.5306669974234
+    },
+    {
+      "request_id": "099f3736-44c1-4685-883b-d0c3b99fcf3a",
+      "tool": "dvc_get_data_status",
+      "observed_at": "2026-11-14T08:10:55.436750Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "changes": {
+          "data/iris.csv.dvc": [
+            {
+              "changed outs": {
+                "data/iris.csv": "modified"
+              }
+            }
+          ]
+        },
+        "clean": false
+      },
+      "error": null,
+      "duration_ms": 930.3326249937527
+    },
+    {
+      "request_id": "90b89d38-f932-49e6-805a-af4a229b47fa",
+      "tool": "dvc_compare_versions",
+      "observed_at": "2026-11-14T08:10:56.845232Z",
+      "status": "ok",
+      "evidence": {
+        "old_revision": "be5c46d12b26109929d99b5412584f814658555c",
+        "new_revision": null,
+        "new_is_workspace": true,
+        "changes": {
+          "added": [],
+          "deleted": [],
+          "modified": [
+            {
+              "path": "data/iris.csv",
+              "hash": {
+                "old": "c53cf26bbf3cda572dfcbfeee37b4b37",
+                "new": "4f82b62979e1e2682301bdca1b4e4fa7"
+              }
+            }
+          ],
+          "renamed": [],
+          "not in cache": []
+        }
+      },
+      "error": null,
+      "duration_ms": 1406.5391670155805
+    },
+    {
+      "request_id": "b2c4e1ff-3597-4a58-8dc5-a16546afde37",
+      "tool": "dvc_get_dataset_version",
+      "observed_at": "2026-11-14T08:10:58.147513Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "dataset_git_revision": "be5c46d12b26109929d99b5412584f814658555c",
+        "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "size_bytes": 2757,
+        "workspace_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "workspace_matches_revision": true
+      },
+      "error": null,
+      "duration_ms": 86.24812500784174
+    },
+    {
+      "request_id": "a068e279-ad1c-412e-b8ea-d180e6c3345b",
+      "tool": "dvc_get_data_status",
+      "observed_at": "2026-11-14T08:10:59.114914Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "changes": {},
+        "clean": true
+      },
+      "error": null,
+      "duration_ms": 967.1863749972545
+    },
+    {
+      "request_id": "b8455d1e-940d-4337-92ca-d67beb799484",
+      "tool": "dvc_get_data_status",
+      "observed_at": "2026-11-14T08:11:06.333464Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "changes": {},
+        "clean": true
+      },
+      "error": null,
+      "duration_ms": 1119.586500019068
+    }
+  ]
+}

@@ -8,10 +8,12 @@ operations, and Kubernetes application diagnosis.
 The reproducible development environment, validated configuration, initial tests,
 CI, and local service bootstrap are implemented. Service observations are recorded
 in [environment evidence](docs/evidence/environment.md). The first deterministic
-Iris dataset is DVC-tracked with a local remote; see [data bootstrap](docs/data.md).
-Seven structured DVC tools are callable through the registry and command-line
-helper. MLflow, Airflow and Kubernetes adapters, the training DAG, inference
-service, and conversational agent are still pending.
+Iris dataset has two genuine DVC revisions; see [data bootstrap](docs/data.md).
+Seven DVC tools and seven MLflow tools are callable through structured registries
+and command-line helpers. Five real training runs across two experiments and a
+registered model candidate have been verified; see [MLflow evidence](docs/evidence/mlflow.md).
+Airflow and Kubernetes adapters, the training DAG, inference service, and
+conversational agent are still pending.
 This repository does not yet provide a runnable operations agent.
 
 ## Development setup
@@ -71,6 +73,25 @@ with no pre-existing cache or remote. It exports real tool responses to
 [DVC evidence](docs/evidence/dvc-bootstrap.json). It reuses the installed frozen
 Python runtime. See [dataset operations](docs/data.md) for inputs, safety policy,
 fresh-clone instructions and MLflow lineage integration limits.
+
+## MLflow training and inspection
+
+```sh
+# Training requires committed code/data metadata and preserves existing runs:
+make train-models
+make verify-mlflow
+PYTHONPATH=src .venv/bin/python scripts/mlflow-tool.py mlflow_list_experiments '{}'
+PYTHONPATH=src .venv/bin/python scripts/mlflow-tool.py mlflow_compare_experiments \
+  '{"experiment_ids":["1","2"],"metric":"f1_macro","direction":"maximize","limit":5}'
+```
+
+Use experiment IDs returned by your tracking service. See [MLflow operations](docs/mlflow.md)
+for exact schemas, deterministic split policy, artifacts and lineage. Comparison
+tools honor metric direction and refuse a global winner across incompatible
+evaluation cohorts. A high held-out F1 or registry READY state does not establish
+production readiness or justify retraining. Training is an explicit engineering
+command; all exposed MLflow tools are read-only. The DVC run resolver now retrieves
+real MLflow parameters through the same bounded client worker.
 
 ## Intended capabilities
 

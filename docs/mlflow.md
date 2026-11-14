@@ -101,5 +101,7 @@ Official references: [MlflowClient API](https://mlflow.org/docs/latest/api_refer
 [MLflow 3 model changes](https://mlflow.org/docs/latest/ml/mlflow-3), and
 [artifact proxy architecture](https://mlflow.org/docs/latest/self-hosting/architecture/tracking-server/).
 The installed 3.6.0 signatures and live server are verified; current documentation
-can describe newer releases. Live acceptance remains pending until the verifier
-exports real observations and the checklist is updated.
+can describe newer releases. In 3.6, artifact factories also consult the fluent
+tracking URI despite an explicit client URI. The isolated worker sets both;
+a real failed listing exposed this and a regression test covers the repair.
+See [live results](evidence/mlflow.md) and the [actual tool export](evidence/mlflow-live.json).

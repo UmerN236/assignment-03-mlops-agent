@@ -1,0 +1,1751 @@
+{
+  "observed_at": "2026-11-14T08:13:54.435839+00:00",
+  "mlflow_version": "3.6.0",
+  "training_code_sha": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+  "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+  "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+  "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+  "candidate_run_id": "f1aa8c88b5d645418f17e18898805dba",
+  "artifact_reload_metrics": {
+    "accuracy": 0.9111111111111111,
+    "f1_macro": 0.9107142857142857,
+    "log_loss": 0.2077641840906652
+  },
+  "artifact_http_from_airflow": {
+    "sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+    "bytes": 81643
+  },
+  "container_limitation": "Verified model bytes over HTTP; Airflow training dependencies and inference image pending",
+  "observations": [
+    {
+      "request_id": "66a6b1ba-1ad7-493d-a78a-c43f216e72f5",
+      "tool": "mlflow_list_experiments",
+      "observed_at": "2026-11-14T08:13:16.339615Z",
+      "status": "ok",
+      "evidence": {
+        "experiments": [
+          {
+            "experiment_id": "0",
+            "name": "Default",
+            "artifact_location": "mlflow-artifacts:/0"
+          },
+          {
+            "experiment_id": "2",
+            "name": "assignment-iris-forest",
+            "artifact_location": "mlflow-artifacts:/2"
+          },
+          {
+            "experiment_id": "1",
+            "name": "assignment-iris-logistic",
+            "artifact_location": "mlflow-artifacts:/1"
+          }
+        ],
+        "has_more": false
+      },
+      "error": null,
+      "duration_ms": 3246.356667019427
+    },
+    {
+      "request_id": "5cb16252-e758-4d32-8c51-1380d6915161",
+      "tool": "mlflow_list_runs",
+      "observed_at": "2026-11-14T08:13:19.422784Z",
+      "status": "ok",
+      "evidence": {
+        "runs": [
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643832221,
+            "end_time_ms": 1794643833448,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8877665544332212,
+              "log_loss": 0.17823764534818262
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "4",
+              "n_estimators": "100"
+            },
+            "model_id": "m-0271427211924fd3ae595cfe8e620578"
+          },
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643830798,
+            "end_time_ms": 1794643831984,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2077641840906652
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "2",
+              "n_estimators": "100"
+            },
+            "model_id": "m-be27d8728a7f4331a812c37b663e8098"
+          },
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643829101,
+            "end_time_ms": 1794643830321,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.1294927414418012
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "10.0"
+            },
+            "model_id": "m-8b0ad86930324c38b71f63a67d756096"
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643827709,
+            "end_time_ms": 1794643828803,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2146311900295925
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "1.0"
+            },
+            "model_id": "m-317dc36b53f5406e942d57fb10465831"
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643825286,
+            "end_time_ms": 1794643827405,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8887652947719689,
+              "log_loss": 0.4405017621189141
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "0.1"
+            },
+            "model_id": "m-d9dfdc3a83af40ddbf36e1c0f54531ac"
+          }
+        ],
+        "has_more": true,
+        "since_ms": 1794039198907,
+        "limit": 5,
+        "order": "newest_first"
+      },
+      "error": null,
+      "duration_ms": 3081.5661249798723
+    },
+    {
+      "request_id": "402c44af-41f7-401f-a462-e73f9e46b5fa",
+      "tool": "mlflow_compare_runs",
+      "observed_at": "2026-11-14T08:13:22.324775Z",
+      "status": "ok",
+      "evidence": {
+        "runs": [
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643832221,
+            "end_time_ms": 1794643833448,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8877665544332212,
+              "log_loss": 0.17823764534818262
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "4",
+              "n_estimators": "100"
+            },
+            "model_id": "m-0271427211924fd3ae595cfe8e620578"
+          },
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643830798,
+            "end_time_ms": 1794643831984,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2077641840906652
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "2",
+              "n_estimators": "100"
+            },
+            "model_id": "m-be27d8728a7f4331a812c37b663e8098"
+          },
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643829101,
+            "end_time_ms": 1794643830321,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.1294927414418012
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "10.0"
+            },
+            "model_id": "m-8b0ad86930324c38b71f63a67d756096"
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643827709,
+            "end_time_ms": 1794643828803,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2146311900295925
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "1.0"
+            },
+            "model_id": "m-317dc36b53f5406e942d57fb10465831"
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643825286,
+            "end_time_ms": 1794643827405,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8887652947719689,
+              "log_loss": 0.4405017621189141
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "0.1"
+            },
+            "model_id": "m-d9dfdc3a83af40ddbf36e1c0f54531ac"
+          }
+        ],
+        "has_more": true,
+        "since_ms": 1794039201781,
+        "limit": 5,
+        "order": "newest_first",
+        "metric": "f1_macro",
+        "direction": "maximize",
+        "comparable": true,
+        "evaluation_groups": 1,
+        "selected_run": {
+          "run_id": "f1aa8c88b5d645418f17e18898805dba",
+          "experiment_id": "2",
+          "status": "FINISHED",
+          "start_time_ms": 1794643830798,
+          "end_time_ms": 1794643831984,
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2077641840906652
+          },
+          "parameters": {
+            "dataset_path": "data/iris.csv",
+            "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dataset_recipe": "iris-sepal-resolution-v2",
+            "sklearn_version": "1.7.2",
+            "classifier": "forest",
+            "model_seed": "42",
+            "split_seed": "42",
+            "test_fraction": "0.3",
+            "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+            "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+            "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+            "train_rows": "105",
+            "test_rows": "45",
+            "max_depth": "2",
+            "n_estimators": "100"
+          },
+          "model_id": "m-be27d8728a7f4331a812c37b663e8098"
+        },
+        "ranking": [
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "value": 0.8887652947719689
+          },
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "value": 0.8877665544332212
+          }
+        ],
+        "excluded": [],
+        "selection_scope": "Only the returned recent window, not all historical runs",
+        "reason": "ranked_comparable_runs",
+        "caveats": [
+          "Scores are comparable only within one evaluation_id (data, split and metric policy).",
+          "Repeated selection on this small held-out split introduces selection bias; no independent final test.",
+          "Best requested metric is a candidate, not production readiness or a retraining recommendation.",
+          "No deployment, freshness, drift, latency or quality-gate evidence is supplied by this tool."
+        ]
+      },
+      "error": null,
+      "duration_ms": 2901.5214999963064
+    },
+    {
+      "request_id": "eaaabac2-6484-4bf9-a5de-a3036873e1f9",
+      "tool": "mlflow_compare_experiments",
+      "observed_at": "2026-11-14T08:13:25.084101Z",
+      "status": "ok",
+      "evidence": {
+        "runs": [
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643832221,
+            "end_time_ms": 1794643833448,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8877665544332212,
+              "log_loss": 0.17823764534818262
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "4",
+              "n_estimators": "100"
+            },
+            "model_id": "m-0271427211924fd3ae595cfe8e620578"
+          },
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643830798,
+            "end_time_ms": 1794643831984,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2077641840906652
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "2",
+              "n_estimators": "100"
+            },
+            "model_id": "m-be27d8728a7f4331a812c37b663e8098"
+          },
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643829101,
+            "end_time_ms": 1794643830321,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.1294927414418012
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "10.0"
+            },
+            "model_id": "m-8b0ad86930324c38b71f63a67d756096"
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643827709,
+            "end_time_ms": 1794643828803,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2146311900295925
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "1.0"
+            },
+            "model_id": "m-317dc36b53f5406e942d57fb10465831"
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643825286,
+            "end_time_ms": 1794643827405,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8887652947719689,
+              "log_loss": 0.4405017621189141
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "0.1"
+            },
+            "model_id": "m-d9dfdc3a83af40ddbf36e1c0f54531ac"
+          }
+        ],
+        "has_more": true,
+        "since_ms": 1794039204553,
+        "limit": 5,
+        "order": "newest_first",
+        "metric": "f1_macro",
+        "direction": "maximize",
+        "comparable": true,
+        "evaluation_groups": 1,
+        "selected_run": {
+          "run_id": "f1aa8c88b5d645418f17e18898805dba",
+          "experiment_id": "2",
+          "status": "FINISHED",
+          "start_time_ms": 1794643830798,
+          "end_time_ms": 1794643831984,
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2077641840906652
+          },
+          "parameters": {
+            "dataset_path": "data/iris.csv",
+            "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dataset_recipe": "iris-sepal-resolution-v2",
+            "sklearn_version": "1.7.2",
+            "classifier": "forest",
+            "model_seed": "42",
+            "split_seed": "42",
+            "test_fraction": "0.3",
+            "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+            "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+            "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+            "train_rows": "105",
+            "test_rows": "45",
+            "max_depth": "2",
+            "n_estimators": "100"
+          },
+          "model_id": "m-be27d8728a7f4331a812c37b663e8098"
+        },
+        "ranking": [
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "value": 0.8887652947719689
+          },
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "value": 0.8877665544332212
+          }
+        ],
+        "excluded": [],
+        "selection_scope": "Only the returned recent window, not all historical runs",
+        "reason": "ranked_comparable_runs",
+        "caveats": [
+          "Scores are comparable only within one evaluation_id (data, split and metric policy).",
+          "Repeated selection on this small held-out split introduces selection bias; no independent final test.",
+          "Best requested metric is a candidate, not production readiness or a retraining recommendation.",
+          "No deployment, freshness, drift, latency or quality-gate evidence is supplied by this tool."
+        ],
+        "experiments": [
+          {
+            "experiment_id": "1",
+            "recent_run_count": 3
+          },
+          {
+            "experiment_id": "2",
+            "recent_run_count": 2
+          }
+        ],
+        "coverage_limitation": "A global last-N window can omit an experiment; zero count means no returned runs, not no history"
+      },
+      "error": null,
+      "duration_ms": 2758.8751669973135
+    },
+    {
+      "request_id": "b4f7e6ea-dbda-42b0-a887-92e0a1c2dea5",
+      "tool": "mlflow_select_best",
+      "observed_at": "2026-11-14T08:13:27.963824Z",
+      "status": "ok",
+      "evidence": {
+        "runs": [
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643832221,
+            "end_time_ms": 1794643833448,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8877665544332212,
+              "log_loss": 0.17823764534818262
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "4",
+              "n_estimators": "100"
+            },
+            "model_id": "m-0271427211924fd3ae595cfe8e620578"
+          },
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643830798,
+            "end_time_ms": 1794643831984,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2077641840906652
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "2",
+              "n_estimators": "100"
+            },
+            "model_id": "m-be27d8728a7f4331a812c37b663e8098"
+          },
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643829101,
+            "end_time_ms": 1794643830321,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.1294927414418012
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "10.0"
+            },
+            "model_id": "m-8b0ad86930324c38b71f63a67d756096"
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643827709,
+            "end_time_ms": 1794643828803,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2146311900295925
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "1.0"
+            },
+            "model_id": "m-317dc36b53f5406e942d57fb10465831"
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643825286,
+            "end_time_ms": 1794643827405,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8887652947719689,
+              "log_loss": 0.4405017621189141
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "0.1"
+            },
+            "model_id": "m-d9dfdc3a83af40ddbf36e1c0f54531ac"
+          }
+        ],
+        "has_more": true,
+        "since_ms": 1794039207442,
+        "limit": 5,
+        "order": "newest_first",
+        "metric": "f1_macro",
+        "direction": "maximize",
+        "comparable": true,
+        "evaluation_groups": 1,
+        "selected_run": {
+          "run_id": "f1aa8c88b5d645418f17e18898805dba",
+          "experiment_id": "2",
+          "status": "FINISHED",
+          "start_time_ms": 1794643830798,
+          "end_time_ms": 1794643831984,
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2077641840906652
+          },
+          "parameters": {
+            "dataset_path": "data/iris.csv",
+            "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dataset_recipe": "iris-sepal-resolution-v2",
+            "sklearn_version": "1.7.2",
+            "classifier": "forest",
+            "model_seed": "42",
+            "split_seed": "42",
+            "test_fraction": "0.3",
+            "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+            "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+            "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+            "train_rows": "105",
+            "test_rows": "45",
+            "max_depth": "2",
+            "n_estimators": "100"
+          },
+          "model_id": "m-be27d8728a7f4331a812c37b663e8098"
+        },
+        "ranking": [
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "value": 0.8887652947719689
+          },
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "value": 0.8877665544332212
+          }
+        ],
+        "excluded": [],
+        "selection_scope": "Only the returned recent window, not all historical runs",
+        "reason": "ranked_comparable_runs",
+        "caveats": [
+          "Scores are comparable only within one evaluation_id (data, split and metric policy).",
+          "Repeated selection on this small held-out split introduces selection bias; no independent final test.",
+          "Best requested metric is a candidate, not production readiness or a retraining recommendation.",
+          "No deployment, freshness, drift, latency or quality-gate evidence is supplied by this tool."
+        ]
+      },
+      "error": null,
+      "duration_ms": 2879.2420829995535
+    },
+    {
+      "request_id": "d35f1ef4-7e5c-4579-a8fe-3208f14e89d9",
+      "tool": "mlflow_select_best",
+      "observed_at": "2026-11-14T08:13:30.851197Z",
+      "status": "ok",
+      "evidence": {
+        "runs": [
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643832221,
+            "end_time_ms": 1794643833448,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8877665544332212,
+              "log_loss": 0.17823764534818262
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "4",
+              "n_estimators": "100"
+            },
+            "model_id": "m-0271427211924fd3ae595cfe8e620578"
+          },
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643830798,
+            "end_time_ms": 1794643831984,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2077641840906652
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "2",
+              "n_estimators": "100"
+            },
+            "model_id": "m-be27d8728a7f4331a812c37b663e8098"
+          },
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643829101,
+            "end_time_ms": 1794643830321,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.1294927414418012
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "10.0"
+            },
+            "model_id": "m-8b0ad86930324c38b71f63a67d756096"
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643827709,
+            "end_time_ms": 1794643828803,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2146311900295925
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "1.0"
+            },
+            "model_id": "m-317dc36b53f5406e942d57fb10465831"
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794643825286,
+            "end_time_ms": 1794643827405,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8887652947719689,
+              "log_loss": 0.4405017621189141
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "C": "0.1"
+            },
+            "model_id": "m-d9dfdc3a83af40ddbf36e1c0f54531ac"
+          }
+        ],
+        "has_more": true,
+        "since_ms": 1794039210319,
+        "limit": 5,
+        "order": "newest_first",
+        "metric": "log_loss",
+        "direction": "minimize",
+        "comparable": true,
+        "evaluation_groups": 1,
+        "selected_run": {
+          "run_id": "8b207014f0894e0aafed5a030213198b",
+          "experiment_id": "1",
+          "status": "FINISHED",
+          "start_time_ms": 1794643829101,
+          "end_time_ms": 1794643830321,
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.1294927414418012
+          },
+          "parameters": {
+            "dataset_path": "data/iris.csv",
+            "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dataset_recipe": "iris-sepal-resolution-v2",
+            "sklearn_version": "1.7.2",
+            "classifier": "logistic",
+            "model_seed": "42",
+            "split_seed": "42",
+            "test_fraction": "0.3",
+            "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+            "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+            "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+            "train_rows": "105",
+            "test_rows": "45",
+            "C": "10.0"
+          },
+          "model_id": "m-8b0ad86930324c38b71f63a67d756096"
+        },
+        "ranking": [
+          {
+            "run_id": "8b207014f0894e0aafed5a030213198b",
+            "value": 0.1294927414418012
+          },
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "value": 0.17823764534818262
+          },
+          {
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "value": 0.2077641840906652
+          },
+          {
+            "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+            "value": 0.2146311900295925
+          },
+          {
+            "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+            "value": 0.4405017621189141
+          }
+        ],
+        "excluded": [],
+        "selection_scope": "Only the returned recent window, not all historical runs",
+        "reason": "ranked_comparable_runs",
+        "caveats": [
+          "Scores are comparable only within one evaluation_id (data, split and metric policy).",
+          "Repeated selection on this small held-out split introduces selection bias; no independent final test.",
+          "Best requested metric is a candidate, not production readiness or a retraining recommendation.",
+          "No deployment, freshness, drift, latency or quality-gate evidence is supplied by this tool."
+        ]
+      },
+      "error": null,
+      "duration_ms": 2886.9544999906793
+    },
+    {
+      "request_id": "4b0e0a06-df9f-4a1a-a334-78c07250fb75",
+      "tool": "mlflow_get_run",
+      "observed_at": "2026-11-14T08:13:33.857295Z",
+      "status": "ok",
+      "evidence": {
+        "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+        "experiment_id": "2",
+        "status": "FINISHED",
+        "start_time_ms": 1794643832221,
+        "end_time_ms": 1794643833448,
+        "metrics": {
+          "accuracy": 0.8888888888888888,
+          "f1_macro": 0.8877665544332212,
+          "log_loss": 0.17823764534818262
+        },
+        "parameters": {
+          "dataset_path": "data/iris.csv",
+          "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "forest",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+          "train_rows": "105",
+          "test_rows": "45",
+          "max_depth": "4",
+          "n_estimators": "100"
+        },
+        "model_id": "m-0271427211924fd3ae595cfe8e620578",
+        "artifacts": [
+          {
+            "path": "evaluation.json",
+            "is_dir": false,
+            "file_size": 4170
+          },
+          {
+            "path": "lineage.json",
+            "is_dir": false,
+            "file_size": 975
+          },
+          {
+            "path": "split.json",
+            "is_dir": false,
+            "file_size": 1275
+          }
+        ],
+        "logged_model": {
+          "model_id": "m-0271427211924fd3ae595cfe8e620578",
+          "model_uri": "models:/m-0271427211924fd3ae595cfe8e620578",
+          "source_run_id": "bf7818c546234bf1b1523519f0c6c43f",
+          "artifacts": [
+            {
+              "path": "MLmodel",
+              "is_dir": false,
+              "file_size": 1045
+            },
+            {
+              "path": "conda.yaml",
+              "is_dir": false,
+              "file_size": 167
+            },
+            {
+              "path": "input_example.json",
+              "is_dir": false,
+              "file_size": 44
+            },
+            {
+              "path": "model.pkl",
+              "is_dir": false,
+              "file_size": 128123
+            },
+            {
+              "path": "python_env.yaml",
+              "is_dir": false,
+              "file_size": 99
+            },
+            {
+              "path": "requirements.txt",
+              "is_dir": false,
+              "file_size": 65
+            },
+            {
+              "path": "serving_input_example.json",
+              "is_dir": false,
+              "file_size": 132
+            }
+          ]
+        }
+      },
+      "error": null,
+      "duration_ms": 3005.6196660152636
+    },
+    {
+      "request_id": "a60c9161-29ba-491c-91cf-b0679c0dbd3c",
+      "tool": "mlflow_get_run",
+      "observed_at": "2026-11-14T08:13:36.848910Z",
+      "status": "ok",
+      "evidence": {
+        "run_id": "f1aa8c88b5d645418f17e18898805dba",
+        "experiment_id": "2",
+        "status": "FINISHED",
+        "start_time_ms": 1794643830798,
+        "end_time_ms": 1794643831984,
+        "metrics": {
+          "accuracy": 0.9111111111111111,
+          "f1_macro": 0.9107142857142857,
+          "log_loss": 0.2077641840906652
+        },
+        "parameters": {
+          "dataset_path": "data/iris.csv",
+          "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "forest",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+          "train_rows": "105",
+          "test_rows": "45",
+          "max_depth": "2",
+          "n_estimators": "100"
+        },
+        "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+        "artifacts": [
+          {
+            "path": "evaluation.json",
+            "is_dir": false,
+            "file_size": 5031
+          },
+          {
+            "path": "lineage.json",
+            "is_dir": false,
+            "file_size": 975
+          },
+          {
+            "path": "split.json",
+            "is_dir": false,
+            "file_size": 1275
+          }
+        ],
+        "logged_model": {
+          "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+          "model_uri": "models:/m-be27d8728a7f4331a812c37b663e8098",
+          "source_run_id": "f1aa8c88b5d645418f17e18898805dba",
+          "artifacts": [
+            {
+              "path": "MLmodel",
+              "is_dir": false,
+              "file_size": 1044
+            },
+            {
+              "path": "conda.yaml",
+              "is_dir": false,
+              "file_size": 167
+            },
+            {
+              "path": "input_example.json",
+              "is_dir": false,
+              "file_size": 44
+            },
+            {
+              "path": "model.pkl",
+              "is_dir": false,
+              "file_size": 81643
+            },
+            {
+              "path": "python_env.yaml",
+              "is_dir": false,
+              "file_size": 99
+            },
+            {
+              "path": "requirements.txt",
+              "is_dir": false,
+              "file_size": 65
+            },
+            {
+              "path": "serving_input_example.json",
+              "is_dir": false,
+              "file_size": 132
+            }
+          ]
+        }
+      },
+      "error": null,
+      "duration_ms": 2991.093832999468
+    },
+    {
+      "request_id": "ab70c68c-6c1a-4a70-981f-6e4ce7b5c927",
+      "tool": "mlflow_get_run",
+      "observed_at": "2026-11-14T08:13:39.871687Z",
+      "status": "ok",
+      "evidence": {
+        "run_id": "8b207014f0894e0aafed5a030213198b",
+        "experiment_id": "1",
+        "status": "FINISHED",
+        "start_time_ms": 1794643829101,
+        "end_time_ms": 1794643830321,
+        "metrics": {
+          "accuracy": 0.9111111111111111,
+          "f1_macro": 0.9107142857142857,
+          "log_loss": 0.1294927414418012
+        },
+        "parameters": {
+          "dataset_path": "data/iris.csv",
+          "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "logistic",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+          "train_rows": "105",
+          "test_rows": "45",
+          "C": "10.0"
+        },
+        "model_id": "m-8b0ad86930324c38b71f63a67d756096",
+        "artifacts": [
+          {
+            "path": "evaluation.json",
+            "is_dir": false,
+            "file_size": 5596
+          },
+          {
+            "path": "lineage.json",
+            "is_dir": false,
+            "file_size": 950
+          },
+          {
+            "path": "split.json",
+            "is_dir": false,
+            "file_size": 1275
+          }
+        ],
+        "logged_model": {
+          "model_id": "m-8b0ad86930324c38b71f63a67d756096",
+          "model_uri": "models:/m-8b0ad86930324c38b71f63a67d756096",
+          "source_run_id": "8b207014f0894e0aafed5a030213198b",
+          "artifacts": [
+            {
+              "path": "MLmodel",
+              "is_dir": false,
+              "file_size": 1043
+            },
+            {
+              "path": "conda.yaml",
+              "is_dir": false,
+              "file_size": 167
+            },
+            {
+              "path": "input_example.json",
+              "is_dir": false,
+              "file_size": 44
+            },
+            {
+              "path": "model.pkl",
+              "is_dir": false,
+              "file_size": 1323
+            },
+            {
+              "path": "python_env.yaml",
+              "is_dir": false,
+              "file_size": 99
+            },
+            {
+              "path": "requirements.txt",
+              "is_dir": false,
+              "file_size": 65
+            },
+            {
+              "path": "serving_input_example.json",
+              "is_dir": false,
+              "file_size": 132
+            }
+          ]
+        }
+      },
+      "error": null,
+      "duration_ms": 3022.4107920075767
+    },
+    {
+      "request_id": "1c75153a-61a9-499c-b68d-6c1af3e8f235",
+      "tool": "mlflow_get_run",
+      "observed_at": "2026-11-14T08:13:42.956794Z",
+      "status": "ok",
+      "evidence": {
+        "run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+        "experiment_id": "1",
+        "status": "FINISHED",
+        "start_time_ms": 1794643827709,
+        "end_time_ms": 1794643828803,
+        "metrics": {
+          "accuracy": 0.9111111111111111,
+          "f1_macro": 0.9107142857142857,
+          "log_loss": 0.2146311900295925
+        },
+        "parameters": {
+          "dataset_path": "data/iris.csv",
+          "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "logistic",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+          "train_rows": "105",
+          "test_rows": "45",
+          "C": "1.0"
+        },
+        "model_id": "m-317dc36b53f5406e942d57fb10465831",
+        "artifacts": [
+          {
+            "path": "evaluation.json",
+            "is_dir": false,
+            "file_size": 5542
+          },
+          {
+            "path": "lineage.json",
+            "is_dir": false,
+            "file_size": 948
+          },
+          {
+            "path": "split.json",
+            "is_dir": false,
+            "file_size": 1275
+          }
+        ],
+        "logged_model": {
+          "model_id": "m-317dc36b53f5406e942d57fb10465831",
+          "model_uri": "models:/m-317dc36b53f5406e942d57fb10465831",
+          "source_run_id": "4e5449ea8c57494d9a602569ac4ca1f9",
+          "artifacts": [
+            {
+              "path": "MLmodel",
+              "is_dir": false,
+              "file_size": 1043
+            },
+            {
+              "path": "conda.yaml",
+              "is_dir": false,
+              "file_size": 167
+            },
+            {
+              "path": "input_example.json",
+              "is_dir": false,
+              "file_size": 44
+            },
+            {
+              "path": "model.pkl",
+              "is_dir": false,
+              "file_size": 1323
+            },
+            {
+              "path": "python_env.yaml",
+              "is_dir": false,
+              "file_size": 99
+            },
+            {
+              "path": "requirements.txt",
+              "is_dir": false,
+              "file_size": 65
+            },
+            {
+              "path": "serving_input_example.json",
+              "is_dir": false,
+              "file_size": 132
+            }
+          ]
+        }
+      },
+      "error": null,
+      "duration_ms": 3084.7808750113472
+    },
+    {
+      "request_id": "7d05e809-f1a5-4b6a-a5f6-d7da69b2c5d1",
+      "tool": "mlflow_get_run",
+      "observed_at": "2026-11-14T08:13:45.839562Z",
+      "status": "ok",
+      "evidence": {
+        "run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+        "experiment_id": "1",
+        "status": "FINISHED",
+        "start_time_ms": 1794643825286,
+        "end_time_ms": 1794643827405,
+        "metrics": {
+          "accuracy": 0.8888888888888888,
+          "f1_macro": 0.8887652947719689,
+          "log_loss": 0.4405017621189141
+        },
+        "parameters": {
+          "dataset_path": "data/iris.csv",
+          "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "logistic",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+          "train_rows": "105",
+          "test_rows": "45",
+          "C": "0.1"
+        },
+        "model_id": "m-d9dfdc3a83af40ddbf36e1c0f54531ac",
+        "artifacts": [
+          {
+            "path": "evaluation.json",
+            "is_dir": false,
+            "file_size": 5478
+          },
+          {
+            "path": "lineage.json",
+            "is_dir": false,
+            "file_size": 948
+          },
+          {
+            "path": "split.json",
+            "is_dir": false,
+            "file_size": 1275
+          }
+        ],
+        "logged_model": {
+          "model_id": "m-d9dfdc3a83af40ddbf36e1c0f54531ac",
+          "model_uri": "models:/m-d9dfdc3a83af40ddbf36e1c0f54531ac",
+          "source_run_id": "bad9cb6b26b94ce28ff491c4d0b26d47",
+          "artifacts": [
+            {
+              "path": "MLmodel",
+              "is_dir": false,
+              "file_size": 1043
+            },
+            {
+              "path": "conda.yaml",
+              "is_dir": false,
+              "file_size": 167
+            },
+            {
+              "path": "input_example.json",
+              "is_dir": false,
+              "file_size": 44
+            },
+            {
+              "path": "model.pkl",
+              "is_dir": false,
+              "file_size": 1323
+            },
+            {
+              "path": "python_env.yaml",
+              "is_dir": false,
+              "file_size": 99
+            },
+            {
+              "path": "requirements.txt",
+              "is_dir": false,
+              "file_size": 65
+            },
+            {
+              "path": "serving_input_example.json",
+              "is_dir": false,
+              "file_size": 132
+            }
+          ]
+        }
+      },
+      "error": null,
+      "duration_ms": 2882.5845420069527
+    },
+    {
+      "request_id": "bb8427aa-a21b-40bb-b8e8-68ac78d189a8",
+      "tool": "mlflow_model_versions",
+      "observed_at": "2026-11-14T08:13:49.015556Z",
+      "status": "ok",
+      "evidence": {
+        "model_name": "assignment-iris",
+        "versions": [
+          {
+            "version": "1",
+            "run_id": "f1aa8c88b5d645418f17e18898805dba",
+            "status": "READY",
+            "source": "models:/m-be27d8728a7f4331a812c37b663e8098",
+            "aliases": []
+          }
+        ],
+        "has_more": false,
+        "note": "Registry records are not deployment or promotion evidence"
+      },
+      "error": null,
+      "duration_ms": 3174.169375008205
+    },
+    {
+      "request_id": "e311a413-329a-4dd0-b282-74079a617bdd",
+      "tool": "dvc_resolve_mlflow_run",
+      "observed_at": "2026-11-14T08:13:52.220319Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+        "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "size_bytes": 2757,
+        "supplied_run_id": "f1aa8c88b5d645418f17e18898805dba",
+        "reference_matches": true,
+        "run_record_verified": true,
+        "limitation": "Run lineage was retrieved; hash agreement does not prove model quality"
+      },
+      "error": null,
+      "duration_ms": 3203.5319579881616
+    },
+    {
+      "request_id": "0c94e3b1-ee4d-4d2f-8f5e-1c587412a3b7",
+      "tool": "dvc_compare_versions",
+      "observed_at": "2026-11-14T08:13:53.848220Z",
+      "status": "ok",
+      "evidence": {
+        "old_revision": "6193fbd83e994dec9607a61c46134cd7654b845f",
+        "new_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+        "new_is_workspace": false,
+        "changes": {
+          "added": [],
+          "deleted": [],
+          "modified": [
+            {
+              "path": "data/iris.csv",
+              "hash": {
+                "old": "4224576f0267bf88902f87f0f6200967",
+                "new": "c53cf26bbf3cda572dfcbfeee37b4b37"
+              }
+            }
+          ],
+          "renamed": []
+        }
+      },
+      "error": null,
+      "duration_ms": 1627.5780829892028
+    }
+  ]
+}
