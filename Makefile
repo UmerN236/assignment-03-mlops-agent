@@ -69,3 +69,7 @@ airflow-image:
 	$(UV) run --frozen python scripts/build-airflow.py
 verify-airflow-dag:
 	$(UV) run --frozen python scripts/verify-airflow-dag.py
+
+.PHONY: verify-airflow-tools
+verify-airflow-tools:
+	$(UV) run --frozen python scripts/verify-airflow-tools.py

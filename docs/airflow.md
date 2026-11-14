@@ -1,8 +1,9 @@
 # Airflow training workflow
 
 `assignment_training` is a manually triggered Airflow **3.1.3 / Python 3.12**
-TaskFlow DAG. It has no scheduled retraining. The conversational Airflow adapter
-is a separate milestone; these commands are explicit engineering operations.
+TaskFlow DAG. It has no scheduled retraining. Six agent-facing tools are available
+below; the conversational orchestration layer remains pending. The build and DAG
+verification commands here are explicit engineering operations.
 
 ```sh
 make data-bootstrap
@@ -89,8 +90,8 @@ this isolated demonstration, not a production multi-user deployment.
 
 In the Airflow UI, open `assignment_training` > Runs, select an actual exported
 run ID, and inspect Graph and task attempt logs. Failure attempts remain available;
-recovery creates a new run instead of rewriting history. Agent-facing tools with
-approved-DAG input validation and explicit-trigger policy will be added separately.
+recovery creates a new run instead of rewriting history. Agent-facing tools enforce
+the same fixed DAG boundary and explicit-trigger policy as described below.
 
 Official implementation references: [Airflow 3.1.3 TaskFlow](https://airflow.apache.org/docs/apache-airflow/3.1.3/tutorial/taskflow.html),
 [task and artifact practices](https://airflow.apache.org/docs/apache-airflow/3.1.3/best-practices.html),
@@ -98,3 +99,87 @@ Official implementation references: [Airflow 3.1.3 TaskFlow](https://airflow.apa
 and [dependency isolation](https://airflow.apache.org/docs/apache-airflow/3.1.3/installation/installing-from-pypi.html).
 The verifier also inspects the installed API/SDK, since current stable docs may
 refer to newer versions.
+
+## Agent-facing tools
+
+`AirflowTools(settings).registry` registers six independently callable tools, each
+with strict input schemas and the standard validated `ToolResult` envelope.
+Relevant API response fields are validated separately; arbitrary `conf`, rendered
+fields, notes, auth payloads and raw logs are omitted from evidence.
+
+| Tool | Inputs beyond fixed `dag_id=assignment_training` | Observations / action |
+| --- | --- | --- |
+| `airflow_list_dags` | `limit` 1–50 (default 10) | Approved DAG pause/import-error states; API count and truncation |
+| `airflow_list_runs` | `limit` 1–50 (default 10) | Actual recent runs, ordered by `-run_after`, state/timestamps |
+| `airflow_get_run` | `dag_run_id`, `wait_seconds` 0–60 (default 0) | Actual run and task states, attempts, timing, terminal/poll-expiry flags |
+| `airflow_trigger_training` | unique `agent__...` run ID, exact confirmation | POST canonical `conf={}` once; returns the server-observed run ID/state |
+| `airflow_get_failed_tasks` | `dag_run_id` | Separates failed, upstream-blocked and retrying tasks |
+| `airflow_get_task_diagnostics` | `dag_run_id`, approved `task_id`, `try_number` 1–10 (default 1) | Current task execution fields plus selected attempt's sanitized events |
+
+The host must create `AirflowTools(settings, allow_trigger=True)` **only for an
+explicit user training request**. This capability is not a model-supplied argument.
+The tool additionally requires `confirmation="trigger assignment_training"` and
+rejects other DAGs, arbitrary configuration, paths, map indexes and extra fields
+before HTTP. Ordinary read clients reject triggers even with that confirmation.
+A future conversational host must bind this capability to the actual user request;
+the literal confirmation alone is not proof of human authorization. Assessment
+requests must use a read-only instance. Tools never unpause, backfill, clear tasks,
+change registry aliases, deploy, or automatically initiate retraining.
+
+```sh
+# Choose a NEW unique run ID each time a new run is explicitly intended:
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py trigger_training --allow-trigger \
+  --arguments '{"dag_run_id":"agent__UNIQUE_ID","confirmation":"trigger assignment_training"}'
+# Use the real returned ID for all subsequent reads:
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py get_run \
+  --arguments '{"dag_run_id":"ACTUAL_RETURNED_RUN_ID","wait_seconds":20}'
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py get_failed_tasks \
+  --arguments '{"dag_run_id":"ACTUAL_RETURNED_RUN_ID"}'
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py get_task_diagnostics \
+  --arguments '{"dag_run_id":"ACTUAL_RETURNED_RUN_ID","task_id":"validation","try_number":1}'
+```
+
+Authentication precedence: `AIRFLOW_TOKEN`, then `AIRFLOW_USERNAME` /
+`AIRFLOW_PASSWORD`, then the generated SimpleAuthManager JSON configured with
+`AIRFLOW_PASSWORD_FILE`. The default file is under `.local/runtime/airflow/` and
+is used only when the base URL is exactly `http://127.0.0.1:8080`; remote services
+require explicit credentials. No credential file or `.env` is modified. Password
+exchange uses `/auth/token`; API requests use `Authorization: Bearer ...` at
+`/api/v2`. Each call exchanges a fresh JWT if using a password. A rejected explicit
+token never falls back to a different credential. No auth material is exported.
+
+Every call runs in a subprocess with the configured `TOOL_TIMEOUT_SECONDS` hard
+deadline (default 30, maximum 120); worker env excludes provider/cluster secrets.
+HTTP phases have at most a ten-second timeout, redirects and ambient proxies are
+disabled, and each response is capped at 1 MiB. GET retries once only for HTTP
+502/503/504. No POST is retried, including token exchange. Rate limits,
+auth rejection, malformed responses, missing resources and connection failures
+produce sanitized typed errors. If a trigger times out or returns a server error,
+its outcome can be unknown: query its supplied run ID before any further trigger.
+A 409 means the ID exists; inspect it rather than creating another run blindly.
+
+Polling must fit `max(0, min(60, TOOL_TIMEOUT_SECONDS - 5))` seconds; default zero is a
+single read. Poll expiry retains the actual nonterminal observation and sets
+`polling_timed_out=true`; a hard worker deadline returns unavailable without
+invented task states. Tasks and run status are sequential observations, not an
+atomic snapshot. Lists are bounded and report truncation; no automatic unbounded
+pagination occurs. Task diagnostics return task facts with `log_status=unavailable`
+if the log backend fails, rather than inventing logs. Logs are one bounded page
+(`full_content=false`), indicate continuation, and export at most 100 known
+stage/status/duration/request-ID events matching the requested run and task.
+Inspect full logs privately in Airflow UI when these selected events do not
+establish a root cause.
+
+The live 3.1.3 API reported a negative duration for one successful task despite
+ordered start/end timestamps. Tools preserve this reported number and flag
+`negative_duration_reported=true`; its cause is unconfirmed. Do not use flagged
+values for latency conclusions or silently replace them with computed durations.
+See [actual tool verification and limitations](evidence/airflow-tools.md).
+
+`make verify-airflow-tools` explicitly authorizes one real canonical run, verifies
+unauthenticated rejection, checks installed OpenAPI paths, tests policy denials,
+reads prior controlled failures and attempt logs, and observes its returned run ID
+to successful termination. If verification stops after a trigger, inspect local
+observations and use `scripts/verify-airflow-tools.py --resume` to continue the
+same observed run without another write. The final export preserves any earlier
+failed observation and explains repairs; it is not an LLM conversation transcript.

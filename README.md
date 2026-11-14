@@ -21,8 +21,9 @@ RBAC denials. See [Kubernetes setup](docs/kubernetes.md) and
 [live evidence](docs/evidence/kubernetes.md).
 The Airflow 3 training DAG is verified with real smoke, validation/gate failure,
 and recovery runs; see [workflow setup](docs/airflow.md) and
-[live evidence](docs/evidence/airflow-dag.md). The Airflow agent tools and
-conversational agent remain pending.
+[live evidence](docs/evidence/airflow-dag.md). Six authenticated Airflow tools now
+provide DAG/run inspection, explicit approved-DAG triggering and task diagnostics; see [tool evidence](docs/evidence/airflow-tools.md).
+The conversational agent remains pending.
 This repository does not yet provide a runnable operations agent.
 
 ## Development setup
@@ -78,7 +79,27 @@ structured logs. A sixth task approves only candidates that pass the fixed
 quality gate. Artifacts persist across tasks; the scientific runtime is isolated
 from Airflow, and MLflow models reload over container-network HTTP. No registry
 promotion or Kubernetes deployment is automatic. See the [workflow policy and
-authentication runbook](docs/airflow.md). Agent-facing workflow tools remain pending.
+authentication runbook](docs/airflow.md).
+
+## Airflow tools
+
+```sh
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py list_dags
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py list_runs --arguments '{"limit":5}'
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py get_run \
+  --arguments '{"dag_run_id":"ACTUAL_RETURNED_RUN_ID"}'
+# Print input/output schemas without making service requests:
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py list_dags --schemas
+# Explicitly creates one canonical training run and verifies diagnostics:
+make verify-airflow-tools
+```
+
+Reads are the default. A training request requires the CLI's `--allow-trigger`,
+`confirmation="trigger assignment_training"`, and a unique `agent__...` run ID.
+See [all six tools, authentication and limits](docs/airflow.md#agent-facing-tools).
+The verifier's invocation explicitly authorizes its single training run; it does
+not promote or deploy a model. The conversational authorization layer remains
+part of the pending agent implementation.
 
 ## DVC tools
 

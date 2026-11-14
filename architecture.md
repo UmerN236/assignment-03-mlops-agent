@@ -6,7 +6,7 @@ inference and validated artifact packaging are implemented and live-verified in
 a non-root Docker container against all 45 holdout predictions.
 Kubernetes reads and two-replica cluster deployment are live-verified. Airflow 3
 training, candidate gate and blocked-approval failures are live-verified. Airflow
-agent tools and conversational orchestration remain planned.
+agent tools are implemented and live-verified; conversational orchestration remains planned.
 
 ```mermaid
 flowchart TD

@@ -32,7 +32,10 @@ class Settings(BaseSettings):
     airflow_username: str = "admin"
     airflow_password: SecretStr | None = None
     airflow_token: SecretStr | None = None
-    airflow_training_dag_id: str = "assignment_training"
+    airflow_password_file: Path = Path(
+        ".local/runtime/airflow/simple_auth_manager_passwords.json.generated"
+    )
+    airflow_training_dag_id: Literal["assignment_training"] = "assignment_training"
     kubeconfig: Path = Path(".local/kubeconfig")
     kubernetes_readonly_kubeconfig: Path = Path(".local/kubeconfig-agent")
     kubernetes_context: Literal["kind-mlops-assignment3"] = "kind-mlops-assignment3"
@@ -90,7 +93,14 @@ class Settings(BaseSettings):
         return {
             "provider": self.llm_provider,
             "provider_key_present": self.provider_ready(),
-            "airflow_credential_present": bool(self.airflow_token or self.airflow_password),
+            "airflow_credential_present": bool(
+                self.airflow_token
+                or self.airflow_password
+                or (
+                    self.airflow_base_url == "http://127.0.0.1:8080"
+                    and self.airflow_password_file.is_file()
+                )
+            ),
             "namespace": self.kubernetes_namespace,
             "context": self.kubernetes_context,
             "max_tool_iterations": self.max_tool_iterations,

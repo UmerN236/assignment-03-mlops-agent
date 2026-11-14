@@ -1,0 +1,1249 @@
+{
+  "observed_at": "2026-11-14T14:54:47.903122+00:00",
+  "dag_id": "assignment_training",
+  "unauthenticated_http": 401,
+  "installed_api_paths_verified": [
+    "/api/v2/dags",
+    "/api/v2/dags/{dag_id}/dagRuns",
+    "/api/v2/dags/{dag_id}/dagRuns/{dag_run_id}",
+    "/api/v2/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances",
+    "/api/v2/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}",
+    "/api/v2/dags/{dag_id}/dagRuns/{dag_run_id}/taskInstances/{task_id}/logs/{try_number}"
+  ],
+  "authorization": "Explicit engineer invocation of the bounded assignment verifier",
+  "observations": [
+    {
+      "arguments": {},
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_list_dags",
+        "observed_at": "2026-11-14T14:54:48.593742Z",
+        "status": "ok",
+        "evidence": {
+          "dags": [
+            {
+              "dag_id": "assignment_training",
+              "is_paused": false,
+              "has_import_errors": false
+            }
+          ],
+          "api_total_entries": 1,
+          "truncated": false,
+          "scope": "Only assignment_training is exported; other DAGs are omitted"
+        },
+        "error": null,
+        "duration_ms": 690.3483330097515
+      }
+    },
+    {
+      "arguments": {
+        "limit": 50
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_list_runs",
+        "observed_at": "2026-11-14T14:54:49.339390Z",
+        "status": "ok",
+        "evidence": {
+          "dag_runs": [
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_recovery",
+              "state": "success",
+              "logical_date": null,
+              "start_date": "2026-11-14T13:28:03.246238Z",
+              "end_date": "2026-11-14T13:28:23.370475Z",
+              "duration": 20.124237
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_gate_failure",
+              "state": "failed",
+              "logical_date": null,
+              "start_date": "2026-11-14T13:27:32.167873Z",
+              "end_date": "2026-11-14T13:27:59.184263Z",
+              "duration": 27.01639
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "state": "failed",
+              "logical_date": null,
+              "start_date": "2026-11-14T13:27:12.962006Z",
+              "end_date": "2026-11-14T13:27:28.080309Z",
+              "duration": 15.118303
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_smoke",
+              "state": "success",
+              "logical_date": null,
+              "start_date": "2026-11-14T13:26:44.960147Z",
+              "end_date": "2026-11-14T13:27:05.958357Z",
+              "duration": 20.99821
+            }
+          ],
+          "total_entries": 4,
+          "truncated": false
+        },
+        "error": null,
+        "duration_ms": 742.4869580136146
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "engineering__20261114T132643_gate_failure"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_get_failed_tasks",
+        "observed_at": "2026-11-14T14:54:50.032773Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_gate_failure",
+            "state": "failed",
+            "logical_date": null,
+            "start_date": "2026-11-14T13:27:32.167873Z",
+            "end_date": "2026-11-14T13:27:59.184263Z",
+            "duration": 27.01639
+          },
+          "failed_tasks": [
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_gate_failure",
+              "task_id": "quality_gate",
+              "state": "failed",
+              "try_number": 2,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T13:27:54.324130Z",
+              "end_date": "2026-11-14T13:27:57.136236Z",
+              "duration": 5.811999999999999
+            }
+          ],
+          "blocked_tasks": [
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_gate_failure",
+              "task_id": "approve_candidate",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T13:27:58.144485Z",
+              "end_date": "2026-11-14T13:27:58.144485Z",
+              "duration": 0.0
+            }
+          ],
+          "retrying_tasks": [],
+          "truncated": false,
+          "interpretation": "States are observations; an empty list is not proof of run success"
+        },
+        "error": null,
+        "duration_ms": 691.5179589996114
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "engineering__20261114T132643_gate_failure",
+        "task_id": "quality_gate",
+        "try_number": 2
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_get_task_diagnostics",
+        "observed_at": "2026-11-14T14:54:50.758153Z",
+        "status": "ok",
+        "evidence": {
+          "task": {
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_gate_failure",
+            "task_id": "quality_gate",
+            "state": "failed",
+            "try_number": 2,
+            "max_tries": 1,
+            "map_index": -1,
+            "start_date": "2026-11-14T13:27:54.324130Z",
+            "end_date": "2026-11-14T13:27:57.136236Z",
+            "duration": 5.811999999999999
+          },
+          "log_attempt": 2,
+          "log_status": "ok",
+          "source_entries": 6,
+          "structured_events": [
+            {
+              "tool": "airflow_quality_gate",
+              "status": "error",
+              "duration_ms": 2784.264458998223,
+              "request_id": "engineering__20261114T132643_gate_failure"
+            }
+          ],
+          "logs_complete": true,
+          "raw_logs_omitted": true,
+          "diagnostic_limit": "Known stage events only; inspect Airflow UI for full logs"
+        },
+        "error": null,
+        "duration_ms": 723.7550410209224
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "engineering__20261114T132643_validation_failure"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_get_failed_tasks",
+        "observed_at": "2026-11-14T14:54:51.473247Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_validation_failure",
+            "state": "failed",
+            "logical_date": null,
+            "start_date": "2026-11-14T13:27:12.962006Z",
+            "end_date": "2026-11-14T13:27:28.080309Z",
+            "duration": 15.118303
+          },
+          "failed_tasks": [
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "validation",
+              "state": "failed",
+              "try_number": 2,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T13:27:21.173996Z",
+              "end_date": "2026-11-14T13:27:23.359470Z",
+              "duration": 4.1850000000000005
+            }
+          ],
+          "blocked_tasks": [
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "preprocessing",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T13:27:24.236796Z",
+              "end_date": "2026-11-14T13:27:24.236796Z",
+              "duration": 0.0
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "training",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T13:27:25.278517Z",
+              "end_date": "2026-11-14T13:27:25.278517Z",
+              "duration": 0.0
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "evaluation",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T13:27:25.918597Z",
+              "end_date": "2026-11-14T13:27:25.918597Z",
+              "duration": 0.0
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "quality_gate",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T13:27:26.022307Z",
+              "end_date": "2026-11-14T13:27:26.022307Z",
+              "duration": 0.0
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "approve_candidate",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T13:27:27.047650Z",
+              "end_date": "2026-11-14T13:27:27.047650Z",
+              "duration": 0.0
+            }
+          ],
+          "retrying_tasks": [],
+          "truncated": false,
+          "interpretation": "States are observations; an empty list is not proof of run success"
+        },
+        "error": null,
+        "duration_ms": 712.8515829972457
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "engineering__20261114T132643_validation_failure",
+        "task_id": "validation",
+        "try_number": 2
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_get_task_diagnostics",
+        "observed_at": "2026-11-14T14:54:52.212300Z",
+        "status": "ok",
+        "evidence": {
+          "task": {
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_validation_failure",
+            "task_id": "validation",
+            "state": "failed",
+            "try_number": 2,
+            "max_tries": 1,
+            "map_index": -1,
+            "start_date": "2026-11-14T13:27:21.173996Z",
+            "end_date": "2026-11-14T13:27:23.359470Z",
+            "duration": 4.1850000000000005
+          },
+          "log_attempt": 2,
+          "log_status": "ok",
+          "source_entries": 6,
+          "structured_events": [
+            {
+              "tool": "airflow_validation",
+              "status": "error",
+              "duration_ms": 2152.747542997531,
+              "request_id": "engineering__20261114T132643_validation_failure"
+            }
+          ],
+          "logs_complete": true,
+          "raw_logs_omitted": true,
+          "diagnostic_limit": "Known stage events only; inspect Airflow UI for full logs"
+        },
+        "error": null,
+        "duration_ms": 736.779833008768
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9",
+        "confirmation": "trigger assignment_training"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_trigger_training",
+        "observed_at": "2026-11-14T14:54:52.215780Z",
+        "status": "invalid_request",
+        "evidence": {},
+        "error": "Invalid tool arguments or disallowed path/revision",
+        "duration_ms": 0.23116698139347136
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9",
+        "confirmation": "trigger assignment_training",
+        "dag_id": "unapproved"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_trigger_training",
+        "observed_at": "2026-11-14T14:54:52.217529Z",
+        "status": "invalid_request",
+        "evidence": {},
+        "error": "Invalid tool arguments or disallowed path/revision",
+        "duration_ms": 0.13200001558288932
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9",
+        "confirmation": "trigger assignment_training"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_trigger_training",
+        "observed_at": "2026-11-14T14:54:52.907106Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "dag_id": "assignment_training",
+            "dag_run_id": "agent__20261114T145452_c2af24b9",
+            "state": "queued",
+            "logical_date": null,
+            "start_date": null,
+            "end_date": null,
+            "duration": null
+          },
+          "automatically_promotes_or_deploys": false
+        },
+        "error": null,
+        "duration_ms": 687.9610420146491
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_get_run",
+        "observed_at": "2026-11-14T14:54:53.443310Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "dag_id": "assignment_training",
+            "dag_run_id": "agent__20261114T145452_c2af24b9",
+            "state": "running",
+            "logical_date": null,
+            "start_date": "2026-11-14T14:54:53.302186Z",
+            "end_date": null,
+            "duration": null
+          },
+          "tasks": [
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "validation",
+              "state": "running",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T14:54:53.324958Z",
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "preprocessing",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "training",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "evaluation",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "quality_gate",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "approve_candidate",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            }
+          ],
+          "tasks_truncated": false,
+          "terminal": false,
+          "poll_attempts": 1,
+          "polling_timed_out": false
+        },
+        "error": null,
+        "duration_ms": 533.447416004492
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_get_run",
+        "observed_at": "2026-11-14T14:54:57.193512Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "dag_id": "assignment_training",
+            "dag_run_id": "agent__20261114T145452_c2af24b9",
+            "state": "running",
+            "logical_date": null,
+            "start_date": "2026-11-14T14:54:53.302186Z",
+            "end_date": null,
+            "duration": null
+          },
+          "tasks": [
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "validation",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T14:54:53.324958Z",
+              "end_date": "2026-11-14T14:54:55.507795Z",
+              "duration": 4.183
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "preprocessing",
+              "state": "running",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T14:54:56.419771Z",
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "training",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "evaluation",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "quality_gate",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "approve_candidate",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            }
+          ],
+          "tasks_truncated": false,
+          "terminal": false,
+          "poll_attempts": 1,
+          "polling_timed_out": false
+        },
+        "error": null,
+        "duration_ms": 648.6365419987123
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_get_run",
+        "observed_at": "2026-11-14T14:55:00.971106Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "dag_id": "assignment_training",
+            "dag_run_id": "agent__20261114T145452_c2af24b9",
+            "state": "running",
+            "logical_date": null,
+            "start_date": "2026-11-14T14:54:53.302186Z",
+            "end_date": null,
+            "duration": null
+          },
+          "tasks": [
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "validation",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T14:54:53.324958Z",
+              "end_date": "2026-11-14T14:54:55.507795Z",
+              "duration": 4.183
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "preprocessing",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T14:54:56.419771Z",
+              "end_date": "2026-11-14T14:54:58.559192Z",
+              "duration": 4.138999999999999
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "training",
+              "state": "running",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": "2026-11-14T14:54:59.338807Z",
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "evaluation",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "quality_gate",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            },
+            {
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "approve_candidate",
+              "state": null,
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "start_date": null,
+              "end_date": null,
+              "duration": null
+            }
+          ],
+          "tasks_truncated": false,
+          "terminal": false,
+          "poll_attempts": 1,
+          "polling_timed_out": false
+        },
+        "error": null,
+        "duration_ms": 577.7198750001844
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9"
+      },
+      "result": {
+        "request_id": "airflow_tools_6b632e4fb1064cd6a4982930b70f1a86",
+        "tool": "airflow_get_run",
+        "observed_at": "2026-11-14T14:55:04.469117Z",
+        "status": "unavailable",
+        "evidence": {},
+        "error": "Airflow returned an invalid response schema",
+        "duration_ms": 365.26375001994893
+      }
+    },
+    {
+      "arguments": {},
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_list_dags",
+        "observed_at": "2026-11-14T14:56:07.553069Z",
+        "status": "ok",
+        "evidence": {
+          "dags": [
+            {
+              "dag_id": "assignment_training",
+              "is_paused": false,
+              "has_import_errors": false
+            }
+          ],
+          "api_total_entries": 1,
+          "truncated": false,
+          "scope": "Only assignment_training is exported; other DAGs are omitted"
+        },
+        "error": null,
+        "duration_ms": 706.112290994497
+      }
+    },
+    {
+      "arguments": {
+        "limit": 50
+      },
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_list_runs",
+        "observed_at": "2026-11-14T14:56:08.197011Z",
+        "status": "ok",
+        "evidence": {
+          "dag_runs": [
+            {
+              "start_date": "2026-11-14T14:54:53.302186Z",
+              "end_date": "2026-11-14T14:55:13.414325Z",
+              "duration": 20.112139,
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "state": "success",
+              "logical_date": null,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T13:28:03.246238Z",
+              "end_date": "2026-11-14T13:28:23.370475Z",
+              "duration": 20.124237,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_recovery",
+              "state": "success",
+              "logical_date": null,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T13:27:32.167873Z",
+              "end_date": "2026-11-14T13:27:59.184263Z",
+              "duration": 27.01639,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_gate_failure",
+              "state": "failed",
+              "logical_date": null,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T13:27:12.962006Z",
+              "end_date": "2026-11-14T13:27:28.080309Z",
+              "duration": 15.118303,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "state": "failed",
+              "logical_date": null,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T13:26:44.960147Z",
+              "end_date": "2026-11-14T13:27:05.958357Z",
+              "duration": 20.99821,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_smoke",
+              "state": "success",
+              "logical_date": null,
+              "negative_duration_reported": false
+            }
+          ],
+          "total_entries": 5,
+          "truncated": false
+        },
+        "error": null,
+        "duration_ms": 640.852917014854
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "engineering__20261114T132643_gate_failure"
+      },
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_get_failed_tasks",
+        "observed_at": "2026-11-14T14:56:08.893514Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "start_date": "2026-11-14T13:27:32.167873Z",
+            "end_date": "2026-11-14T13:27:59.184263Z",
+            "duration": 27.01639,
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_gate_failure",
+            "state": "failed",
+            "logical_date": null,
+            "negative_duration_reported": false
+          },
+          "failed_tasks": [
+            {
+              "start_date": "2026-11-14T13:27:54.324130Z",
+              "end_date": "2026-11-14T13:27:57.136236Z",
+              "duration": 5.811999999999999,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_gate_failure",
+              "task_id": "quality_gate",
+              "state": "failed",
+              "try_number": 2,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            }
+          ],
+          "blocked_tasks": [
+            {
+              "start_date": "2026-11-14T13:27:58.144485Z",
+              "end_date": "2026-11-14T13:27:58.144485Z",
+              "duration": 0.0,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_gate_failure",
+              "task_id": "approve_candidate",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            }
+          ],
+          "retrying_tasks": [],
+          "truncated": false,
+          "interpretation": "States are observations; an empty list is not proof of run success"
+        },
+        "error": null,
+        "duration_ms": 691.9264159805607
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "engineering__20261114T132643_gate_failure",
+        "task_id": "quality_gate",
+        "try_number": 2
+      },
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_get_task_diagnostics",
+        "observed_at": "2026-11-14T14:56:09.620423Z",
+        "status": "ok",
+        "evidence": {
+          "task": {
+            "start_date": "2026-11-14T13:27:54.324130Z",
+            "end_date": "2026-11-14T13:27:57.136236Z",
+            "duration": 5.811999999999999,
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_gate_failure",
+            "task_id": "quality_gate",
+            "state": "failed",
+            "try_number": 2,
+            "max_tries": 1,
+            "map_index": -1,
+            "negative_duration_reported": false
+          },
+          "log_attempt": 2,
+          "log_status": "ok",
+          "source_entries": 6,
+          "structured_events": [
+            {
+              "tool": "airflow_quality_gate",
+              "status": "error",
+              "duration_ms": 2784.264458998223,
+              "request_id": "engineering__20261114T132643_gate_failure"
+            }
+          ],
+          "logs_complete": true,
+          "raw_logs_omitted": true,
+          "diagnostic_limit": "Known stage events only; inspect Airflow UI for full logs"
+        },
+        "error": null,
+        "duration_ms": 722.9436670022551
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "engineering__20261114T132643_validation_failure"
+      },
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_get_failed_tasks",
+        "observed_at": "2026-11-14T14:56:10.324770Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "start_date": "2026-11-14T13:27:12.962006Z",
+            "end_date": "2026-11-14T13:27:28.080309Z",
+            "duration": 15.118303,
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_validation_failure",
+            "state": "failed",
+            "logical_date": null,
+            "negative_duration_reported": false
+          },
+          "failed_tasks": [
+            {
+              "start_date": "2026-11-14T13:27:21.173996Z",
+              "end_date": "2026-11-14T13:27:23.359470Z",
+              "duration": 4.1850000000000005,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "validation",
+              "state": "failed",
+              "try_number": 2,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            }
+          ],
+          "blocked_tasks": [
+            {
+              "start_date": "2026-11-14T13:27:24.236796Z",
+              "end_date": "2026-11-14T13:27:24.236796Z",
+              "duration": 0.0,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "preprocessing",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T13:27:25.278517Z",
+              "end_date": "2026-11-14T13:27:25.278517Z",
+              "duration": 0.0,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "training",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T13:27:25.918597Z",
+              "end_date": "2026-11-14T13:27:25.918597Z",
+              "duration": 0.0,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "evaluation",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T13:27:26.022307Z",
+              "end_date": "2026-11-14T13:27:26.022307Z",
+              "duration": 0.0,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "quality_gate",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T13:27:27.047650Z",
+              "end_date": "2026-11-14T13:27:27.047650Z",
+              "duration": 0.0,
+              "dag_id": "assignment_training",
+              "dag_run_id": "engineering__20261114T132643_validation_failure",
+              "task_id": "approve_candidate",
+              "state": "upstream_failed",
+              "try_number": 0,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            }
+          ],
+          "retrying_tasks": [],
+          "truncated": false,
+          "interpretation": "States are observations; an empty list is not proof of run success"
+        },
+        "error": null,
+        "duration_ms": 701.921959000174
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "engineering__20261114T132643_validation_failure",
+        "task_id": "validation",
+        "try_number": 2
+      },
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_get_task_diagnostics",
+        "observed_at": "2026-11-14T14:56:11.000473Z",
+        "status": "ok",
+        "evidence": {
+          "task": {
+            "start_date": "2026-11-14T13:27:21.173996Z",
+            "end_date": "2026-11-14T13:27:23.359470Z",
+            "duration": 4.1850000000000005,
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_validation_failure",
+            "task_id": "validation",
+            "state": "failed",
+            "try_number": 2,
+            "max_tries": 1,
+            "map_index": -1,
+            "negative_duration_reported": false
+          },
+          "log_attempt": 2,
+          "log_status": "ok",
+          "source_entries": 6,
+          "structured_events": [
+            {
+              "tool": "airflow_validation",
+              "status": "error",
+              "duration_ms": 2152.747542997531,
+              "request_id": "engineering__20261114T132643_validation_failure"
+            }
+          ],
+          "logs_complete": true,
+          "raw_logs_omitted": true,
+          "diagnostic_limit": "Known stage events only; inspect Airflow UI for full logs"
+        },
+        "error": null,
+        "duration_ms": 671.0705000150483
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9"
+      },
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_get_run",
+        "observed_at": "2026-11-14T14:56:11.720048Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "start_date": "2026-11-14T14:54:53.302186Z",
+            "end_date": "2026-11-14T14:55:13.414325Z",
+            "duration": 20.112139,
+            "dag_id": "assignment_training",
+            "dag_run_id": "agent__20261114T145452_c2af24b9",
+            "state": "success",
+            "logical_date": null,
+            "negative_duration_reported": false
+          },
+          "tasks": [
+            {
+              "start_date": "2026-11-14T14:54:53.324958Z",
+              "end_date": "2026-11-14T14:54:55.507795Z",
+              "duration": 4.183,
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "validation",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T14:54:56.419771Z",
+              "end_date": "2026-11-14T14:54:58.559192Z",
+              "duration": 4.138999999999999,
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "preprocessing",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T14:54:59.338807Z",
+              "end_date": "2026-11-14T14:55:01.510622Z",
+              "duration": -55.828,
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "training",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": true
+            },
+            {
+              "start_date": "2026-11-14T14:55:02.057048Z",
+              "end_date": "2026-11-14T14:55:06.328284Z",
+              "duration": 8.271,
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "evaluation",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T14:55:07.311765Z",
+              "end_date": "2026-11-14T14:55:10.153943Z",
+              "duration": 5.8420000000000005,
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "quality_gate",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            },
+            {
+              "start_date": "2026-11-14T14:55:10.350017Z",
+              "end_date": "2026-11-14T14:55:13.112800Z",
+              "duration": 5.763,
+              "dag_id": "assignment_training",
+              "dag_run_id": "agent__20261114T145452_c2af24b9",
+              "task_id": "approve_candidate",
+              "state": "success",
+              "try_number": 1,
+              "max_tries": 1,
+              "map_index": -1,
+              "negative_duration_reported": false
+            }
+          ],
+          "tasks_truncated": false,
+          "terminal": true,
+          "poll_attempts": 1,
+          "polling_timed_out": false
+        },
+        "error": null,
+        "duration_ms": 716.0981670022011
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9",
+        "task_id": "validation",
+        "try_number": 1
+      },
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_get_task_diagnostics",
+        "observed_at": "2026-11-14T14:56:12.408111Z",
+        "status": "ok",
+        "evidence": {
+          "task": {
+            "start_date": "2026-11-14T14:54:53.324958Z",
+            "end_date": "2026-11-14T14:54:55.507795Z",
+            "duration": 4.183,
+            "dag_id": "assignment_training",
+            "dag_run_id": "agent__20261114T145452_c2af24b9",
+            "task_id": "validation",
+            "state": "success",
+            "try_number": 1,
+            "max_tries": 1,
+            "map_index": -1,
+            "negative_duration_reported": false
+          },
+          "log_attempt": 1,
+          "log_status": "ok",
+          "source_entries": 7,
+          "structured_events": [
+            {
+              "tool": "airflow_validation",
+              "status": "ok",
+              "duration_ms": 2139.336125997943,
+              "request_id": "agent__20261114T145452_c2af24b9"
+            }
+          ],
+          "logs_complete": true,
+          "raw_logs_omitted": true,
+          "diagnostic_limit": "Known stage events only; inspect Airflow UI for full logs"
+        },
+        "error": null,
+        "duration_ms": 685.5518329830375
+      }
+    },
+    {
+      "arguments": {
+        "dag_run_id": "agent__20261114T145452_c2af24b9"
+      },
+      "result": {
+        "request_id": "airflow_tools_05e6f1cf4798416b9ed190c21350ac40",
+        "tool": "airflow_get_failed_tasks",
+        "observed_at": "2026-11-14T14:56:13.074732Z",
+        "status": "ok",
+        "evidence": {
+          "run": {
+            "start_date": "2026-11-14T14:54:53.302186Z",
+            "end_date": "2026-11-14T14:55:13.414325Z",
+            "duration": 20.112139,
+            "dag_id": "assignment_training",
+            "dag_run_id": "agent__20261114T145452_c2af24b9",
+            "state": "success",
+            "logical_date": null,
+            "negative_duration_reported": false
+          },
+          "failed_tasks": [],
+          "blocked_tasks": [],
+          "retrying_tasks": [],
+          "truncated": false,
+          "interpretation": "States are observations; an empty list is not proof of run success"
+        },
+        "error": null,
+        "duration_ms": 663.5270420229062
+      }
+    }
+  ],
+  "verification_repair": "Initial schema rejected a negative API task duration. Preserve and flag the reported value; resume the same observed run without another trigger.",
+  "verified_trigger_run_id": "agent__20261114T145452_c2af24b9",
+  "finished_at": "2026-11-14T14:56:13.079820+00:00"
+}

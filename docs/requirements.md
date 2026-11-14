@@ -31,17 +31,18 @@ Mocked test results do not satisfy a live demonstration requirement.
 
 ## Airflow workflow operations - 15 marks
 
-- [ ] At least three separately callable, structured Airflow tools.
-- [ ] Use authenticated Airflow 3 public API requests or a supported client.
-- [ ] List DAGs and retrieve DAG run status.
-- [ ] Trigger only an approved training DAG on an explicit request.
-- [ ] Identify failed tasks and retrieve execution details and available diagnostics.
+- [x] At least three separately callable, structured Airflow tools.
+- [x] Use authenticated Airflow 3 public API requests or a supported client.
+- [x] List DAGs and retrieve DAG run status.
+- [x] Trigger only an approved training DAG on an explicit request.
+- [x] Identify failed tasks and retrieve execution details and available diagnostics.
 - [x] Implement validation -> preprocessing -> training -> evaluation/MLflow -> quality gate.
 - [x] Configure task dependencies, retries, and logging.
 - [x] Failed validation or quality gate blocks inappropriate promotion.
 - [x] Demonstrate a real DAG run and its actual task states.
       [Workflow policy](airflow.md), [four real runs and both failure retries](evidence/airflow-dag.md).
-      Agent-facing authenticated Airflow tools remain a separate milestone.
+      Six authenticated tools and a real returned trigger/run ID are verified in
+      [tool evidence](evidence/airflow-tools.md); conversational authorization remains pending.
 
 ## Kubernetes application operations - 15 marks
 
@@ -83,7 +84,7 @@ Mocked test results do not satisfy a live demonstration requirement.
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      176 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow tests pass; later
+      227 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/tool tests pass; later
       service/authorization cases remain below.
 - [ ] Test successful tool selection and execution.
 - [x] Test timeouts, invalid requests, and service failures (DVC cases).
