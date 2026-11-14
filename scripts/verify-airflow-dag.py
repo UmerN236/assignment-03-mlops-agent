@@ -41,6 +41,69 @@ def container_read(key):
     return json.loads(result.stdout)
 
 
+def infrastructure():
+    info = {}
+    for name, field in (
+        ("image", ".Config.Image"),
+        ("image_id", ".Image"),
+        ("health", ".State.Health.Status"),
+    ):
+        result = subprocess.run(
+            [
+                "docker",
+                "inspect",
+                "mlops-assignment3-airflow",
+                "--format",
+                "{{json " + field + "}}",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=10,
+            check=True,
+        )
+        info[name] = json.loads(result.stdout)
+    mounts = subprocess.run(
+        ["docker", "inspect", "mlops-assignment3-airflow", "--format", "{{json .Mounts}}"],
+        capture_output=True,
+        text=True,
+        timeout=10,
+        check=True,
+    )
+    info["persistent_mounts"] = [
+        {"name": m["Name"], "destination": m["Destination"], "writable": m["RW"]}
+        for m in json.loads(mounts.stdout)
+        if m["Type"] == "volume"
+    ]
+    info["input_readonly"] = any(
+        m["Destination"] == "/opt/project/input" and not m["RW"] for m in json.loads(mounts.stdout)
+    )
+    version = subprocess.run(
+        [
+            "docker",
+            "exec",
+            "mlops-assignment3-airflow",
+            "python",
+            "-c",
+            "import airflow,json,pathlib,sys; print(json.dumps({"
+            "'airflow_version':airflow.__version__,"
+            "'python_version':sys.version.split()[0],"
+            "'code_revision':pathlib.Path('/opt/project/revision').read_text()}))",
+        ],
+        capture_output=True,
+        text=True,
+        timeout=20,
+        check=True,
+    )
+    info.update(json.loads(version.stdout))
+    assert info["health"] == "healthy" and info["input_readonly"]
+    assert {
+        "name": "mlops-assignment3-airflow-data",
+        "destination": "/opt/airflow",
+        "writable": True,
+    } in info["persistent_mounts"]
+    return info
+
+
 def safe_log_entries(content):
     selected = []
     for entry in content:
@@ -89,6 +152,7 @@ def main():
     evidence = {
         "observed_at": datetime.now(UTC).isoformat(),
         "dag_id": DAG_ID,
+        "infrastructure": infrastructure(),
         "registry_versions_before": versions_before,
         "runs": [],
         "cluster_before": baseline_data,
@@ -149,6 +213,7 @@ def main():
         k: observed_dag.get(k)
         for k in ("dag_id", "is_paused", "max_active_runs", "fileloc", "schedule_interval")
     }
+    assert observed_dag["max_active_runs"] == 1
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
     scenarios = [
         ("smoke", {}, "success", None),
@@ -211,6 +276,7 @@ def main():
                         "structured_events": safe_log_entries(response["content"]),
                     }
                 )
+                assert row["logs"][-1]["structured_events"], "Structured attempt logs unavailable"
             task_rows.append(row)
         persisted = container_read(hashlib.sha256(run_id.encode()).hexdigest())
         result = {

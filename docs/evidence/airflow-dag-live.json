@@ -1,0 +1,966 @@
+{
+  "observed_at": "2026-11-14T13:26:42.151284+00:00",
+  "dag_id": "assignment_training",
+  "registry_versions_before": [
+    "1"
+  ],
+  "runs": [
+    {
+      "scenario": "smoke",
+      "dag_run_id": "engineering__20261114T132643_smoke",
+      "conf": {},
+      "state": "success",
+      "tasks": [
+        {
+          "task_id": "validation",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:26:45.022246Z",
+          "end_date": "2026-11-14T13:26:48.055311Z",
+          "duration": 6.0329999999999995,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_validation",
+                  "status": "ok",
+                  "duration_ms": 2313.3069180003076,
+                  "request_id": "engineering__20261114T132643_smoke"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "preprocessing",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:26:49.039936Z",
+          "end_date": "2026-11-14T13:26:51.254794Z",
+          "duration": 4.215,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_preprocessing",
+                  "status": "ok",
+                  "duration_ms": 2173.993459000485,
+                  "request_id": "engineering__20261114T132643_smoke"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "training",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:26:52.097164Z",
+          "end_date": "2026-11-14T13:26:54.272437Z",
+          "duration": 4.175,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_training",
+                  "status": "ok",
+                  "duration_ms": 2139.667126000859,
+                  "request_id": "engineering__20261114T132643_smoke"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "evaluation",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:26:55.170520Z",
+          "end_date": "2026-11-14T13:26:59.475099Z",
+          "duration": 8.304,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_evaluation",
+                  "status": "ok",
+                  "duration_ms": 4267.86895999976,
+                  "request_id": "engineering__20261114T132643_smoke"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "quality_gate",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:00.030440Z",
+          "end_date": "2026-11-14T13:27:02.863279Z",
+          "duration": 4.833,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_quality_gate",
+                  "status": "ok",
+                  "duration_ms": 2796.940710002673,
+                  "request_id": "engineering__20261114T132643_smoke"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "approve_candidate",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:03.109470Z",
+          "end_date": "2026-11-14T13:27:05.895364Z",
+          "duration": 4.786,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_approve_candidate",
+                  "status": "ok",
+                  "duration_ms": 2750.627251996775,
+                  "request_id": "engineering__20261114T132643_smoke"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "artifacts": {
+        "evaluation.json": {
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2146311900295925
+          },
+          "model_id": "m-b7001e01f5cf4a13ab6d756bed18607f",
+          "model_uri": "models:/m-b7001e01f5cf4a13ab6d756bed18607f",
+          "run_id": "9f7d4a48860c431c94093689558a35a5",
+          "test_rows": 45,
+          "workflow_run_id": "engineering__20261114T132643_smoke"
+        },
+        "gate.json": {
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2146311900295925
+          },
+          "passed": true,
+          "policy": {
+            "max_log_loss": 0.35,
+            "min_accuracy": 0.9,
+            "min_f1_macro": 0.9,
+            "min_test_rows": 45,
+            "version": "iris-candidate-v1"
+          },
+          "run_id": "9f7d4a48860c431c94093689558a35a5",
+          "scope": "candidate-only; repeated holdout; no production approval or deployment",
+          "test_rows": 45,
+          "workflow_run_id": "engineering__20261114T132643_smoke"
+        },
+        "approved.json": {
+          "candidate_approved": true,
+          "policy": "iris-candidate-v1",
+          "production_promoted": false,
+          "run_id": "9f7d4a48860c431c94093689558a35a5",
+          "workflow_run_id": "engineering__20261114T132643_smoke"
+        }
+      },
+      "mlflow": {
+        "run_id": "9f7d4a48860c431c94093689558a35a5",
+        "status": "FINISHED",
+        "metrics": {
+          "accuracy": 0.9111111111111111,
+          "f1_macro": 0.9107142857142857,
+          "log_loss": 0.2146311900295925
+        },
+        "parameters": {
+          "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+          "dataset_path": "data/iris.csv",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "logistic",
+          "C": "1.0",
+          "max_depth": "4",
+          "n_estimators": "100",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "test_rows": "45",
+          "train_rows": "105",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+        },
+        "tags": {
+          "assignment.training": "true",
+          "assignment.airflow_dag": "assignment_training",
+          "assignment.airflow_run": "engineering__20261114T132643_smoke",
+          "assignment.gate": "passed",
+          "assignment.candidate_approved": "true",
+          "assignment.model_id": "m-b7001e01f5cf4a13ab6d756bed18607f"
+        }
+      },
+      "container_artifact_reload": {
+        "loaded": true,
+        "prediction": [
+          0
+        ]
+      }
+    },
+    {
+      "scenario": "validation_failure",
+      "dag_run_id": "engineering__20261114T132643_validation_failure",
+      "conf": {
+        "input_variant": "malformed_validation_fixture"
+      },
+      "state": "failed",
+      "tasks": [
+        {
+          "task_id": "preprocessing",
+          "state": "upstream_failed",
+          "try_number": 0,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:24.236796Z",
+          "end_date": "2026-11-14T13:27:24.236796Z",
+          "duration": 0.0,
+          "logs": []
+        },
+        {
+          "task_id": "training",
+          "state": "upstream_failed",
+          "try_number": 0,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:25.278517Z",
+          "end_date": "2026-11-14T13:27:25.278517Z",
+          "duration": 0.0,
+          "logs": []
+        },
+        {
+          "task_id": "evaluation",
+          "state": "upstream_failed",
+          "try_number": 0,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:25.918597Z",
+          "end_date": "2026-11-14T13:27:25.918597Z",
+          "duration": 0.0,
+          "logs": []
+        },
+        {
+          "task_id": "quality_gate",
+          "state": "upstream_failed",
+          "try_number": 0,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:26.022307Z",
+          "end_date": "2026-11-14T13:27:26.022307Z",
+          "duration": 0.0,
+          "logs": []
+        },
+        {
+          "task_id": "approve_candidate",
+          "state": "upstream_failed",
+          "try_number": 0,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:27.047650Z",
+          "end_date": "2026-11-14T13:27:27.047650Z",
+          "duration": 0.0,
+          "logs": []
+        },
+        {
+          "task_id": "validation",
+          "state": "failed",
+          "try_number": 2,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:21.173996Z",
+          "end_date": "2026-11-14T13:27:23.359470Z",
+          "duration": 4.1850000000000005,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 6,
+              "structured_events": [
+                {
+                  "tool": "airflow_validation",
+                  "status": "error",
+                  "duration_ms": 2108.3096679976734,
+                  "request_id": "engineering__20261114T132643_validation_failure"
+                }
+              ]
+            },
+            {
+              "attempt": 2,
+              "http_status": 200,
+              "source_entries": 6,
+              "structured_events": [
+                {
+                  "tool": "airflow_validation",
+                  "status": "error",
+                  "duration_ms": 2152.747542997531,
+                  "request_id": "engineering__20261114T132643_validation_failure"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "artifacts": {
+        "evaluation.json": null,
+        "gate.json": null,
+        "approved.json": null
+      }
+    },
+    {
+      "scenario": "gate_failure",
+      "dag_run_id": "engineering__20261114T132643_gate_failure",
+      "conf": {
+        "training": {
+          "C": 0.0001
+        }
+      },
+      "state": "failed",
+      "tasks": [
+        {
+          "task_id": "validation",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:32.195262Z",
+          "end_date": "2026-11-14T13:27:34.313765Z",
+          "duration": 4.119,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_validation",
+                  "status": "ok",
+                  "duration_ms": 2084.0587509992474,
+                  "request_id": "engineering__20261114T132643_gate_failure"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "preprocessing",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:35.267441Z",
+          "end_date": "2026-11-14T13:27:37.434331Z",
+          "duration": 4.167,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_preprocessing",
+                  "status": "ok",
+                  "duration_ms": 2127.763750999293,
+                  "request_id": "engineering__20261114T132643_gate_failure"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "training",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:38.109395Z",
+          "end_date": "2026-11-14T13:27:40.239504Z",
+          "duration": 4.131,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_training",
+                  "status": "ok",
+                  "duration_ms": 2090.4458759978297,
+                  "request_id": "engineering__20261114T132643_gate_failure"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "evaluation",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:40.985065Z",
+          "end_date": "2026-11-14T13:27:45.237745Z",
+          "duration": 9.253,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_evaluation",
+                  "status": "ok",
+                  "duration_ms": 4213.45312700214,
+                  "request_id": "engineering__20261114T132643_gate_failure"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "approve_candidate",
+          "state": "upstream_failed",
+          "try_number": 0,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:58.144485Z",
+          "end_date": "2026-11-14T13:27:58.144485Z",
+          "duration": 0.0,
+          "logs": []
+        },
+        {
+          "task_id": "quality_gate",
+          "state": "failed",
+          "try_number": 2,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:27:54.324130Z",
+          "end_date": "2026-11-14T13:27:57.136236Z",
+          "duration": 5.811999999999999,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 6,
+              "structured_events": [
+                {
+                  "tool": "airflow_quality_gate",
+                  "status": "error",
+                  "duration_ms": 2794.529042999784,
+                  "request_id": "engineering__20261114T132643_gate_failure"
+                }
+              ]
+            },
+            {
+              "attempt": 2,
+              "http_status": 200,
+              "source_entries": 6,
+              "structured_events": [
+                {
+                  "tool": "airflow_quality_gate",
+                  "status": "error",
+                  "duration_ms": 2784.264458998223,
+                  "request_id": "engineering__20261114T132643_gate_failure"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "artifacts": {
+        "evaluation.json": {
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "metrics": {
+            "accuracy": 0.7111111111111111,
+            "f1_macro": 0.6570793972109762,
+            "log_loss": 1.0897690793951083
+          },
+          "model_id": "m-f30943743c8e4ecb861393166381a8b2",
+          "model_uri": "models:/m-f30943743c8e4ecb861393166381a8b2",
+          "run_id": "2e1492bda3e949c0a055c574d6dfd5d0",
+          "test_rows": 45,
+          "workflow_run_id": "engineering__20261114T132643_gate_failure"
+        },
+        "gate.json": {
+          "metrics": {
+            "accuracy": 0.7111111111111111,
+            "f1_macro": 0.6570793972109762,
+            "log_loss": 1.0897690793951083
+          },
+          "passed": false,
+          "policy": {
+            "max_log_loss": 0.35,
+            "min_accuracy": 0.9,
+            "min_f1_macro": 0.9,
+            "min_test_rows": 45,
+            "version": "iris-candidate-v1"
+          },
+          "run_id": "2e1492bda3e949c0a055c574d6dfd5d0",
+          "scope": "candidate-only; repeated holdout; no production approval or deployment",
+          "test_rows": 45,
+          "workflow_run_id": "engineering__20261114T132643_gate_failure"
+        },
+        "approved.json": null
+      },
+      "mlflow": {
+        "run_id": "2e1492bda3e949c0a055c574d6dfd5d0",
+        "status": "FINISHED",
+        "metrics": {
+          "accuracy": 0.7111111111111111,
+          "f1_macro": 0.6570793972109762,
+          "log_loss": 1.0897690793951083
+        },
+        "parameters": {
+          "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+          "dataset_path": "data/iris.csv",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "logistic",
+          "C": "0.0001",
+          "max_depth": "4",
+          "n_estimators": "100",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "test_rows": "45",
+          "train_rows": "105",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+        },
+        "tags": {
+          "assignment.training": "true",
+          "assignment.airflow_dag": "assignment_training",
+          "assignment.airflow_run": "engineering__20261114T132643_gate_failure",
+          "assignment.gate": "failed",
+          "assignment.candidate_approved": "false",
+          "assignment.model_id": "m-f30943743c8e4ecb861393166381a8b2"
+        }
+      },
+      "container_artifact_reload": {
+        "loaded": true,
+        "prediction": [
+          0
+        ]
+      }
+    },
+    {
+      "scenario": "recovery",
+      "dag_run_id": "engineering__20261114T132643_recovery",
+      "conf": {},
+      "state": "success",
+      "tasks": [
+        {
+          "task_id": "validation",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:28:03.274321Z",
+          "end_date": "2026-11-14T13:28:05.431415Z",
+          "duration": 4.157,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_validation",
+                  "status": "ok",
+                  "duration_ms": 2123.7199180031894,
+                  "request_id": "engineering__20261114T132643_recovery"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "preprocessing",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:28:06.151213Z",
+          "end_date": "2026-11-14T13:28:08.302422Z",
+          "duration": 4.151,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_preprocessing",
+                  "status": "ok",
+                  "duration_ms": 2114.8093759984476,
+                  "request_id": "engineering__20261114T132643_recovery"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "training",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:28:09.242160Z",
+          "end_date": "2026-11-14T13:28:11.390365Z",
+          "duration": 4.148,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_training",
+                  "status": "ok",
+                  "duration_ms": 2113.050416999613,
+                  "request_id": "engineering__20261114T132643_recovery"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "evaluation",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:28:12.056971Z",
+          "end_date": "2026-11-14T13:28:16.321351Z",
+          "duration": 8.264,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_evaluation",
+                  "status": "ok",
+                  "duration_ms": 4224.651584998355,
+                  "request_id": "engineering__20261114T132643_recovery"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "quality_gate",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:28:17.222015Z",
+          "end_date": "2026-11-14T13:28:20.096083Z",
+          "duration": 5.8740000000000006,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_quality_gate",
+                  "status": "ok",
+                  "duration_ms": 2832.7025009966746,
+                  "request_id": "engineering__20261114T132643_recovery"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "task_id": "approve_candidate",
+          "state": "success",
+          "try_number": 1,
+          "max_tries": 1,
+          "start_date": "2026-11-14T13:28:20.295335Z",
+          "end_date": "2026-11-14T13:28:23.095423Z",
+          "duration": 5.8,
+          "logs": [
+            {
+              "attempt": 1,
+              "http_status": 200,
+              "source_entries": 7,
+              "structured_events": [
+                {
+                  "tool": "airflow_approve_candidate",
+                  "status": "ok",
+                  "duration_ms": 2764.326792999782,
+                  "request_id": "engineering__20261114T132643_recovery"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "artifacts": {
+        "evaluation.json": {
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2146311900295925
+          },
+          "model_id": "m-63cd133ff05044ffa7d8ee66697114b3",
+          "model_uri": "models:/m-63cd133ff05044ffa7d8ee66697114b3",
+          "run_id": "ceac5b172cf84703a2fa32c9ed608398",
+          "test_rows": 45,
+          "workflow_run_id": "engineering__20261114T132643_recovery"
+        },
+        "gate.json": {
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2146311900295925
+          },
+          "passed": true,
+          "policy": {
+            "max_log_loss": 0.35,
+            "min_accuracy": 0.9,
+            "min_f1_macro": 0.9,
+            "min_test_rows": 45,
+            "version": "iris-candidate-v1"
+          },
+          "run_id": "ceac5b172cf84703a2fa32c9ed608398",
+          "scope": "candidate-only; repeated holdout; no production approval or deployment",
+          "test_rows": 45,
+          "workflow_run_id": "engineering__20261114T132643_recovery"
+        },
+        "approved.json": {
+          "candidate_approved": true,
+          "policy": "iris-candidate-v1",
+          "production_promoted": false,
+          "run_id": "ceac5b172cf84703a2fa32c9ed608398",
+          "workflow_run_id": "engineering__20261114T132643_recovery"
+        }
+      },
+      "mlflow": {
+        "run_id": "ceac5b172cf84703a2fa32c9ed608398",
+        "status": "FINISHED",
+        "metrics": {
+          "accuracy": 0.9111111111111111,
+          "f1_macro": 0.9107142857142857,
+          "log_loss": 0.2146311900295925
+        },
+        "parameters": {
+          "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+          "dataset_path": "data/iris.csv",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "logistic",
+          "C": "1.0",
+          "max_depth": "4",
+          "n_estimators": "100",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "test_rows": "45",
+          "train_rows": "105",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+        },
+        "tags": {
+          "assignment.training": "true",
+          "assignment.airflow_dag": "assignment_training",
+          "assignment.airflow_run": "engineering__20261114T132643_recovery",
+          "assignment.gate": "passed",
+          "assignment.candidate_approved": "true",
+          "assignment.model_id": "m-63cd133ff05044ffa7d8ee66697114b3"
+        }
+      },
+      "container_artifact_reload": {
+        "loaded": true,
+        "prediction": [
+          0
+        ]
+      }
+    }
+  ],
+  "cluster_before": {
+    "request_id": "ae20a9c8-0e8d-48ee-bd80-ffc228a4d059",
+    "tool": "kubernetes_health",
+    "observed_at": "2026-11-14T13:26:42.150651Z",
+    "status": "ok",
+    "evidence": {
+      "namespace": "mlops-agent",
+      "service": "inference",
+      "transport": "GET service proxy",
+      "liveness": {
+        "status": "alive"
+      },
+      "readiness": {
+        "status": "ready",
+        "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+      },
+      "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+      "model": {
+        "run_id": "f1aa8c88b5d645418f17e18898805dba",
+        "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+        "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+        "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+        "dataset": {
+          "path": "data/iris.csv",
+          "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+        },
+        "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+        "sklearn_version": "1.7.2",
+        "numpy_version": "2.5.4",
+        "cloudpickle_version": "3.1.2"
+      },
+      "scope": "Service sampled one or more backends; use workloads for all replica states"
+    },
+    "error": null,
+    "duration_ms": 1385.7047499914188
+  },
+  "graph": {
+    "validation": {
+      "downstream": [
+        "preprocessing"
+      ],
+      "retries": 1,
+      "trigger_rule": "all_success",
+      "execution_timeout_seconds": 300.0
+    },
+    "preprocessing": {
+      "downstream": [
+        "training"
+      ],
+      "retries": 1,
+      "trigger_rule": "all_success",
+      "execution_timeout_seconds": 300.0
+    },
+    "training": {
+      "downstream": [
+        "evaluation"
+      ],
+      "retries": 1,
+      "trigger_rule": "all_success",
+      "execution_timeout_seconds": 300.0
+    },
+    "evaluation": {
+      "downstream": [
+        "quality_gate"
+      ],
+      "retries": 1,
+      "trigger_rule": "all_success",
+      "execution_timeout_seconds": 300.0
+    },
+    "quality_gate": {
+      "downstream": [
+        "approve_candidate"
+      ],
+      "retries": 1,
+      "trigger_rule": "all_success",
+      "execution_timeout_seconds": 300.0
+    },
+    "approve_candidate": {
+      "downstream": [],
+      "retries": 1,
+      "trigger_rule": "all_success",
+      "execution_timeout_seconds": 300.0
+    }
+  },
+  "unauthenticated_http": 401,
+  "dag": {
+    "dag_id": "assignment_training",
+    "is_paused": false,
+    "max_active_runs": 1,
+    "fileloc": "/opt/project/dags/training_pipeline.py",
+    "schedule_interval": null
+  },
+  "cluster_after": {
+    "request_id": "8a1d48ec-a318-42cb-8edf-93c87a5d2546",
+    "tool": "kubernetes_health",
+    "observed_at": "2026-11-14T13:28:29.596516Z",
+    "status": "ok",
+    "evidence": {
+      "namespace": "mlops-agent",
+      "service": "inference",
+      "transport": "GET service proxy",
+      "liveness": {
+        "status": "alive"
+      },
+      "readiness": {
+        "status": "ready",
+        "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+      },
+      "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+      "model": {
+        "run_id": "f1aa8c88b5d645418f17e18898805dba",
+        "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+        "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+        "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+        "dataset": {
+          "path": "data/iris.csv",
+          "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+        },
+        "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+        "sklearn_version": "1.7.2",
+        "numpy_version": "2.5.4",
+        "cloudpickle_version": "3.1.2"
+      },
+      "scope": "Service sampled one or more backends; use workloads for all replica states"
+    },
+    "error": null,
+    "duration_ms": 1349.0678340021987
+  },
+  "registry_versions_after": [
+    "1"
+  ],
+  "finished_at": "2026-11-14T13:28:29.623525+00:00",
+  "infrastructure": {
+    "image": "mlops-assignment3-airflow:4281a7a0bbdc",
+    "image_id": "sha256:4775c9cf9a981998440d0133b44b190417aa1016271aa59036e8969e93969452",
+    "health": "healthy",
+    "persistent_mounts": [
+      {
+        "name": "mlops-assignment3-airflow-data",
+        "destination": "/opt/airflow",
+        "writable": true
+      }
+    ],
+    "input_readonly": true,
+    "airflow_version": "3.1.3",
+    "python_version": "3.12.12",
+    "code_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2"
+  }
+}

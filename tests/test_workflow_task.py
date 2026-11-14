@@ -60,3 +60,26 @@ def test_unapproved_operation_does_not_launch_worker(monkeypatch):
     monkeypatch.setattr(subprocess, "run", forbidden)
     with pytest.raises(ValueError, match="Unapproved"):
         run_stage("deploy", {"workflow_run_id": "test"})
+
+
+def test_evidence_log_filter_retains_only_known_structured_fields():
+    import runpy
+
+    filter_logs = runpy.run_path("scripts/verify-airflow-dag.py")["safe_log_entries"]
+    entry = {
+        "tool": "airflow_validation",
+        "status": "error",
+        "duration_ms": 10.0,
+        "request_id": "engineering__20261114_validation",
+        "secret": "do-not-export",
+    }
+    result = filter_logs(
+        [
+            {"event": json.dumps(entry)},
+            {"event": "raw secret do-not-export"},
+            {"event": json.dumps({**entry, "tool": "unknown"})},
+            {"event": json.dumps({**entry, "request_id": "secret"})},
+        ]
+    )
+    assert result == [{k: entry[k] for k in ("tool", "status", "duration_ms", "request_id")}]
+    assert "do-not-export" not in json.dumps(result)

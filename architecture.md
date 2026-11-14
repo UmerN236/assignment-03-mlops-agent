@@ -4,8 +4,9 @@ Status: DVC and MLflow tools, two dataset revisions, deterministic training and
 model-artifact/lineage retrieval are implemented and live-verified. Versioned
 inference and validated artifact packaging are implemented and live-verified in
 a non-root Docker container against all 45 holdout predictions.
-Kubernetes reads and two-replica cluster deployment are live-verified. Airflow
-adapter/workflow and agent orchestration remain planned.
+Kubernetes reads and two-replica cluster deployment are live-verified. Airflow 3
+training, candidate gate and blocked-approval failures are live-verified. Airflow
+agent tools and conversational orchestration remain planned.
 
 ```mermaid
 flowchart TD
@@ -38,8 +39,9 @@ Training uses the bundled Iris dataset with a deterministic sensor-resolution
 revision, stratified 70/30 splitting (seed 42), and macro F1 over labels 0/1/2.
 Standardized logistic regression and random forests share one evaluation cohort.
 Accuracy, F1 and log loss plus artifacts and exact provenance are recorded in
-MLflow 3.6.0. A later workflow quality gate will define promotion policy; a high
-score alone does not establish production readiness. See [training policy](docs/mlflow.md).
+MLflow 3.6.0. The workflow candidate gate checks F1, accuracy, log loss and cohort size before
+allowing a separate candidate approval task. It never deploys or promotes a registry
+version; a high score alone does not establish production readiness. See [training policy](docs/mlflow.md).
 
 ## Provenance
 
@@ -100,3 +102,16 @@ gate, or supplied degradation measurement. Missing evidence yields uncertainty.
 - [DVC diff](https://dvc.org/doc/command-reference/diff)
 - [Kubernetes health probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 - [kind quick start](https://kind.sigs.k8s.io/docs/user/quick-start/)
+
+## Airflow execution boundary
+
+The `assignment_training` TaskFlow DAG uses five required stages followed by an
+explicit candidate approval task, with all-success dependencies throughout.
+Airflow 3.1.3 runs from a versioned image with a separate hash-locked scientific
+Python environment. The read-only input snapshot records DVC/Git lineage and must
+match the image's code SHA. Per-workflow dataset/split/model artifacts live in the
+persistent Airflow volume; XCom carries small references. Evaluation uploads a
+real MLflow model, metrics and lineage via the artifact proxy, and retries reuse
+the workflow's recorded run ID. Gate rejection records failed evidence and prevents
+approval; validation failure prevents all subsequent training/evaluation tasks.
+See [workflow policy](docs/airflow.md) and [actual run evidence](docs/evidence/airflow-dag.md).
