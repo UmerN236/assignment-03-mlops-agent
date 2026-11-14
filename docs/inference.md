@@ -34,6 +34,9 @@ Buildx configuration, activity and logs use a workspace-local directory through
 Docker's documented [BUILDX_CONFIG setting](https://docs.docker.com/build/building/variables/#buildx_config).
 The local image build has a 40-minute hard timeout for cold dependency downloads.
 Completed dependency layers are reused by subsequent builds.
+For a slow cold network, after packaging and committing code, use
+`PYTHONPATH=src .venv/bin/python scripts/build-inference.py --timeout-seconds 3600`.
+Overrides are bounded to 10–60 minutes and do not change application/tool timeouts.
 
 `make verify-inference` leaves a labeled, non-root, read-only Docker container
 `mlops-assignment3-inference` available at its printed loopback URL. It refuses to
