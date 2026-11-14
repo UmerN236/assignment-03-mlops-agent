@@ -1,4 +1,4 @@
-"""Regenerate v1, verify committed metadata before populating cache and local remote."""
+"""Regenerate this revision, verify metadata before populating cache and local remote."""
 
 import hashlib
 import os

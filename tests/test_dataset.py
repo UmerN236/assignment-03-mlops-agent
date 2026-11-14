@@ -7,6 +7,23 @@ import pytest
 from mlops_agent.dataset import DATASET, dataset_bytes, prepare_dataset
 
 
+def test_v2_changes_only_sepal_resolution():
+    from sklearn.datasets import load_iris
+
+    rows = list(csv.DictReader(io.StringIO(dataset_bytes().decode())))
+    original = load_iris()
+    changed = 0
+    for row, features, target in zip(rows, original.data, original.target, strict=True):
+        for name, value in zip(["sepal_length", "sepal_width"], features[:2], strict=True):
+            revised = float(row[name])
+            assert (revised * 2).is_integer()
+            assert abs(revised - value) <= 0.25
+            changed += revised != value
+        assert [float(row["petal_length"]), float(row["petal_width"])] == list(features[2:])
+        assert int(row["target"]) == target
+    assert changed > 0
+
+
 def test_recipe_is_stable_and_has_expected_classification_shape(tmp_path):
     content = dataset_bytes()
     rows = list(csv.DictReader(io.StringIO(content.decode())))
