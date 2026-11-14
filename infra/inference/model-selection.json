@@ -1,0 +1,15 @@
+{
+  "run_id": "f1aa8c88b5d645418f17e18898805dba",
+  "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+  "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+  "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+  "dataset": {
+    "path": "data/iris.csv",
+    "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+    "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+  },
+  "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+  "sklearn_version": "1.7.2",
+  "numpy_version": "2.5.4",
+  "cloudpickle_version": "3.1.2"
+}
