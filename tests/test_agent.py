@@ -215,6 +215,77 @@ def test_model_cannot_authorize_training(mode):
     assert result.retraining["initiated_by_assessment"] is False
 
 
+def test_host_rejects_cluster_write_even_if_custom_registry_registers_it():
+    invoked = []
+    registry = ToolRegistry(
+        [
+            ToolDefinition(
+                "kubernetes_delete_pod", "write", ToolInput, lambda a: invoked.append(1) or {}
+            )
+        ]
+    )
+    result, _ = run([[call("kubernetes_delete_pod")], [finish()]], registry=registry)
+    assert invoked == []
+    assert result.policy_events[0]["status"] == "invalid_request"
+
+
+def test_missing_dvc_root_does_not_prevent_unrelated_service_query(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        "mlops_agent.kubernetes_tools.KubernetesTools._worker",
+        lambda self, *args: {"model": {"run_id": RUN}},
+    )
+    provider = FakeProvider(
+        [[call("kubernetes_health")], [finish([{"result_index": 0, "pointer": "/model/run_id"}])]]
+    )
+    result = Agent(Settings(dvc_repo_path=tmp_path / "absent"), provider=provider).run(
+        ChatRequest(message="Read the deployed model version")
+    )
+    assert result.status == "complete"
+    assert result.known_facts[0]["value"] == RUN
+    assert len(result.tool_calls) == 1
+
+
+def test_host_checks_namespace_independently_of_custom_tool_input_schema():
+    class PermissiveScope(ToolInput):
+        namespace: str
+
+    invoked = []
+    registry = ToolRegistry(
+        [
+            ToolDefinition(
+                "kubernetes_workloads", "read", PermissiveScope, lambda a: invoked.append(1) or {}
+            )
+        ]
+    )
+    result, _ = run(
+        [[call("kubernetes_workloads", {"namespace": "kube-system"})], [finish()]],
+        registry=registry,
+    )
+    assert invoked == []
+    assert result.tool_calls == []
+    assert result.policy_events[0]["status"] == "invalid_request"
+
+
+def test_invalid_arguments_and_unknown_names_are_absent_from_structured_logs(caplog):
+    caplog.set_level(logging.INFO, logger="mlops_agent.tools")
+    secret = "unit_test_secret"
+    result, _ = run(
+        [
+            [call("kubernetes_health", {"token": secret})],
+            [call("steal_" + secret)],
+            [finish()],
+        ]
+    )
+    records = [r for r in caplog.records if r.name == "mlops_agent.tools"]
+    assert len(records) == 2
+    for record in records:
+        payload = json.loads(TraceFormatter().format(record))
+        assert payload.keys() == {"tool", "status", "duration_ms", "request_id"}
+        assert payload["request_id"] == result.request_id
+        assert payload["status"] == "invalid_request" and payload["duration_ms"] >= 0
+    assert secret not in caplog.text + result.model_dump_json()
+
+
 def test_even_claimed_kubernetes_confirmation_cannot_mutate():
     result, _ = run(
         [

@@ -87,13 +87,15 @@ Mocked test results do not satisfy a live demonstration requirement.
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      278 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/agent tests pass; later
+      302 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/agent tests pass; later
       failure-investigation requirements remain below.
 - [x] Test successful tool selection and execution.
-- [x] Test timeouts, invalid requests, and service failures (DVC cases).
-- [x] Test that an unavailable tool cannot produce invented operational results (registry/DVC).
+- [x] Test timeouts, invalid requests, and service failures across adapters/provider.
+- [x] Test that an unavailable tool cannot produce invented operational results.
 - [x] Test rejection of unauthorized Kubernetes modifications; read-only tool and live RBAC checks.
 - [x] Structured logs include tool name, status, duration, and request ID without secrets.
+      [Reliability audit and test coverage](reliability.md), including identity,
+      namespace, malformed-response and redaction regressions; ordinary CI is mocked.
 - [ ] Inject at least two failures and explain diagnosis, root cause, and resolution.
       Isolated validation and candidate-gate failures are observed and recovered in
       [workflow evidence](evidence/airflow-dag.md); the required Kubernetes readiness

@@ -16,6 +16,20 @@ from mlops_agent.model_bundle import BundleManifest, ModelSelection, file_sha256
 ROW = {"sepal_length": 5.0, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}
 
 
+@pytest.mark.parametrize("nested", [False, True])
+def test_validation_never_echoes_arbitrary_input_keys(tmp_path, caplog, nested):
+    secret = "private-credential-as-extra-key"
+    body = (
+        {"instances": [{**ROW, secret: "ignored"}]}
+        if nested
+        else {"instances": [ROW], secret: "ignored"}
+    )
+    with TestClient(create_app(tmp_path)) as client:
+        response = client.post("/predict", json=body)
+    assert response.status_code == 422
+    assert secret not in response.text + caplog.text
+
+
 @pytest.fixture
 def bundle(tmp_path):
     model = RandomForestClassifier(n_estimators=3, max_depth=2, random_state=42)

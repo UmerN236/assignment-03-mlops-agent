@@ -1,6 +1,7 @@
 """Bounded, namespace-scoped Kubernetes reads with no mutation/exec operation."""
 
 import json
+import math
 import os
 import re
 import subprocess
@@ -40,7 +41,9 @@ def pod_summary(pod) -> dict:
     containers = []
     for item in pod.status.container_statuses or []:
         state = item.state
-        kind = next((k for k in ("waiting", "running", "terminated") if getattr(state, k)), None)
+        kind = next(
+            (k for k in ("waiting", "running", "terminated") if getattr(state, k, None)), None
+        )
         detail = getattr(state, kind) if kind else None
         containers.append(
             {
@@ -221,9 +224,12 @@ class ClusterReader:
                         else "unknown",
                         "http_status": entry.get("http_status")
                         if type(entry.get("http_status")) is int
+                        and 100 <= entry["http_status"] <= 599
                         else None,
                         "duration_ms": entry.get("duration_ms")
                         if type(entry.get("duration_ms")) in {int, float}
+                        and 0 <= entry["duration_ms"] <= 600000
+                        and math.isfinite(entry["duration_ms"])
                         else None,
                         "request_id": entry.get("request_id")
                         if isinstance(entry.get("request_id"), str)

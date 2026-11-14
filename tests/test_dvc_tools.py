@@ -7,6 +7,34 @@ import pytest
 
 from mlops_agent.dvc_tools import DvcTools
 
+
+@pytest.mark.parametrize("operation", ["status", "diff", "list"])
+def test_wrong_dvc_response_container_never_becomes_operational_evidence(adapter, operation):
+    tools, runner = adapter
+    output = "{}" if operation == "list" else "[]"
+    runner.side_effect = (
+        [
+            subprocess.CompletedProcess([], 0, SHA, ""),
+            subprocess.CompletedProcess([], 0, output, ""),
+        ]
+        if operation != "status"
+        else [subprocess.CompletedProcess([], 0, output, "")]
+    )
+    name, args = {
+        "status": ("dvc_get_data_status", {}),
+        "diff": ("dvc_compare_versions", {"old_revision": SHA}),
+        "list": ("dvc_list_datasets", {}),
+    }[operation]
+    result = tools.registry.call(name, args)
+    assert result.status == "error" and result.evidence == {}
+
+
+def test_absent_repository_is_unavailable_at_execution_not_registry_setup(tmp_path):
+    tools = DvcTools(tmp_path / "absent")
+    result = tools.registry.call("dvc_get_data_status", {})
+    assert result.status == "unavailable" and result.evidence == {}
+
+
 SHA = "a" * 40
 MD5 = "b" * 32
 RUN = "c" * 32

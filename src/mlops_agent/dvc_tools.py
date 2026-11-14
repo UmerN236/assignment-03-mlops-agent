@@ -70,7 +70,9 @@ class DvcTools:
         timeout: float = 30,
         run_lookup: Callable[[str], dict[str, str]] | None = None,
     ):
-        self.root = root.resolve(strict=True)
+        # Defer availability checks until execution so an absent data checkout
+        # does not prevent the agent from querying independent services.
+        self.root = root.resolve()
         if not 0 < timeout <= 120:
             raise ValueError("Timeout must be bounded")
         self.timeout = timeout
@@ -125,6 +127,8 @@ class DvcTools:
         )
 
     def _check_paths(self) -> None:
+        if not self.root.is_dir():
+            raise ToolFailure("DVC repository unavailable", "unavailable")
         for name in (
             ".git",
             ".dvc",
@@ -227,7 +231,8 @@ class DvcTools:
             result = json.loads(self._run(operation, *values))
         except json.JSONDecodeError:
             raise ToolFailure("DVC returned malformed JSON") from None
-        if not isinstance(result, (dict, list)):
+        expected = list if operation == "list" else dict
+        if not isinstance(result, expected):
             raise ToolFailure("DVC returned an unsupported response")
         return result
 

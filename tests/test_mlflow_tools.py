@@ -17,6 +17,35 @@ from mlops_agent.mlflow_tools import (
     SelectionInput,
     rank_runs,
 )
+from mlops_agent.tools import ToolFailure
+
+
+@pytest.mark.parametrize("operation", ["lineage", "details"])
+def test_mismatched_run_cannot_supply_lineage_or_artifacts(operation):
+    client = Mock()
+    client.get_run.return_value = actual_entity(run_record(2))
+    with pytest.raises(ToolFailure, match="identity"):
+        getattr(ClientReader(client), operation)(RunInput(run_id=run_record(1)["run_id"]))
+    client.list_artifacts.assert_not_called()
+    client.get_logged_model.assert_not_called()
+
+
+@pytest.mark.parametrize("field", ["model_id", "source_run_id"])
+def test_mismatched_logged_model_cannot_be_attached_to_run(field):
+    client = Mock()
+    record = run_record()
+    client.get_run.return_value = actual_entity(record)
+    client.list_artifacts.return_value = []
+    model = {
+        "model_id": record["model_id"],
+        "source_run_id": record["run_id"],
+        "model_uri": "models:/" + record["model_id"],
+    }
+    model[field] = "m-" + "b" * 32 if field == "model_id" else "b" * 32
+    client.get_logged_model.return_value = SimpleNamespace(**model)
+    with pytest.raises(ToolFailure, match="identity"):
+        ClientReader(client).details(RunInput(run_id=record["run_id"]))
+    client.list_logged_model_artifacts.assert_not_called()
 
 
 def run_record(number=1, f1=0.8, loss=0.2):
@@ -247,7 +276,7 @@ def test_dvc_run_lookup_does_not_depend_on_model_artifact_storage():
         return getattr(reader, op)(RunInput.model_validate(args))
 
     tools = MlflowTools("http://127.0.0.1:5000", transport=transport)
-    assert tools.run_params("a" * 32)["dataset_dvc_md5"] == "c" * 32
+    assert tools.run_params(run_record()["run_id"])["dataset_dvc_md5"] == "c" * 32
     client.list_artifacts.assert_not_called()
     client.list_logged_model_artifacts.assert_not_called()
 
@@ -301,9 +330,9 @@ def test_worker_artifact_resolution_uses_configured_fluent_uri(monkeypatch, caps
     client.get_run.return_value = actual_entity(run_record())
     client.list_artifacts.return_value = []
     client.get_logged_model.return_value = SimpleNamespace(
-        model_id="m-example",
-        model_uri="models:/m-example",
-        source_run_id="a" * 32,
+        model_id=run_record()["model_id"],
+        model_uri="models:/" + run_record()["model_id"],
+        source_run_id=run_record()["run_id"],
     )
 
     def artifacts(*args):
@@ -321,7 +350,7 @@ def test_worker_artifact_resolution_uses_configured_fluent_uri(monkeypatch, caps
                 {
                     "uri": uri,
                     "operation": "details",
-                    "arguments": {"run_id": "a" * 32},
+                    "arguments": {"run_id": run_record()["run_id"]},
                 }
             )
         ),

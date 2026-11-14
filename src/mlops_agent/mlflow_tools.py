@@ -175,6 +175,12 @@ class ClientReader:
     def __init__(self, client):
         self.client = client
 
+    def requested_run(self, args: RunInput):
+        run = self.client.get_run(args.run_id)
+        if run.info.run_id != args.run_id:
+            raise ToolFailure("MLflow returned a mismatched run identity", "unavailable")
+        return run
+
     def experiments(self, args: ExperimentsInput) -> dict:
         items = self.client.search_experiments(max_results=args.limit, order_by=["name ASC"])
         return {
@@ -210,7 +216,7 @@ class ClientReader:
         }
 
     def details(self, args: RunInput) -> dict:
-        run = self.client.get_run(args.run_id)
+        run = self.requested_run(args)
         result = summarize_run(run)
         result["artifacts"] = [
             artifact_info(item) for item in self.client.list_artifacts(args.run_id)
@@ -218,6 +224,8 @@ class ClientReader:
         model_id = result["model_id"]
         if model_id:
             model = self.client.get_logged_model(model_id)
+            if model.model_id != model_id or model.source_run_id != args.run_id:
+                raise ToolFailure("MLflow returned a mismatched model identity", "unavailable")
             result["logged_model"] = {
                 "model_id": model.model_id,
                 "model_uri": model.model_uri,
@@ -233,7 +241,7 @@ class ClientReader:
 
     def lineage(self, args: RunInput) -> dict:
         # DVC provenance remains available when artifact storage is unavailable.
-        return {"parameters": summarize_run(self.client.get_run(args.run_id))["parameters"]}
+        return {"parameters": summarize_run(self.requested_run(args))["parameters"]}
 
     def selection(self, args: SelectionInput) -> dict:
         evidence = self.runs(args)

@@ -34,6 +34,8 @@ The conversational agent now runs through the selected free OpenRouter API with
 validated native tool calls, read-only assessments and explicit training authorization.
 [Actual integrated evidence](docs/evidence/agent.md) verifies all four technologies.
 The five-conversation demonstration, readiness failure exercise and final report remain pending.
+The [reliability audit](docs/reliability.md) maps safety requirements to automated
+tests and records fixes for malformed responses, lineage identity and redaction.
 
 ## Development setup
 

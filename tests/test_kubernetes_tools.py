@@ -24,6 +24,36 @@ from mlops_agent.kubernetes_tools import (
 POD = "inference-5c65b94fc7-abcde"
 
 
+@pytest.mark.parametrize(
+    "duration", [float("nan"), float("inf"), -1, 10**400, True, None, "secret"]
+)
+def test_malformed_log_numeric_fields_do_not_discard_valid_entries(duration):
+    core = Mock()
+    core.read_namespaced_pod.return_value = pod()
+    core.read_namespaced_pod_log.return_value = json.dumps(
+        {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "duration_ms": duration,
+            "http_status": 999,
+        }
+    )
+    result = ClusterReader(core, Mock(), Mock()).logs(LogsInput(pod=POD))
+    assert len(result["entries"]) == 1
+    assert result["entries"][0]["duration_ms"] is None
+    assert result["entries"][0]["http_status"] is None
+    json.dumps(result, allow_nan=False)
+
+
+def test_pod_with_absent_container_state_still_exposes_actual_readiness():
+    observed = pod(False)
+    observed.status.container_statuses[0].state = None
+    summary = pod_summary(observed)
+    assert summary["ready"] is False
+    assert summary["containers"][0]["state"] is None
+    assert summary["containers"][0]["restart_count"] == 0
+
+
 def pod(ready=True, restarts=0, reason=None):
     return client.V1Pod(
         metadata=client.V1ObjectMeta(

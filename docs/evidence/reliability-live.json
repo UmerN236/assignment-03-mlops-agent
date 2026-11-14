@@ -1,0 +1,913 @@
+{
+  "observed_at": "2026-11-14T17:21:28.468943+00:00",
+  "kind": "Live read-only adapter smoke; no LLM conversation or training",
+  "base_commit": "daa6aaa103d6504a5b1e142b0894c97550092be7",
+  "source_state": "Uncommitted reliability changes on the recorded base commit",
+  "checks": {
+    "dvc_status_list_and_diff_valid": true,
+    "mlflow_requested_run_and_model_identity_match": true,
+    "dvc_recorded_run_lineage_matches": true,
+    "two_or_more_pods_ready": true,
+    "pod_logs_and_live_version_returned": true,
+    "authenticated_airflow_reads": true
+  },
+  "results": [
+    {
+      "request_id": "4e33587a-3cbb-4f25-92a1-627d4b6e0ac3",
+      "tool": "dvc_get_data_status",
+      "observed_at": "2026-11-14T17:21:09.924173Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "changes": {},
+        "clean": true
+      },
+      "error": null,
+      "duration_ms": 1023.1769579986576
+    },
+    {
+      "request_id": "c15cd835-2d73-4310-8524-a39a0d91de43",
+      "tool": "dvc_list_datasets",
+      "observed_at": "2026-11-14T17:21:11.012636Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_git_revision": "daa6aaa103d6504a5b1e142b0894c97550092be7",
+        "directory": "data",
+        "datasets": [
+          {
+            "isout": true,
+            "isdir": false,
+            "isexec": false,
+            "size": 2757,
+            "md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "path": "iris.csv"
+          }
+        ],
+        "scope": [
+          "data/iris.csv"
+        ]
+      },
+      "error": null,
+      "duration_ms": 1088.071874983143
+    },
+    {
+      "request_id": "dc3ff33f-2d7a-4902-b51c-eae68500f0e4",
+      "tool": "dvc_compare_versions",
+      "observed_at": "2026-11-14T17:21:12.397496Z",
+      "status": "ok",
+      "evidence": {
+        "old_revision": "daa6aaa103d6504a5b1e142b0894c97550092be7",
+        "new_revision": null,
+        "new_is_workspace": true,
+        "changes": {}
+      },
+      "error": null,
+      "duration_ms": 1384.4775829929858
+    },
+    {
+      "request_id": "3457ead0-41b1-46d0-9947-ab9bb13beb4a",
+      "tool": "mlflow_list_experiments",
+      "observed_at": "2026-11-14T17:21:15.217864Z",
+      "status": "ok",
+      "evidence": {
+        "experiments": [
+          {
+            "experiment_id": "0",
+            "name": "Default",
+            "artifact_location": "mlflow-artifacts:/0"
+          },
+          {
+            "experiment_id": "2",
+            "name": "assignment-iris-forest",
+            "artifact_location": "mlflow-artifacts:/2"
+          },
+          {
+            "experiment_id": "1",
+            "name": "assignment-iris-logistic",
+            "artifact_location": "mlflow-artifacts:/1"
+          }
+        ],
+        "has_more": false
+      },
+      "error": null,
+      "duration_ms": 2820.0617079855874
+    },
+    {
+      "request_id": "34668644-7782-495f-ab39-bbe21c0b5426",
+      "tool": "mlflow_select_best",
+      "observed_at": "2026-11-14T17:21:18.292634Z",
+      "status": "ok",
+      "evidence": {
+        "runs": [
+          {
+            "run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794668104778,
+            "end_time_ms": 1794668106091,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2146311900295925
+            },
+            "parameters": {
+              "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+              "dataset_path": "data/iris.csv",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "C": "1.0",
+              "max_depth": "4",
+              "n_estimators": "100",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "test_rows": "45",
+              "train_rows": "105",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+            },
+            "model_id": "m-049121e6b28b4f76a25fac4aff10c617"
+          },
+          {
+            "run_id": "ceac5b172cf84703a2fa32c9ed608398",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794662894746,
+            "end_time_ms": 1794662896027,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2146311900295925
+            },
+            "parameters": {
+              "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+              "dataset_path": "data/iris.csv",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "C": "1.0",
+              "max_depth": "4",
+              "n_estimators": "100",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "test_rows": "45",
+              "train_rows": "105",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+            },
+            "model_id": "m-63cd133ff05044ffa7d8ee66697114b3"
+          },
+          {
+            "run_id": "2e1492bda3e949c0a055c574d6dfd5d0",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794662863664,
+            "end_time_ms": 1794662865034,
+            "metrics": {
+              "accuracy": 0.7111111111111111,
+              "f1_macro": 0.6570793972109762,
+              "log_loss": 1.0897690793951083
+            },
+            "parameters": {
+              "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+              "dataset_path": "data/iris.csv",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "C": "0.0001",
+              "max_depth": "4",
+              "n_estimators": "100",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "test_rows": "45",
+              "train_rows": "105",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+            },
+            "model_id": "m-f30943743c8e4ecb861393166381a8b2"
+          },
+          {
+            "run_id": "9f7d4a48860c431c94093689558a35a5",
+            "experiment_id": "1",
+            "status": "FINISHED",
+            "start_time_ms": 1794662817934,
+            "end_time_ms": 1794662819257,
+            "metrics": {
+              "accuracy": 0.9111111111111111,
+              "f1_macro": 0.9107142857142857,
+              "log_loss": 0.2146311900295925
+            },
+            "parameters": {
+              "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+              "dataset_path": "data/iris.csv",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "logistic",
+              "C": "1.0",
+              "max_depth": "4",
+              "n_estimators": "100",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "test_rows": "45",
+              "train_rows": "105",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+            },
+            "model_id": "m-b7001e01f5cf4a13ab6d756bed18607f"
+          },
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "experiment_id": "2",
+            "status": "FINISHED",
+            "start_time_ms": 1794643832221,
+            "end_time_ms": 1794643833448,
+            "metrics": {
+              "accuracy": 0.8888888888888888,
+              "f1_macro": 0.8877665544332212,
+              "log_loss": 0.17823764534818262
+            },
+            "parameters": {
+              "dataset_path": "data/iris.csv",
+              "dataset_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+              "code_git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset_recipe": "iris-sepal-resolution-v2",
+              "sklearn_version": "1.7.2",
+              "classifier": "forest",
+              "model_seed": "42",
+              "split_seed": "42",
+              "test_fraction": "0.3",
+              "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0",
+              "train_rows": "105",
+              "test_rows": "45",
+              "max_depth": "4",
+              "n_estimators": "100"
+            },
+            "model_id": "m-0271427211924fd3ae595cfe8e620578"
+          }
+        ],
+        "has_more": true,
+        "since_ms": 1794072077749,
+        "limit": 5,
+        "order": "newest_first",
+        "metric": "f1_macro",
+        "direction": "maximize",
+        "comparable": true,
+        "evaluation_groups": 1,
+        "selected_run": {
+          "run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+          "experiment_id": "1",
+          "status": "FINISHED",
+          "start_time_ms": 1794668104778,
+          "end_time_ms": 1794668106091,
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2146311900295925
+          },
+          "parameters": {
+            "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+            "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+            "dataset_path": "data/iris.csv",
+            "dataset_recipe": "iris-sepal-resolution-v2",
+            "sklearn_version": "1.7.2",
+            "classifier": "logistic",
+            "C": "1.0",
+            "max_depth": "4",
+            "n_estimators": "100",
+            "model_seed": "42",
+            "split_seed": "42",
+            "test_fraction": "0.3",
+            "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+            "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+            "test_rows": "45",
+            "train_rows": "105",
+            "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+          },
+          "model_id": "m-049121e6b28b4f76a25fac4aff10c617"
+        },
+        "ranking": [
+          {
+            "run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "ceac5b172cf84703a2fa32c9ed608398",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "9f7d4a48860c431c94093689558a35a5",
+            "value": 0.9107142857142857
+          },
+          {
+            "run_id": "bf7818c546234bf1b1523519f0c6c43f",
+            "value": 0.8877665544332212
+          },
+          {
+            "run_id": "2e1492bda3e949c0a055c574d6dfd5d0",
+            "value": 0.6570793972109762
+          }
+        ],
+        "excluded": [],
+        "selection_scope": "Only the returned recent window, not all historical runs",
+        "reason": "ranked_comparable_runs",
+        "caveats": [
+          "Scores are comparable only within one evaluation_id (data, split and metric policy).",
+          "Repeated selection on this small held-out split introduces selection bias; no independent final test.",
+          "Best requested metric is a candidate, not production readiness or a retraining recommendation.",
+          "No deployment, freshness, drift, latency or quality-gate evidence is supplied by this tool."
+        ]
+      },
+      "error": null,
+      "duration_ms": 3074.509250000119
+    },
+    {
+      "request_id": "179e4f4c-d40f-4e1a-b841-0dabc644edb8",
+      "tool": "mlflow_get_run",
+      "observed_at": "2026-11-14T17:21:21.222969Z",
+      "status": "ok",
+      "evidence": {
+        "run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+        "experiment_id": "1",
+        "status": "FINISHED",
+        "start_time_ms": 1794668104778,
+        "end_time_ms": 1794668106091,
+        "metrics": {
+          "accuracy": 0.9111111111111111,
+          "f1_macro": 0.9107142857142857,
+          "log_loss": 0.2146311900295925
+        },
+        "parameters": {
+          "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+          "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+          "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+          "dataset_path": "data/iris.csv",
+          "dataset_recipe": "iris-sepal-resolution-v2",
+          "sklearn_version": "1.7.2",
+          "classifier": "logistic",
+          "C": "1.0",
+          "max_depth": "4",
+          "n_estimators": "100",
+          "model_seed": "42",
+          "split_seed": "42",
+          "test_fraction": "0.3",
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+          "test_rows": "45",
+          "train_rows": "105",
+          "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+        },
+        "model_id": "m-049121e6b28b4f76a25fac4aff10c617",
+        "artifacts": [
+          {
+            "path": "evaluation.json",
+            "is_dir": false,
+            "file_size": 5542
+          },
+          {
+            "path": "lineage.json",
+            "is_dir": false,
+            "file_size": 816
+          },
+          {
+            "path": "quality_gate.json",
+            "is_dir": false,
+            "file_size": 510
+          },
+          {
+            "path": "split.json",
+            "is_dir": false,
+            "file_size": 1275
+          }
+        ],
+        "logged_model": {
+          "model_id": "m-049121e6b28b4f76a25fac4aff10c617",
+          "model_uri": "models:/m-049121e6b28b4f76a25fac4aff10c617",
+          "source_run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+          "artifacts": [
+            {
+              "path": "MLmodel",
+              "is_dir": false,
+              "file_size": 1043
+            },
+            {
+              "path": "conda.yaml",
+              "is_dir": false,
+              "file_size": 167
+            },
+            {
+              "path": "input_example.json",
+              "is_dir": false,
+              "file_size": 44
+            },
+            {
+              "path": "model.pkl",
+              "is_dir": false,
+              "file_size": 1357
+            },
+            {
+              "path": "python_env.yaml",
+              "is_dir": false,
+              "file_size": 99
+            },
+            {
+              "path": "requirements.txt",
+              "is_dir": false,
+              "file_size": 65
+            },
+            {
+              "path": "serving_input_example.json",
+              "is_dir": false,
+              "file_size": 132
+            }
+          ]
+        }
+      },
+      "error": null,
+      "duration_ms": 2930.063457984943
+    },
+    {
+      "request_id": "b1f6b2a1-0e70-47b3-bb5f-b9531099ea7c",
+      "tool": "dvc_resolve_mlflow_run",
+      "observed_at": "2026-11-14T17:21:24.177390Z",
+      "status": "ok",
+      "evidence": {
+        "dataset_path": "data/iris.csv",
+        "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+        "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+        "size_bytes": 2757,
+        "supplied_run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+        "reference_matches": true,
+        "run_record_verified": true,
+        "limitation": "Run lineage was retrieved; hash agreement does not prove model quality"
+      },
+      "error": null,
+      "duration_ms": 2954.309833003208
+    },
+    {
+      "request_id": "7f1858b0-8e41-471e-b22d-90e6830f5362",
+      "tool": "kubernetes_workloads",
+      "observed_at": "2026-11-14T17:21:25.461710Z",
+      "status": "ok",
+      "evidence": {
+        "namespace": "mlops-agent",
+        "pods": [
+          {
+            "name": "inference-b4cf4fcf9-rclrx",
+            "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+            "phase": "Running",
+            "ready": true,
+            "deleting": false,
+            "conditions": [
+              {
+                "type": "PodReadyToStartContainers",
+                "status": "True",
+                "reason": null
+              },
+              {
+                "type": "Initialized",
+                "status": "True",
+                "reason": null
+              },
+              {
+                "type": "Ready",
+                "status": "True",
+                "reason": null
+              },
+              {
+                "type": "ContainersReady",
+                "status": "True",
+                "reason": null
+              },
+              {
+                "type": "PodScheduled",
+                "status": "True",
+                "reason": null
+              }
+            ],
+            "containers": [
+              {
+                "name": "inference",
+                "ready": true,
+                "restart_count": 0,
+                "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                "state": "running",
+                "reason": null,
+                "exit_code": null,
+                "last_termination_reason": null
+              }
+            ]
+          },
+          {
+            "name": "inference-b4cf4fcf9-shz8x",
+            "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+            "phase": "Running",
+            "ready": true,
+            "deleting": false,
+            "conditions": [
+              {
+                "type": "PodReadyToStartContainers",
+                "status": "True",
+                "reason": null
+              },
+              {
+                "type": "Initialized",
+                "status": "True",
+                "reason": null
+              },
+              {
+                "type": "Ready",
+                "status": "True",
+                "reason": null
+              },
+              {
+                "type": "ContainersReady",
+                "status": "True",
+                "reason": null
+              },
+              {
+                "type": "PodScheduled",
+                "status": "True",
+                "reason": null
+              }
+            ],
+            "containers": [
+              {
+                "name": "inference",
+                "ready": true,
+                "restart_count": 0,
+                "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                "state": "running",
+                "reason": null,
+                "exit_code": null,
+                "last_termination_reason": null
+              }
+            ]
+          }
+        ],
+        "deployments": [
+          {
+            "name": "inference",
+            "generation": 1,
+            "observed_generation": 1,
+            "desired_replicas": 2,
+            "ready_replicas": 2,
+            "available_replicas": 2,
+            "updated_replicas": 2,
+            "conditions": [
+              {
+                "type": "Available",
+                "status": "True",
+                "reason": "MinimumReplicasAvailable"
+              },
+              {
+                "type": "Progressing",
+                "status": "True",
+                "reason": "NewReplicaSetAvailable"
+              }
+            ],
+            "containers": [
+              {
+                "name": "inference",
+                "image": "mlops-assignment3-inference:c20e0106c52d",
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "192Mi"
+                },
+                "limits": {
+                  "cpu": "1",
+                  "memory": "512Mi"
+                },
+                "readiness_path": "/readyz",
+                "liveness_path": "/livez"
+              }
+            ]
+          }
+        ],
+        "truncated": false
+      },
+      "error": null,
+      "duration_ms": 1284.0065410127863
+    },
+    {
+      "request_id": "c2cb3231-850b-4196-859a-1b84a27dde87",
+      "tool": "kubernetes_logs",
+      "observed_at": "2026-11-14T17:21:26.611008Z",
+      "status": "ok",
+      "evidence": {
+        "namespace": "mlops-agent",
+        "pod": "inference-b4cf4fcf9-rclrx",
+        "previous": false,
+        "entries": [
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.548,
+            "request_id": "7957f95d-9b79-4343-b385-a087798ddd3f"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.168,
+            "request_id": "3f5ec307-50bf-4df1-a2e3-e0fc71b474ad"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.201,
+            "request_id": "50b6c1cd-dd27-4ce8-824f-905738a53125"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.111,
+            "request_id": "c0fbdf0f-e01d-4e9c-9473-16ffabb32b28"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.865,
+            "request_id": "86839747-2361-424e-8820-60d04fab91a2"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.949,
+            "request_id": "ef1558d3-533e-44ed-b9d2-dfea8f50b6a4"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.863,
+            "request_id": "e2133b0a-88d0-4d57-aff9-4d317f9d1601"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.871,
+            "request_id": "27a37f6f-600b-4189-9b76-a00e4aa44ce8"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.273,
+            "request_id": "45746a41-3a80-4b40-b2d7-f26208e96b8b"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.262,
+            "request_id": "cf4c0073-d5ee-4005-a76c-c269a02020f4"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.278,
+            "request_id": "fbfaa642-38bb-4338-bfbd-adadeaa61dfd"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.687,
+            "request_id": "6a74bfc7-b62e-4bf7-a648-a4d0b8ebbc1c"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.992,
+            "request_id": "688c72d5-fa6f-4c1f-9b98-9aa2451161fc"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.831,
+            "request_id": "6931fd8c-f974-4c51-933a-912f06c4058b"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.265,
+            "request_id": "6f431228-41d4-4c71-8cae-63d99e93a8e6"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.171,
+            "request_id": "2693a59d-ebf7-464f-bbcc-d8bf734a1168"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.195,
+            "request_id": "fbcf0d03-5916-42a6-9278-c477654c829c"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.917,
+            "request_id": "2fbf93da-1a63-43ba-b618-187b62781ab8"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.042,
+            "request_id": "1e93e9b6-50b3-41a2-82f4-f7ccf9dfc06e"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.254,
+            "request_id": "3cca396a-4f3d-47fe-b49c-0df1bd0ad726"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.073,
+            "request_id": "dc76c0bb-9458-4ace-9eec-f6ad56826f6f"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.778,
+            "request_id": "1217364e-f6e8-428b-a2d0-8f16e0506c11"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.804,
+            "request_id": "731e0e0e-a89c-4956-8bff-4ea7030a8d43"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.917,
+            "request_id": "4addf7b5-5d6f-4d52-ba52-3fd4046990e0"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.094,
+            "request_id": "e165093c-8720-4d16-8e69-899f52b3b496"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.814,
+            "request_id": "06ee2e36-cb92-4782-90ac-4e180215ffe0"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.234,
+            "request_id": "6e92337c-3c18-4d0b-8da9-a406a98f60ca"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.083,
+            "request_id": "650f1599-9fc4-48bd-83b6-d48596a373f5"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.298,
+            "request_id": "d4b01b6d-804e-4381-84fb-aa0457837c00"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 1.24,
+            "request_id": "ef79e9bd-e9fb-4611-80da-8e10c813ed34"
+          }
+        ],
+        "bounded_tail": true,
+        "raw_text_omitted": true,
+        "untrusted_observations": true
+      },
+      "error": null,
+      "duration_ms": 1148.9441249868833
+    },
+    {
+      "request_id": "b77dae7a-deea-4dd4-88af-25b54ea370e7",
+      "tool": "kubernetes_health",
+      "observed_at": "2026-11-14T17:21:27.725050Z",
+      "status": "ok",
+      "evidence": {
+        "namespace": "mlops-agent",
+        "service": "inference",
+        "transport": "GET service proxy",
+        "liveness": {
+          "status": "alive"
+        },
+        "readiness": {
+          "status": "ready",
+          "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+        },
+        "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+        "model": {
+          "run_id": "f1aa8c88b5d645418f17e18898805dba",
+          "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+          "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+          "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+          "dataset": {
+            "path": "data/iris.csv",
+            "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+            "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+          },
+          "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+          "sklearn_version": "1.7.2",
+          "numpy_version": "2.5.4",
+          "cloudpickle_version": "3.1.2"
+        },
+        "scope": "Service sampled one or more backends; use workloads for all replica states"
+      },
+      "error": null,
+      "duration_ms": 1113.7834590044804
+    },
+    {
+      "request_id": "eeb6f0e7-a9a7-4378-9fd9-45a4ed58f4b0",
+      "tool": "airflow_list_runs",
+      "observed_at": "2026-11-14T17:21:28.468621Z",
+      "status": "ok",
+      "evidence": {
+        "dag_runs": [
+          {
+            "start_date": "2026-11-14T14:54:53.302186Z",
+            "end_date": "2026-11-14T14:55:13.414325Z",
+            "duration": 20.112139,
+            "dag_id": "assignment_training",
+            "dag_run_id": "agent__20261114T145452_c2af24b9",
+            "state": "success",
+            "logical_date": null,
+            "negative_duration_reported": false
+          },
+          {
+            "start_date": "2026-11-14T13:28:03.246238Z",
+            "end_date": "2026-11-14T13:28:23.370475Z",
+            "duration": 20.124237,
+            "dag_id": "assignment_training",
+            "dag_run_id": "engineering__20261114T132643_recovery",
+            "state": "success",
+            "logical_date": null,
+            "negative_duration_reported": false
+          }
+        ],
+        "total_entries": 5,
+        "truncated": true
+      },
+      "error": null,
+      "duration_ms": 743.2463330042083
+    }
+  ]
+}

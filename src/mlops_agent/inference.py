@@ -94,7 +94,19 @@ def create_app(bundle_path: Path | None = None, app_version: str | None = None) 
             status_code=422,
             content={
                 "detail": "Invalid inference input",
-                "errors": [{"location": list(e["loc"]), "type": e["type"]} for e in exc.errors()],
+                "errors": [
+                    {
+                        # Locations can contain arbitrary caller-supplied keys.
+                        "location": [
+                            part
+                            if type(part) is int or part in {"body", "instances", *FEATURES}
+                            else "unknown_field"
+                            for part in e["loc"]
+                        ],
+                        "type": e["type"],
+                    }
+                    for e in exc.errors()
+                ],
                 "request_id": request.state.request_id,
             },
         )

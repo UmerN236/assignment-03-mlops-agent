@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field, ValidationError, model_validator
 from mlops_agent.airflow_tools import AirflowTools
 from mlops_agent.config import ConfigurationError, Settings, load_settings
 from mlops_agent.dvc_tools import DvcTools
+from mlops_agent.kubernetes_tools import OPERATIONS as KUBERNETES_READS
 from mlops_agent.kubernetes_tools import KubernetesTools
 from mlops_agent.mlflow_tools import MlflowTools
 from mlops_agent.provider import OpenRouterProvider, ProviderUnavailable
@@ -317,6 +318,14 @@ class Agent:
                             raise ProviderUnavailable("Service tool-call budget exhausted")
                         definition = registry.tools.get(name)
                         # Authorize before invocation, including custom registries used by hosts.
+                        if name.startswith("kubernetes_"):
+                            if name.removeprefix("kubernetes_") not in KUBERNETES_READS:
+                                raise ValueError
+                            # Enforce namespace/argument scope even if a host
+                            # accidentally registers an overly permissive schema.
+                            KUBERNETES_READS[name.removeprefix("kubernetes_")].model_validate(
+                                arguments
+                            )
                         if name == "airflow_trigger_training":
                             if (
                                 request.mode != "trigger_training"

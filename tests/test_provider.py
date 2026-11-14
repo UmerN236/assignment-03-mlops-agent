@@ -2,6 +2,8 @@
 
 import json
 import os
+from types import SimpleNamespace
+from unittest.mock import Mock
 
 import httpx
 import pytest
@@ -92,6 +94,24 @@ def test_provider_timeout_sanitized_and_not_retried():
 
     with pytest.raises(ProviderUnavailable, match="timed out"):
         provider(handler).complete([], [])
+
+
+def test_provider_deadline_checked_even_when_stream_keeps_responding(monkeypatch):
+    monkeypatch.setattr(
+        "mlops_agent.provider.time",
+        SimpleNamespace(monotonic=Mock(side_effect=[0, 61])),
+    )
+    handler = Mock(return_value=httpx.Response(200, json=response()))
+    with pytest.raises(ProviderUnavailable, match="deadline"):
+        provider(handler).complete([], [])
+    handler.assert_called_once()
+
+
+def test_provider_oversized_response_rejected_before_becoming_evidence():
+    handler = Mock(return_value=httpx.Response(200, content=b"x" * (2 * 1024 * 1024 + 1)))
+    with pytest.raises(ProviderUnavailable, match="size limit"):
+        provider(handler).complete([], [])
+    handler.assert_called_once()
 
 
 @pytest.mark.parametrize(
