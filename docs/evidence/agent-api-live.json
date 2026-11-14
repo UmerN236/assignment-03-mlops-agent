@@ -1,0 +1,111 @@
+{
+  "observed_at": "2026-11-14T16:01:56.614047+00:00",
+  "liveness_status": 200,
+  "invalid_status": 422,
+  "invalid_response": {
+    "error": "Invalid conversational request"
+  },
+  "chat_http_status": 200,
+  "conversation": {
+    "request_id": "a9f59ca9-1574-475f-ad92-9695051fd568",
+    "observed_at": "2026-11-14T16:02:13.261167Z",
+    "status": "complete",
+    "provider": {
+      "provider": "openrouter",
+      "requested_model": "openrouter/free",
+      "free_tier_verified": true,
+      "catalog_model_verified": true,
+      "free_router_filters_tool_support": true
+    },
+    "turns": [
+      {
+        "iteration": 1,
+        "model": "particle-ai/particle-1:free",
+        "cost": 0,
+        "duration_ms": 4247.7823329973035
+      },
+      {
+        "iteration": 2,
+        "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "cost": 0,
+        "duration_ms": 8992.924917023629
+      }
+    ],
+    "tool_calls": [
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "a9f59ca9-1574-475f-ad92-9695051fd568",
+          "tool": "kubernetes_health",
+          "observed_at": "2026-11-14T16:02:04.266599Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "service": "inference",
+            "transport": "GET service proxy",
+            "liveness": {
+              "status": "alive"
+            },
+            "readiness": {
+              "status": "ready",
+              "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+            },
+            "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+            "model": {
+              "run_id": "f1aa8c88b5d645418f17e18898805dba",
+              "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+              "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+              "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset": {
+                "path": "data/iris.csv",
+                "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+                "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+              },
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "sklearn_version": "1.7.2",
+              "numpy_version": "2.5.4",
+              "cloudpickle_version": "3.1.2"
+            },
+            "scope": "Service sampled one or more backends; use workloads for all replica states"
+          },
+          "error": null,
+          "duration_ms": 1338.1160419958178
+        }
+      }
+    ],
+    "policy_events": [],
+    "known_facts": [
+      {
+        "result_index": 0,
+        "tool": "kubernetes_health",
+        "pointer": "/model/run_id",
+        "observed_at": "2026-11-14T16:02:04.266599Z",
+        "value": "f1aa8c88b5d645418f17e18898805dba"
+      }
+    ],
+    "uncertainties": [
+      "Production readiness and retraining necessity are not established by best F1.",
+      "No approved freshness policy or current degradation measurements were supplied; historical controlled test failures do not establish production degradation."
+    ],
+    "recommendations": [
+      "Collect current degradation measurements and an explicit freshness/quality policy before deciding whether retraining is necessary."
+    ],
+    "correlation": {
+      "selected_run_id": null,
+      "selected_lineage_verified": false,
+      "deployed_run_id": "f1aa8c88b5d645418f17e18898805dba",
+      "candidate_is_deployed": null,
+      "candidate_is_production_ready": "not_established",
+      "observations_are_atomic_snapshot": false
+    },
+    "retraining": {
+      "decision": "not_established",
+      "initiated_by_assessment": false,
+      "policy": "Explicit training mode plus exact user confirmation required"
+    },
+    "error": null
+  },
+  "prompt": "Call kubernetes_health once to inspect the real inference service. Then finish with submit_answer citing result_index 0 and pointer /model/run_id. Recommend collect_degradation_evidence. Do not call other tools."
+}

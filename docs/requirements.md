@@ -72,21 +72,24 @@ Mocked test results do not satisfy a live demonstration requirement.
 
 ## Integrated agent - 15 marks
 
-- [ ] Use a supported LLM API or suitable agent framework with structured tool calling.
-- [ ] Validate structured tool inputs and outputs and support multi-tool requests.
-- [ ] Execute the complete mandatory prompt: best recent model, its recorded DVC
+- [x] Use a supported LLM API or suitable agent framework with structured tool calling.
+- [x] Validate structured tool inputs and outputs and support multi-tool requests.
+- [x] Execute the complete mandatory prompt: best recent model, its recorded DVC
       reference, Kubernetes status/health, and recent Airflow workflow states.
-- [ ] Correlate observations and distinguish known facts, uncertainties, and recommendations.
-- [ ] Never initiate retraining automatically from the mandatory prompt.
-- [ ] Recommend retraining only using a freshness policy, failed quality gate, or
+- [x] Correlate observations and distinguish known facts, uncertainties, and recommendations.
+- [x] Never initiate retraining automatically from the mandatory prompt.
+- [x] Recommend retraining only using a freshness policy, failed quality gate, or
       supplied degradation results.
+      The current host conservatively emits no retrain recommendation; it requests
+      policy/degradation evidence and reports necessity as not established.
+      [Live all-four transcript](evidence/agent.md), [agent contract](agent.md).
 
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      227 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/tool tests pass; later
-      service/authorization cases remain below.
-- [ ] Test successful tool selection and execution.
+      278 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/agent tests pass; later
+      failure-investigation requirements remain below.
+- [x] Test successful tool selection and execution.
 - [x] Test timeouts, invalid requests, and service failures (DVC cases).
 - [x] Test that an unavailable tool cannot produce invented operational results (registry/DVC).
 - [x] Test rejection of unauthorized Kubernetes modifications; read-only tool and live RBAC checks.
@@ -118,7 +121,7 @@ Mocked test results do not satisfy a live demonstration requirement.
       conversational trigger demonstration remains pending.
 - [x] Demonstrate Kubernetes diagnosis with actual health data and logs.
       [Direct tool export](evidence/kubernetes-live.json); LLM conversation remains pending.
-- [ ] Demonstrate multi-tool reasoning using all four technologies.
+- [x] Demonstrate multi-tool reasoning using all four technologies.
 - [ ] README covers installation, configuration, each service, tests, and interaction.
 - [ ] Short technical report covers architecture and tool definitions/permissions.
 - [ ] Report includes screenshots or exported evidence from all four integrations.

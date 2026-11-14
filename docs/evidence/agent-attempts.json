@@ -1,0 +1,327 @@
+{
+  "attempts": [
+    {
+      "request_id": "54484ba5-8cc8-4bfa-b83b-fa73e9a2466b",
+      "observed_at": "2026-11-14T15:49:22.351289Z",
+      "status": "unavailable",
+      "provider": {
+        "provider": "openrouter",
+        "requested_model": "openrouter/free",
+        "free_tier_verified": true,
+        "catalog_model_verified": true,
+        "free_router_filters_tool_support": true
+      },
+      "turns": [],
+      "error": "Provider returned invalid/incomplete structured tool calls",
+      "correlation": {
+        "selected_run_id": null,
+        "selected_lineage_verified": false,
+        "deployed_run_id": null,
+        "candidate_is_deployed": null,
+        "candidate_is_production_ready": "not_established",
+        "observations_are_atomic_snapshot": false
+      },
+      "actual_tool_statuses": []
+    },
+    {
+      "request_id": "b2a43abd-d091-49ec-88b4-699074be146c",
+      "observed_at": "2026-11-14T15:51:11.567850Z",
+      "status": "unavailable",
+      "provider": {
+        "provider": "openrouter",
+        "requested_model": "openrouter/free",
+        "free_tier_verified": true,
+        "catalog_model_verified": true,
+        "free_router_filters_tool_support": true
+      },
+      "turns": [],
+      "error": "Provider returned invalid/incomplete structured tool calls",
+      "correlation": {
+        "selected_run_id": null,
+        "selected_lineage_verified": false,
+        "deployed_run_id": null,
+        "candidate_is_deployed": null,
+        "candidate_is_production_ready": "not_established",
+        "observations_are_atomic_snapshot": false
+      },
+      "actual_tool_statuses": []
+    },
+    {
+      "request_id": "db16f9d4-01d6-4c2e-8063-7a55a8b8d6a1",
+      "observed_at": "2026-11-14T15:54:34.331491Z",
+      "status": "partial",
+      "provider": {
+        "provider": "openrouter",
+        "requested_model": "openrouter/free",
+        "free_tier_verified": true,
+        "catalog_model_verified": true,
+        "free_router_filters_tool_support": true
+      },
+      "turns": [
+        {
+          "iteration": 1,
+          "model": "particle-ai/particle-1:free",
+          "cost": 0,
+          "duration_ms": 2458.8892920000944
+        },
+        {
+          "iteration": 2,
+          "model": "nvidia/nemotron-3.5-lightning:free",
+          "cost": 0,
+          "duration_ms": 4881.354500015732
+        },
+        {
+          "iteration": 3,
+          "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+          "cost": 0,
+          "duration_ms": 13411.693624977488
+        },
+        {
+          "iteration": 4,
+          "model": "baidu/ernie-5.5-flash-preview:free",
+          "cost": 0,
+          "duration_ms": 2421.172292000847
+        },
+        {
+          "iteration": 5,
+          "model": "nvidia/nemotron-3.5-lightning:free",
+          "cost": 0,
+          "duration_ms": 24663.91350000049
+        },
+        {
+          "iteration": 6,
+          "model": "baidu/ernie-5.5-flash-preview:free",
+          "cost": 0,
+          "duration_ms": 3666.392834013095
+        }
+      ],
+      "error": "Provider response deadline exceeded",
+      "correlation": {
+        "selected_run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+        "selected_lineage_verified": true,
+        "deployed_run_id": "f1aa8c88b5d645418f17e18898805dba",
+        "candidate_is_deployed": false,
+        "candidate_is_production_ready": "not_established",
+        "observations_are_atomic_snapshot": false
+      },
+      "actual_tool_statuses": [
+        {
+          "tool": "mlflow_list_experiments",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:02.841051Z"
+        },
+        {
+          "tool": "airflow_list_runs",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:03.604710Z"
+        },
+        {
+          "tool": "kubernetes_workloads",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:05.215424Z"
+        },
+        {
+          "tool": "kubernetes_health",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:06.396655Z"
+        },
+        {
+          "tool": "kubernetes_services",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:07.522523Z"
+        },
+        {
+          "tool": "mlflow_select_best",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:15.665960Z"
+        },
+        {
+          "tool": "mlflow_get_run",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:32.126247Z"
+        },
+        {
+          "tool": "mlflow_get_run",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:35.175778Z"
+        },
+        {
+          "tool": "dvc_resolve_mlflow_run",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:40.724941Z"
+        },
+        {
+          "tool": "mlflow_model_versions",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:43.673851Z"
+        },
+        {
+          "tool": "dvc_get_data_status",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:44.691375Z"
+        },
+        {
+          "tool": "dvc_list_datasets",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:52:45.912183Z"
+        },
+        {
+          "tool": "mlflow_select_best",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:13.472208Z"
+        },
+        {
+          "tool": "mlflow_get_run",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:16.598258Z"
+        },
+        {
+          "tool": "mlflow_get_run",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:19.429693Z"
+        },
+        {
+          "tool": "dvc_resolve_mlflow_run",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:21.792527Z"
+        },
+        {
+          "tool": "mlflow_model_versions",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:24.524668Z"
+        },
+        {
+          "tool": "dvc_get_data_status",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:25.545176Z"
+        },
+        {
+          "tool": "dvc_list_datasets",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:26.627221Z"
+        },
+        {
+          "tool": "airflow_get_failed_tasks",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:31.005736Z"
+        },
+        {
+          "tool": "airflow_get_failed_tasks",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:31.695071Z"
+        },
+        {
+          "tool": "airflow_get_run",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:32.368983Z"
+        },
+        {
+          "tool": "airflow_get_run",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:33.048693Z"
+        },
+        {
+          "tool": "airflow_list_dags",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:53:33.693737Z"
+        }
+      ]
+    },
+    {
+      "request_id": "9ab9487c-c4d7-4119-b442-cc7b995f4889",
+      "observed_at": "2026-11-14T16:01:25.635648Z",
+      "status": "partial",
+      "provider": {
+        "provider": "openrouter",
+        "requested_model": "openrouter/free",
+        "free_tier_verified": true,
+        "catalog_model_verified": true,
+        "free_router_filters_tool_support": true
+      },
+      "turns": [
+        {
+          "iteration": 1,
+          "model": "nvidia/nemotron-3.5-super-vl:free",
+          "cost": 0,
+          "duration_ms": 1439.51691701659
+        },
+        {
+          "iteration": 2,
+          "model": "nvidia/nemotron-3.5-lightning:free",
+          "cost": 0,
+          "duration_ms": 4436.085583001841
+        },
+        {
+          "iteration": 3,
+          "model": "nvidia/nemotron-3.5-lightning:free",
+          "cost": 0,
+          "duration_ms": 7695.191041013459
+        },
+        {
+          "iteration": 4,
+          "model": "particle-ai/particle-1:free",
+          "cost": 0,
+          "duration_ms": 20191.30174999009
+        },
+        {
+          "iteration": 5,
+          "model": "nvidia/nemotron-3.5-super-vl:free",
+          "cost": 0,
+          "duration_ms": 5417.8380830271635
+        }
+      ],
+      "error": "Provider response deadline exceeded",
+      "correlation": {
+        "selected_run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+        "selected_lineage_verified": false,
+        "deployed_run_id": "f1aa8c88b5d645418f17e18898805dba",
+        "candidate_is_deployed": false,
+        "candidate_is_production_ready": "not_established",
+        "observations_are_atomic_snapshot": false
+      },
+      "http_status": 503,
+      "actual_tool_statuses": [
+        {
+          "tool": "kubernetes_health",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:59:35.782650Z"
+        },
+        {
+          "tool": "kubernetes_health",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:59:41.446962Z"
+        },
+        {
+          "tool": "kubernetes_health",
+          "status": "ok",
+          "observed_at": "2026-11-14T15:59:50.336503Z"
+        },
+        {
+          "tool": "mlflow_list_experiments",
+          "status": "ok",
+          "observed_at": "2026-11-14T16:00:13.458247Z"
+        },
+        {
+          "tool": "kubernetes_workloads",
+          "status": "ok",
+          "observed_at": "2026-11-14T16:00:14.767391Z"
+        },
+        {
+          "tool": "kubernetes_services",
+          "status": "ok",
+          "observed_at": "2026-11-14T16:00:15.928504Z"
+        },
+        {
+          "tool": "airflow_list_runs",
+          "status": "ok",
+          "observed_at": "2026-11-14T16:00:16.646236Z"
+        },
+        {
+          "tool": "mlflow_select_best",
+          "status": "ok",
+          "observed_at": "2026-11-14T16:00:25.075615Z"
+        }
+      ]
+    }
+  ]
+}

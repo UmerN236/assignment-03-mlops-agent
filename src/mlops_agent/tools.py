@@ -1,5 +1,6 @@
 """Provider-neutral structured tool registry and secret-safe result envelope."""
 
+import json
 import logging
 import time
 from collections.abc import Callable
@@ -65,7 +66,14 @@ class ToolRegistry:
             if definition is None:
                 raise ToolFailure("Tool is not registered", "unavailable")
             validated = definition.input_model.model_validate(arguments)
-            evidence = definition.handler(validated)
+            candidate = definition.handler(validated)
+            try:
+                if not isinstance(candidate, dict):
+                    raise TypeError
+                json.dumps(candidate, allow_nan=False)
+            except (TypeError, ValueError):
+                raise ToolFailure("Tool returned invalid JSON evidence") from None
+            evidence = candidate
         except (ValidationError, ValueError):
             status, error = "invalid_request", "Invalid tool arguments or disallowed path/revision"
         except ToolFailure as exc:

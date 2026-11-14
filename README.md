@@ -3,6 +3,13 @@
 A Python agent for dataset provenance, experiment comparison, training workflow
 operations, and Kubernetes application diagnosis.
 
+## Conversational agent
+
+Use `make agent` for the mandatory read-only all-four-service assessment and
+`make agent-api` for the local FastAPI `/chat` endpoint on loopback port 8090.
+See [configuration, permissions and examples](docs/agent.md) and
+[real provider/service evidence](docs/evidence/agent.md).
+
 ## Project status
 
 The reproducible development environment, validated configuration, initial tests,
@@ -23,8 +30,10 @@ The Airflow 3 training DAG is verified with real smoke, validation/gate failure,
 and recovery runs; see [workflow setup](docs/airflow.md) and
 [live evidence](docs/evidence/airflow-dag.md). Six authenticated Airflow tools now
 provide DAG/run inspection, explicit approved-DAG triggering and task diagnostics; see [tool evidence](docs/evidence/airflow-tools.md).
-The conversational agent remains pending.
-This repository does not yet provide a runnable operations agent.
+The conversational agent now runs through the selected free OpenRouter API with
+validated native tool calls, read-only assessments and explicit training authorization.
+[Actual integrated evidence](docs/evidence/agent.md) verifies all four technologies.
+The five-conversation demonstration, readiness failure exercise and final report remain pending.
 
 ## Development setup
 
@@ -59,8 +68,8 @@ the bootstrap credential for subsequent clients.
 
 The dedicated cluster/context is `mlops-assignment3` / `kind-mlops-assignment3`;
 the assignment namespace is `mlops-agent`. Kubeconfig stays in `.local/kubeconfig`.
-Bootstrap commands create infrastructure as an engineer; future agent tools must
-still enforce read-only defaults and exact confirmations for writes.
+Bootstrap commands create infrastructure as an engineer; agent tools enforce
+read-only defaults, restricted credentials and explicit training authorization.
 
 See [development notes](docs/development.md) for version decisions, service paths,
 Linux CI instructions, and current limitations.
@@ -98,8 +107,8 @@ Reads are the default. A training request requires the CLI's `--allow-trigger`,
 `confirmation="trigger assignment_training"`, and a unique `agent__...` run ID.
 See [all six tools, authentication and limits](docs/airflow.md#agent-facing-tools).
 The verifier's invocation explicitly authorizes its single training run; it does
-not promote or deploy a model. The conversational authorization layer remains
-part of the pending agent implementation.
+not promote or deploy a model. The conversational host separately binds training capability to explicit user mode
+and confirmation; see [agent permissions](docs/agent.md#permissions-and-retraining).
 
 ## DVC tools
 
