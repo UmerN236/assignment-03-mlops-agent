@@ -15,6 +15,7 @@ def test_worker_is_bounded_no_shell_or_inherited_secrets(monkeypatch, caplog):
         assert argv == ["/opt/training/bin/python", "-m", "mlops_agent.pipeline", "validation"]
         assert kwargs["timeout"] == 240 and kwargs["shell"] is False
         assert "OPENROUTER_API_KEY" not in kwargs["env"]
+        assert kwargs["env"]["MLFLOW_SUPPRESS_PRINTING_URL_TO_STDOUT"] == "true"
         assert kwargs["env"]["MLFLOW_TRACKING_URI"] == "http://mlflow:5000"
         return SimpleNamespace(returncode=0, stdout='{"status":"ok","evidence":{}}')
 

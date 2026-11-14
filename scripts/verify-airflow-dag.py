@@ -125,7 +125,7 @@ def main():
     graph_script = (
         "import json,runpy; d=runpy.run_path('/opt/project/dags/training_pipeline.py')"
         "['training_pipeline'](); print(json.dumps({t.task_id:{'downstream':sorted("
-        "t.downstream_task_ids),'retries':t.retries,'trigger_rule':str(t.trigger_rule),"
+        "t.downstream_task_ids),'retries':t.retries,'trigger_rule':t.trigger_rule.value,"
         "'execution_timeout_seconds':t.execution_timeout.total_seconds()} for t in d.tasks}))"
     )
     graph_result = subprocess.run(

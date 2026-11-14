@@ -26,6 +26,7 @@ def run_stage(operation: str, request: dict) -> dict:
         "MLFLOW_HTTP_REQUEST_TIMEOUT": "20",
         "MLFLOW_HTTP_REQUEST_MAX_RETRIES": "0",
         "MLFLOW_ENABLE_ASYNC_LOGGING": "false",
+        "MLFLOW_SUPPRESS_PRINTING_URL_TO_STDOUT": "true",
         "OMP_NUM_THREADS": "1",
         "OPENBLAS_NUM_THREADS": "1",
         "NETRC": os.devnull,
