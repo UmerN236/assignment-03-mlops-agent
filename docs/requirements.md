@@ -42,7 +42,8 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] Demonstrate a real DAG run and its actual task states.
       [Workflow policy](airflow.md), [four real runs and both failure retries](evidence/airflow-dag.md).
       Six authenticated tools and a real returned trigger/run ID are verified in
-      [tool evidence](evidence/airflow-tools.md); conversational authorization remains pending.
+      [tool evidence](evidence/airflow-tools.md); conversational authorization is
+      enforced by the host and covered in [agent policy/tests](agent.md).
 
 ## Kubernetes application operations - 15 marks
 
@@ -87,7 +88,7 @@ Mocked test results do not satisfy a live demonstration requirement.
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      302 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/agent tests pass; later
+      310 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/agent/isolation tests pass; later
       failure-investigation requirements remain below.
 - [x] Test successful tool selection and execution.
 - [x] Test timeouts, invalid requests, and service failures across adapters/provider.
@@ -107,8 +108,11 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] Provide a reproducible Python environment with pinned/resolved dependencies.
       `pyproject.toml`, `uv.lock`, `make setup`, and environment bootstrap evidence.
 - [x] GitHub Actions runs linting and automated tests on pull requests.
-      [Environment PR run](https://github.com/UmerN236/assignment-03-mlops-agent/actions/runs/43563756356)
-      passed frozen setup, lint, format, and pytest on Linux.
+      [Verified reliability PR run](https://github.com/UmerN236/assignment-03-mlops-agent/actions/runs/43620915402)
+      passed frozen setup, lint, format, and pytest on Linux. The consolidated
+      [workflow](../.github/workflows/ci.yaml) checks lock consistency and runs
+      the same `make check` target on Ubuntu 24.04; current revision results
+      must be checked in Actions before integration.
 - [x] CI does not require live external services or production credentials.
 - [x] Do not commit API keys, kubeconfig, service-account tokens, or other secrets.
       Staged secret scan passed; `.local/` and `.env` are ignored and untracked.
@@ -124,7 +128,9 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] Demonstrate Kubernetes diagnosis with actual health data and logs.
       [Direct tool export](evidence/kubernetes-live.json); LLM conversation remains pending.
 - [x] Demonstrate multi-tool reasoning using all four technologies.
-- [ ] README covers installation, configuration, each service, tests, and interaction.
+- [x] README covers installation, configuration, each service, tests, and interaction.
+      [Runbook](../README.md) distinguishes existing runtime startup from fresh-machine
+      historical model/image prerequisites; full reproduction audit remains pending.
 - [ ] Short technical report covers architecture and tool definitions/permissions.
 - [ ] Report includes screenshots or exported evidence from all four integrations.
 - [ ] Report includes five tested conversations linked to actual tool evidence.

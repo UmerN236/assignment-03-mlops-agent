@@ -2,7 +2,8 @@
 
 `assignment_training` is a manually triggered Airflow **3.1.3 / Python 3.12**
 TaskFlow DAG. It has no scheduled retraining. Six agent-facing tools are available
-below; the conversational orchestration layer remains pending. The build and DAG
+below; the [conversational host](agent.md) binds training capability to the explicit
+user request and confirmation. The build and DAG
 verification commands here are explicit engineering operations.
 
 ```sh
@@ -121,8 +122,8 @@ explicit user training request**. This capability is not a model-supplied argume
 The tool additionally requires `confirmation="trigger assignment_training"` and
 rejects other DAGs, arbitrary configuration, paths, map indexes and extra fields
 before HTTP. Ordinary read clients reject triggers even with that confirmation.
-A future conversational host must bind this capability to the actual user request;
-the literal confirmation alone is not proof of human authorization. Assessment
+The conversational host binds this capability to the user-supplied training mode
+and confirmation; the literal tool argument alone cannot authorize it. Assessment
 requests must use a read-only instance. Tools never unpause, backfill, clear tasks,
 change registry aliases, deploy, or automatically initiate retraining.
 

@@ -1,19 +1,9 @@
 """Configuration safety tests run without credentials or live services."""
 
-import os
-
 import pytest
 from pydantic import ValidationError
 
 from mlops_agent.config import ConfigurationError, Settings, load_settings
-
-
-@pytest.fixture(autouse=True)
-def isolated_environment(monkeypatch):
-    names = set(Settings.model_fields)
-    for name in os.environ:
-        if name.lower() in names:
-            monkeypatch.delenv(name)
 
 
 def test_defaults_are_bounded_and_dedicated():

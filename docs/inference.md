@@ -94,5 +94,7 @@ services; Docker verification is separately observed live evidence. Local
 readiness is process/model availability, not a production approval or drift check.
 The [live verification export](evidence/inference.md) records the tested image,
 exact provenance, holdout agreement and negative HTTP cases.
-Kubernetes replicas, probes, resources, ConfigMap and operations tools belong to
-the next milestone and remain pending.
+Kubernetes replicas, probes, resources, ConfigMap and read-only operations tools
+are verified in the [cluster runbook](kubernetes.md) and its linked live evidence.
+The running historical image predates the latest source validation-error
+redaction fix; a new reviewed image build/deployment remains for reproduction.

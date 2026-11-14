@@ -36,10 +36,15 @@ production scheduler architecture.
 `.venv/` sits at the workspace root. Native TLS verification stays enabled, and
 copy linking avoids macOS file-cloning failures in restricted workspaces. The
 installer currently targets Darwin arm64. On Linux with uv 0.9.9 already available,
-run `uv sync --frozen --python 3.12.12`, then `uv run ruff check .`,
-`uv run ruff format --check .`, and `uv run pytest`. CI follows these commands and
-needs neither Docker nor API keys. Dependency changes require an intentional
-`uv lock` and review of the updated lockfile; normal setup uses `--frozen`.
+run `uv lock --check`, `uv sync --frozen --python 3.12.12`, then
+`make check UV=uv`. CI uses Ubuntu 24.04 and these same checks, with SHA-pinned
+Node 24 [checkout](https://github.com/actions/checkout/tree/v5) and
+[setup-uv](https://github.com/astral-sh/setup-uv/tree/v7) actions. It needs neither
+Docker nor API keys. Shared pytest fixtures remove application settings from the
+process environment and block in-process TCP connections, including localhost;
+service calls use mocks while sklearn and ASGI tests execute locally. This is a
+test guard, not a network sandbox for subprocesses. Dependency changes require an
+intentional `uv lock` and review of the updated lockfile; normal setup uses `--frozen`.
 
 `make services` uses a fixed Compose project and container names with the
 `mlops-assignment3` prefix. It does not import `.env` into Compose. Runtime preparation
@@ -78,13 +83,15 @@ Kubernetes context. `make smoke` reads real MLflow experiments, checks authentic
 Airflow access and scheduler components, and inspects cluster nodes/namespace. Its
 JSON contains allowlisted observations only; failures expose an error type, not
 HTTP bodies, credentials, or subprocess stderr. This bootstrap check is separate
-from the future agent's callable operational tools.
+from the agent's individually callable operational tools.
 
 ## Provider boundary
 
 The [OpenRouter free router documentation](https://openrouter.ai/docs/guides/routing/routers/free-router)
 describes free model routing filtered for required capabilities, including tool
 calling. Availability and rate limits can change. A completed bootstrap check
-proves connectivity at the recorded time, not continuous availability or agent
-functionality. The future provider adapter still needs schema validation, bounded
-iterations, timeouts, quota handling, and a live multi-service conversation.
+proves connectivity at the recorded time, not continuous availability.
+The implemented [provider adapter](agent.md) validates native tool calls, bounds
+iterations and requests, handles quota/timeouts, and enforces free-only routing.
+The [integrated live conversation](evidence/agent.md) records actual all-four-service
+observations. Current availability is rechecked before each live conversation.

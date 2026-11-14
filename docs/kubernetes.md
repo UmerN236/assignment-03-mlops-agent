@@ -108,8 +108,10 @@ predictions/probabilities to an independent local artifact reload, and checks
 invalid input receives 422. It writes [sanitized evidence](evidence/kubernetes-live.json).
 Ordinary pytest/CI mocks Kubernetes and needs no live credential.
 
-Controlled readiness-probe and malformed training-input investigations, the
-Airflow workflow, and integrated LLM conversations are later milestones. Current
+The controlled readiness-probe investigation and complete five-conversation
+demonstration remain pending. Isolated malformed training-input failure/recovery
+and the Airflow workflow are recorded in [workflow evidence](evidence/airflow-dag.md);
+the integrated LLM assessment is in [agent evidence](evidence/agent.md). Current
 health is a point-in-time observation, not a quality gate or retraining signal.
 
 References checked for setup: [Kubernetes RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/),

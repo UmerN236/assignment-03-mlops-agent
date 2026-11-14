@@ -1,166 +1,203 @@
 # MLOps AI Agent
 
-A Python agent for dataset provenance, experiment comparison, training workflow
-operations, and Kubernetes application diagnosis.
+An evidence-backed Python operations agent for DVC dataset provenance, MLflow
+experiment comparison, Airflow 3 training workflows and Kubernetes diagnosis.
+It uses native structured tool calls through the configured free OpenRouter
+model. Responses separate observed facts, unknowns and recommendations.
 
-## Conversational agent
+The four service adapters and the integrated read-only conversation are
+implemented and live-verified. See [architecture](architecture.md),
+[acceptance checklist](docs/requirements.md), [reliability audit](docs/reliability.md)
+and [actual integrated evidence](docs/evidence/agent.md). Five complete
+conversations, the Kubernetes readiness failure exercise, the final report and
+fresh-machine reproduction audit remain pending. Evidence records observations
+at their timestamps, rather than guaranteeing current service health.
 
-Use `make agent` for the mandatory read-only all-four-service assessment and
-`make agent-api` for the local FastAPI `/chat` endpoint on loopback port 8090.
-See [configuration, permissions and examples](docs/agent.md) and
-[real provider/service evidence](docs/evidence/agent.md).
+## Install and test
 
-## Project status
-
-The reproducible development environment, validated configuration, initial tests,
-CI, and local service bootstrap are implemented. Service observations are recorded
-in [environment evidence](docs/evidence/environment.md). The first deterministic
-Iris dataset has two genuine DVC revisions; see [data bootstrap](docs/data.md).
-Seven DVC tools and seven MLflow tools are callable through structured registries
-and command-line helpers. Five real training runs across two experiments and a
-registered model candidate have been verified; see [MLflow evidence](docs/evidence/mlflow.md).
-The versioned inference API and exact-artifact image packaging are implemented
-and verified in Docker against all 45 holdout predictions; see
-[inference setup](docs/inference.md) and [live evidence](docs/evidence/inference.md).
-Five read-only Kubernetes tools and a two-replica kind deployment are verified:
-Service DNS/ClusterIP routing, prediction, logs/events, deployed lineage, and
-RBAC denials. See [Kubernetes setup](docs/kubernetes.md) and
-[live evidence](docs/evidence/kubernetes.md).
-The Airflow 3 training DAG is verified with real smoke, validation/gate failure,
-and recovery runs; see [workflow setup](docs/airflow.md) and
-[live evidence](docs/evidence/airflow-dag.md). Six authenticated Airflow tools now
-provide DAG/run inspection, explicit approved-DAG triggering and task diagnostics; see [tool evidence](docs/evidence/airflow-tools.md).
-The conversational agent now runs through the selected free OpenRouter API with
-validated native tool calls, read-only assessments and explicit training authorization.
-[Actual integrated evidence](docs/evidence/agent.md) verifies all four technologies.
-The five-conversation demonstration, readiness failure exercise and final report remain pending.
-The [reliability audit](docs/reliability.md) maps safety requirements to automated
-tests and records fixes for malformed responses, lineage identity and redaction.
-
-## Development setup
-
-On Apple Silicon macOS, with Docker Desktop running, Git, curl, and make installed:
+Run commands from the repository root. The local tool installer supports **Apple
+Silicon macOS** and requires Git, curl, make and a running Docker Desktop for live
+services. It installs checksum-verified binaries inside the checkout. Python
+3.12.12 and uv 0.9.9 are pinned; Airflow has its own Python 3.12 container runtime.
 
 ```sh
-make tools    # checksum-verified uv, kind, kubectl under .local/bin
-make setup    # project-local Python 3.12.12 and frozen uv.lock
-# Only create a template if there is no existing .env:
+make tools
+make setup                  # project-local Python and frozen uv.lock
+# Preserve any existing configuration:
 test -e .env || cp .env.example .env
-make config   # allowlisted presence booleans; never prints key values
-make check    # lint, format check, and pytest; no live service credentials needed
-make services
-make cluster
-make smoke    # real, read-only service checks; fails if a dependency is unavailable
+make config                 # presence booleans only; never prints keys
+make check                  # Ruff lint + format check + pytest
 ```
 
-Use `LLM_PROVIDER=openrouter` with `OPENROUTER_API_KEY` and
-`OPENROUTER_MODEL=openrouter/free` (or an explicitly configured `:free` model).
-`LLM_MODEL` takes precedence over provider-specific model names. Empty template
-entries use defaults. The loader rejects implicit/paid OpenRouter models and
-does not fall back between providers. A Gemini integration and its model/free-tier
-verification remain pending. Keep existing credentials intact; never commit `.env`.
+Tests require neither Docker nor live API credentials. All external service
+transports are mocked. Shared fixtures clear application environment overrides
+and reject in-process IPv4/IPv6 TCP connections, including loopback; local sklearn
+training/serialization and in-process ASGI tests still run. This guard does not
+sandbox child processes. Live verification scripts are separate, explicit commands.
 
-Services bind only to loopback: MLflow at `http://127.0.0.1:5000` and Airflow at
-`http://127.0.0.1:8080`. Airflow uses SimpleAuthManager, not an authentication bypass.
-The bootstrap creates a random local admin password once, in ignored runtime
-storage. The smoke script exchanges it for a JWT in memory and tests the public
-`/api/v2/dags` endpoint without displaying either credential. Explicit
-`AIRFLOW_TOKEN` or `AIRFLOW_USERNAME`/`AIRFLOW_PASSWORD` configuration can override
-the bootstrap credential for subsequent clients.
-
-The dedicated cluster/context is `mlops-assignment3` / `kind-mlops-assignment3`;
-the assignment namespace is `mlops-agent`. Kubeconfig stays in `.local/kubeconfig`.
-Bootstrap commands create infrastructure as an engineer; agent tools enforce
-read-only defaults, restricted credentials and explicit training authorization.
-
-See [development notes](docs/development.md) for version decisions, service paths,
-Linux CI instructions, and current limitations.
-
-## Airflow training DAG
+On Linux with uv 0.9.9 installed:
 
 ```sh
-# Requires clean committed code and bootstrapped DVC data:
-make airflow-image
-# Explicit engineering smoke + isolated validation/gate failures + recovery:
-make verify-airflow-dag
+uv lock --check              # fail if metadata and resolution disagree
+uv sync --frozen --python 3.12.12
+make check UV=uv
 ```
 
-The five required stages run sequentially with retries, bounded execution and
-structured logs. A sixth task approves only candidates that pass the fixed
-quality gate. Artifacts persist across tasks; the scientific runtime is isolated
-from Airflow, and MLflow models reload over container-network HTTP. No registry
-promotion or Kubernetes deployment is automatic. See the [workflow policy and
-authentication runbook](docs/airflow.md).
+[Pull-request CI](.github/workflows/ci.yaml) runs these lock/install/check steps
+on Ubuntu 24.04, using SHA-pinned Node 24 actions, a read-only repository token
+and no service credentials. New pushes cancel an obsolete check for the same
+ref. The same `make check` target runs locally and in Actions. Inspect actual
+[Actions runs](https://github.com/UmerN236/assignment-03-mlops-agent/actions)
+for the revision being reviewed; an earlier green run does not validate new code.
+Dependency changes require an intentional `uv lock` and lockfile review.
 
-## Airflow tools
+## Configure and start services
+
+Edit only needed entries in the existing ignored `.env`. Set
+`LLM_PROVIDER=openrouter`, `OPENROUTER_API_KEY` and a configured free route such as
+`OPENROUTER_MODEL=openrouter/free`. `LLM_MODEL` overrides provider-specific model
+names. The adapter checks current account/model metadata and requires free
+pricing and native tool support; no paid/provider fallback exists. Empty entries
+use defaults. Missing keys leave the live conversation unavailable while tests
+and independent service work can continue. The Gemini adapter is unimplemented.
+
+For an existing assignment checkout, these commands preserve its runtime state:
 
 ```sh
-PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py list_dags
-PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py list_runs --arguments '{"limit":5}'
-PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py get_run \
-  --arguments '{"dag_run_id":"ACTUAL_RETURNED_RUN_ID"}'
-# Print input/output schemas without making service requests:
-PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py list_dags --schemas
-# Explicitly creates one canonical training run and verifies diagnostics:
-make verify-airflow-tools
+make services               # dedicated MLflow + Airflow Compose services
+make data-bootstrap         # verify recipe/hash, populate DVC cache/local remote
+make cluster                # create/reuse only the dedicated kind cluster
+make smoke                  # real read-only service/auth/cluster observations
 ```
 
-Reads are the default. A training request requires the CLI's `--allow-trigger`,
-`confirmation="trigger assignment_training"`, and a unique `agent__...` run ID.
-See [all six tools, authentication and limits](docs/airflow.md#agent-facing-tools).
-The verifier's invocation explicitly authorizes its single training run; it does
-not promote or deploy a model. The conversational host separately binds training capability to explicit user mode
-and confirmation; see [agent permissions](docs/agent.md#permissions-and-retraining).
+| Component | Address / state | Setup and review |
+| --- | --- | --- |
+| DVC | `data/iris.csv.dvc`, ignored `.local/dvc-remote` | [Recipe, historical restore and remote access](docs/data.md) |
+| MLflow 3.6.0 | `http://127.0.0.1:5000`; dedicated Docker volume | [Training, runs, metrics, models and lineage](docs/mlflow.md) |
+| Airflow 3.1.3 | `http://127.0.0.1:8080`; dedicated metadata/log volume | [Authenticated API, DAG and diagnostics](docs/airflow.md) |
+| Inference | Two replicas, ClusterIP `inference:8000` in `mlops-agent` | [Model packaging](docs/inference.md), [deployment and RBAC](docs/kubernetes.md) |
+| Conversational API | `http://127.0.0.1:8090` after `make agent-api` | [API, schemas, bounds and permissions](docs/agent.md) |
 
-## DVC tools
+Airflow uses SimpleAuthManager with authentication enabled. Bootstrap creates a
+random admin password only when absent, in ignored local runtime storage. Clients
+exchange it for an in-memory JWT and use `/api/v2`; smoke checks prove anonymous
+access is denied. Explicit `AIRFLOW_TOKEN` or `AIRFLOW_USERNAME`/`AIRFLOW_PASSWORD`
+take precedence. Never print or export password/token files.
+
+`make cluster` uses `mlops-assignment3`, context `kind-mlops-assignment3` and
+namespace `mlops-agent`, with engineer kubeconfig `.local/kubeconfig`. It does
+not switch the global context. Agent tools use only `.local/kubeconfig-agent`
+(or `KUBERNETES_READONLY_KUBECONFIG`), with no administrator fallback. Its token
+expires; the [deployment runbook](docs/kubernetes.md) explains refresh/setup.
+`make services` reuses the locally selected custom Airflow image if present.
+
+## Populate a fresh environment
+
+Data regeneration needs no remote download: `make data-bootstrap` verifies the
+committed v2 MD5 before populating the local DVC remote. Historical recovery uses
+an isolated checkout and that revision's recipe or an authorized object store.
+The local remote is not uploaded to GitHub.
+
+After services and data are ready, the following are **explicit engineering
+writes**, separate from read-only agent assessment:
 
 ```sh
-make data-bootstrap
+make train-models           # five real runs across two experiments; preserves history
+make verify-mlflow          # inspect actual runs, metrics, artifacts and registry
+make airflow-image         # build committed code + training runtime; recreate only Airflow
+make smoke                  # wait for healthy services before workflow operations
+```
+
+Image builds require clean committed code so recorded Git SHAs identify the
+executed source. The initial Airflow base service has no training DAG until
+`make airflow-image`. Its stages are validation -> preprocessing -> training ->
+evaluation/MLflow -> quality gate -> candidate approval, with retries and
+persistent artifacts. Validation/gate failure blocks approval. No automatic
+registry promotion or deployment occurs.
+
+Inference packaging uses the exact historical run/model/hash in
+[`model-selection.json`](infra/inference/model-selection.json), rather than
+selecting a newly trained run silently. A fresh machine needs the original
+tracking state or a trusted validated bundle; new runs have different IDs.
+A replacement requires an explicit reviewed selection and artifact-hash update
+following the [packaging runbook](docs/inference.md). Then `make inference-image`
+builds a versioned image. Kubernetes setup currently pins the previously verified
+image and its evidence: a new build additionally requires an explicit update of
+the manifest and deployment/verifier references as described in the
+[Kubernetes runbook](docs/kubernetes.md). `make deploy-kubernetes` must not be
+presented as a fresh-machine one-command reproduction until those inputs agree.
+
+Live verifiers write sanitized exports and may refuse an existing different
+owned image or changed bundle. Inspect those failures; do not erase existing
+runtime state to make a command pass. `make verify-airflow-dag` deliberately
+creates smoke, isolated malformed-input, quality-gate-failure and recovery runs.
+`make verify-airflow-tools` authorizes one canonical training run; use its
+`--resume` option after an interrupted observation to avoid a duplicate trigger.
+These commands are not part of ordinary CI.
+
+## Talk to the agent
+
+With configured services and a free provider key:
+
+```sh
+make agent                  # mandatory read-only all-four-service assessment
+PYTHONPATH=src .venv/bin/python scripts/agent.py \
+  'Read inference deployment health and application version' --mode query
+make agent-api              # foreground, loopback port 8090; separate terminal
+```
+
+In another terminal:
+
+```sh
+curl -sS http://127.0.0.1:8090/livez
+curl -sS http://127.0.0.1:8090/chat \
+  -H 'Content-Type: application/json' \
+  -d '{"mode":"assessment","message":"Find the best recent model, identify the dataset version used to train it, check the deployment status, and explain whether retraining is necessary."}'
+```
+
+`/docs` provides request/response schemas. `/livez` proves process liveness only.
+`/chat` returns actual tool observations, request ID, correlated lineage and
+known/unknown/recommendation fields. Partial/unavailable conversations return 503
+and retain prior evidence; invalid requests return sanitized 422. CLI exits
+nonzero for partial results. Provider quota, model availability and deadlines can
+cause failure; there is no automatic paid retry. `make verify-agent` spends live
+free quota. To validate an existing real conversation without a provider request:
+
+```sh
+PYTHONPATH=src .venv/bin/python scripts/verify-agent.py --from-json docs/evidence/agent-live.json
+```
+
+Query and assessment expose read tools only: DVC 7, MLflow 7, Kubernetes 5,
+Airflow 5. Training requires user-supplied `--mode trigger_training` plus exact
+`--confirmation 'trigger assignment_training'`; see [training example and
+policy](docs/agent.md#permissions-and-retraining). A model cannot authorize itself.
+Kubernetes writes are unsupported and rejected. Highest F1, historical controlled
+failures or a candidate/deployed mismatch do not establish retraining necessity;
+the agent reports missing freshness/degradation evidence and never retrains
+from the mandatory assessment.
+
+## Inspect services directly
+
+Each adapter has at least three individually callable tools. Examples:
+
+```sh
 make data-status
 PYTHONPATH=src .venv/bin/python scripts/dvc-tool.py --schemas
 PYTHONPATH=src .venv/bin/python scripts/dvc-tool.py dvc_get_dataset_version '{}'
-PYTHONPATH=src .venv/bin/python scripts/dvc-tool.py dvc_list_datasets '{}'
-PYTHONPATH=src .venv/bin/python scripts/verify-dvc.py
-```
-
-The verification script creates isolated clones under ignored local storage,
-checks an earlier committed dataset out, pulls from the real local DVC remote,
-detects changed data and restores cached bytes. A second clone rebuilds the data
-with no pre-existing cache or remote. It exports real tool responses to
-[DVC evidence](docs/evidence/dvc-bootstrap.json). It reuses the installed frozen
-Python runtime. See [dataset operations](docs/data.md) for inputs, safety policy,
-fresh-clone instructions and MLflow lineage integration limits.
-
-## MLflow training and inspection
-
-```sh
-# Training requires committed code/data metadata and preserves existing runs:
-make train-models
-make verify-mlflow
 PYTHONPATH=src .venv/bin/python scripts/mlflow-tool.py mlflow_list_experiments '{}'
-PYTHONPATH=src .venv/bin/python scripts/mlflow-tool.py mlflow_compare_experiments \
-  '{"experiment_ids":["1","2"],"metric":"f1_macro","direction":"maximize","limit":5}'
+PYTHONPATH=src .venv/bin/python scripts/airflow-tool.py list_runs --arguments '{"limit":5}'
+PYTHONPATH=src .venv/bin/python scripts/kubernetes-tool.py workloads
+PYTHONPATH=src .venv/bin/python scripts/kubernetes-tool.py health
 ```
 
-Use experiment IDs returned by your tracking service. See [MLflow operations](docs/mlflow.md)
-for exact schemas, deterministic split policy, artifacts and lineage. Comparison
-tools honor metric direction and refuse a global winner across incompatible
-evaluation cohorts. A high held-out F1 or registry READY state does not establish
-production readiness or justify retraining. Training is an explicit engineering
-command; all exposed MLflow tools are read-only. The DVC run resolver now retrieves
-real MLflow parameters through the same bounded client worker.
+Use actual returned experiment/run/Pod IDs for follow-up reads. Complete schemas,
+metric direction/cohort rules and timeout/error behavior are in the linked
+service runbooks. For inference HTTP review, use the explicit loopback
+port-forward in [Kubernetes setup](docs/kubernetes.md), then `/readyz`, `/version`
+and the named-feature `/predict` example in [inference setup](docs/inference.md).
 
-## Intended capabilities
-
-- Inspect DVC datasets, revisions, differences, and reproducibility references.
-- Compare recorded MLflow runs and retrieve metrics, artifacts, and model metadata.
-- Inspect and explicitly trigger an approved Airflow 3 training DAG.
-- Diagnose a FastAPI inference service running in an approved Kubernetes namespace.
-- Combine tool evidence into responses that distinguish facts, unknowns, and
-  recommended actions.
-
-See [architecture.md](architecture.md) for the design and
-[docs/requirements.md](docs/requirements.md) for acceptance criteria.
-
-Interaction instructions will accompany the agent implementation. Secrets,
-credentials, and local runtime data must remain outside version control.
+The repository is private. `.env`, credentials, kubeconfigs, local notes and
+runtime artifacts stay ignored. Reviewer access and submission remain manual
+user steps; repository access alone does not provide historical MLflow volumes
+or the local DVC object store. [Development notes](docs/development.md) describe
+container paths, version decisions and limitations.

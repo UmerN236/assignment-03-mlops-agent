@@ -2,7 +2,6 @@
 
 import json
 import logging
-import os
 from pathlib import Path
 
 import httpx
@@ -21,14 +20,6 @@ from mlops_agent.agent_api import create_app
 from mlops_agent.config import Settings
 from mlops_agent.provider import Call, OpenRouterProvider, ProviderUnavailable, Turn
 from mlops_agent.tools import ToolDefinition, ToolFailure, ToolInput, ToolRegistry
-
-
-@pytest.fixture(autouse=True)
-def isolate_settings_environment(monkeypatch):
-    for name in tuple(os.environ):
-        if name.lower() in Settings.model_fields:
-            monkeypatch.delenv(name)
-
 
 RUN = "a" * 32
 SHA = "b" * 40

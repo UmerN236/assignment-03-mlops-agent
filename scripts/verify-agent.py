@@ -24,7 +24,15 @@ parser.add_argument(
 args = parser.parse_args()
 configure_logging()
 if args.from_json:
-    result = ConversationResult.model_validate_json(args.from_json.read_text())
+    try:
+        captured = json.loads(args.from_json.read_text())
+        # Accept both the raw CLI response and this verifier's own exported envelope.
+        # Checks below are always recomputed; captured check flags are not trusted.
+        if isinstance(captured, dict) and "conversation" in captured:
+            captured = captured["conversation"]
+        result = ConversationResult.model_validate(captured)
+    except (OSError, ValueError):
+        parser.error("Captured conversation is unreadable or does not match the response schema")
 else:
     result = Agent(load_settings()).run(ChatRequest(message=MANDATORY_PROMPT, mode="assessment"))
 names = {c["result"]["tool"] for c in result.tool_calls}

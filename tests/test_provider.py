@@ -1,7 +1,6 @@
 """Supported OpenRouter wire protocol and failure handling with safe mock transport."""
 
 import json
-import os
 from types import SimpleNamespace
 from unittest.mock import Mock
 
@@ -10,13 +9,6 @@ import pytest
 
 from mlops_agent.config import Settings
 from mlops_agent.provider import OpenRouterProvider, ProviderUnavailable
-
-
-@pytest.fixture(autouse=True)
-def isolate_settings_environment(monkeypatch):
-    for name in tuple(os.environ):
-        if name.lower() in Settings.model_fields:
-            monkeypatch.delenv(name)
 
 
 def provider(handler, **kwargs):

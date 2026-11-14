@@ -5,17 +5,30 @@ on:
     branches: [main]
 permissions:
   contents: read
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   lint-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
+    env:
+      UV_PYTHON: "3.12.12"
+      DVC_NO_ANALYTICS: "true"
+      MLFLOW_ENABLE_ASYNC_LOGGING: "false"
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5, Node 24
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@94527f2e458b27549849d47d273a16bec83a01e9 # v7, Node 24
         with:
           version: "0.9.9"
           enable-cache: true
-      - run: uv sync --frozen --python 3.12.12
-      - run: uv run --frozen ruff check .
-      - run: uv run --frozen ruff format --check .
-      - run: uv run --frozen pytest
+          cache-dependency-glob: uv.lock
+          cache-local-path: ${{ github.workspace }}/.local/cache/uv
+      - name: Verify lock and install resolved environment
+        run: |
+          uv lock --check
+          uv sync --frozen
+      - name: Lint, format and mocked service tests
+        run: make check UV=uv
