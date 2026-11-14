@@ -1,0 +1,33 @@
+{
+  "observed_at": "2026-11-14T05:52:18.531009+00:00",
+  "checks": {
+    "mlflow": {
+      "status": "ok",
+      "health_http": 200,
+      "experiments": 1
+    },
+    "airflow": {
+      "status": "ok",
+      "unauthenticated_http": 401,
+      "authenticated_http": 200,
+      "dags": 0,
+      "components": {
+        "metadatabase": "healthy",
+        "scheduler": "healthy",
+        "dag_processor": "healthy",
+        "triggerer": "healthy"
+      }
+    },
+    "kubernetes": {
+      "status": "ok",
+      "nodes": [
+        {
+          "name": "mlops-assignment3-control-plane",
+          "kubelet_version": "v1.34.0",
+          "ready": true
+        }
+      ],
+      "namespace_phase": "Active"
+    }
+  }
+}

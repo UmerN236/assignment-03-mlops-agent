@@ -73,7 +73,8 @@ evidence. Mocked test results do not satisfy a live demonstration requirement.
 ## Repository and CI - 5 marks
 
 - [ ] Maintain source code, infrastructure, tests, and documentation in one GitHub repository.
-- [ ] Provide a reproducible Python environment with pinned/resolved dependencies.
+- [x] Provide a reproducible Python environment with pinned/resolved dependencies.
+      `pyproject.toml`, `uv.lock`, `make setup`, and environment bootstrap evidence.
 - [ ] GitHub Actions runs linting and automated tests on pull requests.
 - [ ] CI does not require live external services or production credentials.
 - [ ] Do not commit API keys, kubeconfig, service-account tokens, or other secrets.
