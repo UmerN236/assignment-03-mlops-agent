@@ -40,5 +40,7 @@ subprocess.run(
     ],
     cwd=root,
     check=True,
-    timeout=900,
+    # Cold scientific wheels can be slow on the observed network. Still impose
+    # a hard deadline; subsequent builds reuse Docker's completed dependency layer.
+    timeout=2400,
 )
