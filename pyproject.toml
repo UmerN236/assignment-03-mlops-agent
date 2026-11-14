@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mlops-assignment-agent"
+version = "0.1.0"
+description = "Evidence-backed operations agent for a dedicated MLOps assignment"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "dvc==3.64.0",
+  "fastapi==0.121.1",
+  "httpx==0.28.1",
+  "kubernetes==34.1.0",
+  "mlflow==3.6.0",
+  "pydantic==2.12.4",
+  "pydantic-settings==2.12.0",
+  "scikit-learn==1.7.2",
+  "uvicorn==0.38.0",
+]
+
+[dependency-groups]
+dev = ["pytest==8.4.2", "ruff==0.14.4"]
+
+[project.scripts]
+mlops-config = "mlops_agent.config:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mlops_agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

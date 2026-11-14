@@ -1,0 +1,14 @@
+{
+  "observed_at": "2026-11-14T05:45:50.178635+00:00",
+  "provider": "openrouter",
+  "requested_model": "openrouter/free",
+  "success": true,
+  "authentication": "passed",
+  "is_free_tier": true,
+  "structured_tool_call": "passed",
+  "selected_model": "inclusionai/ling-3.2-flash:free",
+  "first_request_cost": 0,
+  "tool_response_roundtrip": "passed",
+  "second_selected_model": "particle-ai/particle-1:free",
+  "second_request_cost": 0
+}
