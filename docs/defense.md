@@ -54,8 +54,8 @@ Use the stored real evidence if live free quota is unavailable during evaluation
 
 ## Reviewer handoff
 
-The repository is private. Give the evaluator access to the repository and its
-Actions/evidence before submitting the URL. Local volumes and credentials are
-not shared by Git; reviewers should follow [reproduction](reproduction.md) with
-their own provider key. Never submit `.env`, kubeconfigs, service-account tokens,
-raw authentication responses or the local execution notes.
+The repository is public. Submit its URL and identify the reviewed submission tag;
+[the submission page](../SUBMISSION.md) maps the required artifacts. Local volumes
+and credentials are not shared by Git; reviewers should follow
+[reproduction](reproduction.md) with their own provider key. Never submit `.env`,
+kubeconfigs, service-account tokens, raw authentication responses or local notes.

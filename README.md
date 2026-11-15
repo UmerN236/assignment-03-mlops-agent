@@ -195,8 +195,9 @@ service runbooks. For inference HTTP review, use the explicit loopback
 port-forward in [Kubernetes setup](docs/kubernetes.md), then `/readyz`, `/version`
 and the named-feature `/predict` example in [inference setup](docs/inference.md).
 
-The repository is private. `.env`, credentials, kubeconfigs, local notes and
-runtime artifacts stay ignored. Reviewer access and submission remain manual
-user steps; repository access alone does not provide historical MLflow volumes
-or the local DVC object store. [Development notes](docs/development.md) describe
+The repository is public. [Submission instructions](SUBMISSION.md) identify the
+reviewed tag and all required deliverables. `.env`, credentials, kubeconfigs,
+local notes and runtime artifacts stay ignored. Public Git access does not
+provide local MLflow volumes or the DVC object store; use the documented fresh
+reproduction procedure. [Development notes](docs/development.md) describe
 container paths, version decisions and limitations.
