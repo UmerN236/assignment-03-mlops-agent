@@ -16,6 +16,7 @@ from mlops_agent.training import TrainingConfig, evaluate_classifier, prepare_sp
 
 ROOT = Path(__file__).resolve().parents[1]
 SERVICE = "mlops-assignment3-inference"
+REPLACE_OWNED = False
 
 
 def docker(*args, check=True):
@@ -37,8 +38,13 @@ def inspect_container(name):
 def start(image, name, *, missing=False):
     existing = inspect_container(name)
     if existing:
-        assert existing["Config"]["Image"] == image and existing["State"]["Running"]
-        return existing
+        if existing["Config"]["Image"] == image:
+            if not existing["State"]["Running"]:
+                docker("start", name)
+            return inspect_container(name)
+        if not REPLACE_OWNED:
+            raise ValueError("Different owned image; pass --replace-owned explicitly")
+        docker("rm", "-f", name)  # Ownership was checked before this explicit replacement.
     args = [
         "run",
         "-d",
@@ -87,9 +93,14 @@ def await_live(client):
 
 
 def main():
+    global REPLACE_OWNED
     parser = argparse.ArgumentParser()
-    parser.add_argument("--image", required=True)
+    parser.add_argument("--image")
+    parser.add_argument("--replace-owned", action="store_true")
     args = parser.parse_args()
+    if args.image is None:
+        args.image = json.loads((ROOT / ".local/inference-image.json").read_text())["image_tag"]
+    REPLACE_OWNED = args.replace_owned
     if not args.image.startswith("mlops-assignment3-inference:"):
         raise ValueError("Only assignment inference images may be verified")
     image = json.loads(docker("image", "inspect", "--format", "{{json .}}", args.image).stdout)

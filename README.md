@@ -115,17 +115,14 @@ evaluation/MLflow -> quality gate -> candidate approval, with retries and
 persistent artifacts. Validation/gate failure blocks approval. No automatic
 registry promotion or deployment occurs.
 
-Inference packaging uses the exact historical run/model/hash in
-[`model-selection.json`](infra/inference/model-selection.json), rather than
-selecting a newly trained run silently. A fresh machine needs the original
-tracking state or a trusted validated bundle; new runs have different IDs.
-A replacement requires an explicit reviewed selection and artifact-hash update
-following the [packaging runbook](docs/inference.md). Then `make inference-image`
-builds a versioned image. Kubernetes setup currently pins the previously verified
-image and its evidence: a new build additionally requires an explicit update of
-the manifest and deployment/verifier references as described in the
-[Kubernetes runbook](docs/kubernetes.md). `make deploy-kubernetes` must not be
-presented as a fresh-machine one-command reproduction until those inputs agree.
+Default packaging preserves the historical
+[`model-selection.json`](infra/inference/model-selection.json). A fresh machine
+can instead explicitly select a newly trained, trusted run without editing
+historical IDs or manifests. Follow [fresh-checkout reproduction](docs/reproduction.md):
+`select-model.py --run-id ACTUAL_RUN_ID`, package with its ignored local selection,
+build, verify, and deploy. The image tag identifies both committed source and
+model content. Deployment imports the exact verified image ID and renders its tag
+into a local manifest copy. New training never silently changes deployment.
 
 Live verifiers write sanitized exports and may refuse an existing different
 owned image or changed bundle. Inspect those failures; do not erase existing

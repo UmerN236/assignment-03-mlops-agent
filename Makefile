@@ -56,7 +56,7 @@ package-inference:
 inference-image: package-inference
 	$(UV) run --frozen python scripts/build-inference.py
 verify-inference:
-	$(UV) run --frozen python scripts/verify-inference.py --image mlops-assignment3-inference:$(shell git rev-parse --short=12 HEAD)
+	$(UV) run --frozen python scripts/verify-inference.py
 
 .PHONY: deploy-kubernetes verify-kubernetes
 deploy-kubernetes:

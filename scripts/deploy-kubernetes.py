@@ -69,9 +69,10 @@ def main():
                     obj["metadata"].get("labels", {}).get("app.kubernetes.io/part-of")
                     == "mlops-assignment3"
                 ), "Refusing to replace an unowned resource"
-    image = "mlops-assignment3-inference:c20e0106c52d"
-    inspected = json.loads(run(["docker", "image", "inspect", image]))[0]
     evidence = json.loads((ROOT / "docs/evidence/inference-live.json").read_text())
+    image = evidence["image_tag"]
+    assert image.startswith("mlops-assignment3-inference:")
+    inspected = json.loads(run(["docker", "image", "inspect", image]))[0]
     # Exact image identity established by the previous milestone, not a mutable latest tag.
     assert image == evidence["image_tag"] and inspected["Id"] == evidence["image_id"]
     nodes = run([str(ROOT / ".local/bin/kind"), "get", "nodes", "--name", "mlops-assignment3"])
@@ -90,7 +91,13 @@ def main():
         timeout=180,
     )
     for path in manifests:
-        print(run([*ADMIN, "-n", NAMESPACE, "apply", "-f", str(path)]).strip())
+        documents = list(yaml.safe_load_all(path.read_text()))
+        for document in documents:
+            if document["kind"] == "Deployment":
+                document["spec"]["template"]["spec"]["containers"][0]["image"] = image
+        rendered = ROOT / ".local" / (path.stem + "-verified.yaml")
+        rendered.write_text(yaml.safe_dump_all(documents, sort_keys=False))
+        print(run([*ADMIN, "-n", NAMESPACE, "apply", "-f", str(rendered)]).strip())
     print(
         run(
             [

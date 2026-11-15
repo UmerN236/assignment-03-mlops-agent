@@ -32,12 +32,13 @@ For optional host review, run the following engineer command and visit
 .local/bin/kubectl --kubeconfig .local/kubeconfig --context kind-mlops-assignment3 -n mlops-agent port-forward --address=127.0.0.1 service/inference 18000:8000
 ```
 
-The current application manifest deliberately references the already verified
-image `mlops-assignment3-inference:c20e0106c52d`, with `imagePullPolicy: Never`.
-The deploy script verifies its exact Docker image ID before import. A fresh
-machine must build/package a selected trusted model first and deliberately update
-both the manifest and verification reference for its new image; an unverified
-replacement tag cannot pass setup. Kubernetes reports the imported containerd
+The application manifest is a template, with `imagePullPolicy: Never`. The deploy
+script reads the actual image tag/ID from successful inference verification,
+verifies the local Docker image ID, and renders that tag into an ignored local
+manifest copy before import/apply. A fresh machine explicitly selects a trusted
+new run, packages/builds/verifies it and uses the same setup command; no historical
+model ID or image tag must be recreated. See [reproduction](reproduction.md).
+An unverified replacement tag cannot pass setup. Kubernetes reports the imported containerd
 manifest digest as imageID, while Docker reports the image configuration digest;
 these are different identifiers. The `/version` route verifies actual application
 SHA and full packaged model/data provenance on every tested backend.

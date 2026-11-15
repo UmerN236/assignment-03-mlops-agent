@@ -4,6 +4,7 @@ Run as a bounded engineering subprocess (make package-inference). Never exposes
 model selection, downloads, or deserialization as a public API operation.
 """
 
+import argparse
 import json
 import os
 import shutil
@@ -19,9 +20,12 @@ from mlops_agent.model_bundle import BundleManifest, ModelSelection, file_sha256
 
 def main():
     root = Path(__file__).resolve().parents[1]
-    selection = ModelSelection.model_validate_json(
-        (root / "infra/inference/model-selection.json").read_text()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--selection", type=Path, default=root / "infra/inference/model-selection.json"
     )
+    args = parser.parse_args()
+    selection = ModelSelection.model_validate_json(args.selection.read_text())
     settings = load_settings()
     os.environ["MLFLOW_HTTP_REQUEST_TIMEOUT"] = "20"
     os.environ["MLFLOW_HTTP_REQUEST_MAX_RETRIES"] = "0"

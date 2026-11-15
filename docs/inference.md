@@ -51,11 +51,19 @@ Evidence is exported to `docs/evidence/inference-live.json` after all checks pas
 No model/MLflow volume is mounted; serving works from the packaged local artifact
 without runtime access to MLflow or host artifact paths.
 
-A fresh checkout needs access to the tracking server holding this explicit run,
-or a trusted copy of its validated bundle. Regenerating the dataset does not
-recreate the same MLflow run ID. Missing historical state fails packaging rather
-than selecting a different model. Later Airflow runs can supply new artifacts
-only through an explicit reviewed selection change and image rebuild.
+A fresh checkout can preserve this historical selection when its tracking state
+is available, or use `scripts/select-model.py --run-id ACTUAL_RUN_ID` for a trusted
+new training run. The latter writes `.local/model-selection.json`; pass it to
+`scripts/package-inference.py --selection .local/model-selection.json`. The exact
+run/model linkage, data/code lineage and artifact hash are validated. Existing
+different bundles are preserved. See [the full reproduction procedure](reproduction.md).
+
+Image tags now combine source SHA and model-content hash; `.local/inference-image.json`
+records the actual built image ID. `make verify-inference` uses that selection;
+`--image` can explicitly review another assignment image. To replace the named,
+labeled Docker container after a new build, pass `--replace-owned`; foreign
+containers are refused. Verification supplies the exact image proof used by
+Kubernetes setup, which renders its tag without editing historical evidence.
 
 ## HTTP contract
 
@@ -96,5 +104,6 @@ The [live verification export](evidence/inference.md) records the tested image,
 exact provenance, holdout agreement and negative HTTP cases.
 Kubernetes replicas, probes, resources, ConfigMap and read-only operations tools
 are verified in the [cluster runbook](kubernetes.md) and its linked live evidence.
-The running historical image predates the latest source validation-error
-redaction fix; a new reviewed image build/deployment remains for reproduction.
+The `/version` route, rather than the latest Git commit alone, identifies the
+running source/model. Source tests do not establish what an older image contains;
+build, verify and deploy explicitly after runtime changes.
