@@ -6,6 +6,7 @@ packaging may create bundles. The API accepts neither models nor artifact URIs.
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Literal
 
@@ -43,6 +44,15 @@ class BundleManifest(BaseModel):
     selection: ModelSelection
     # Fixed filenames prevent paths in metadata from expanding filesystem access.
     files: dict[Literal["MLmodel", "model.pkl"], str]
+
+
+def image_tag(revision: str, manifest: BundleManifest) -> str:
+    """Bind image identity to source AND complete bundle provenance, not weights alone."""
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("A full source revision is required")
+    canonical = json.dumps(manifest.model_dump(mode="json"), sort_keys=True).encode()
+    identity = hashlib.sha256(canonical).hexdigest()
+    return f"mlops-assignment3-inference:{revision[:12]}-{identity[:12]}"
 
 
 def file_sha256(path: Path) -> str:

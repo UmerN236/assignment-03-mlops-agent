@@ -6,7 +6,7 @@ import os
 import subprocess
 from pathlib import Path
 
-from mlops_agent.model_bundle import read_manifest
+from mlops_agent.model_bundle import image_tag, read_manifest
 
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
@@ -35,10 +35,11 @@ revision = subprocess.run(
     check=True,
     timeout=10,
 ).stdout.strip()
-selection = read_manifest(root / "artifacts/inference").selection
+manifest = read_manifest(root / "artifacts/inference")
+selection = manifest.selection
 # Source and model are separate versioned inputs. One source revision can serve
 # different explicitly selected artifacts without overwriting the same image tag.
-image = f"mlops-assignment3-inference:{revision[:12]}-{selection.model_sha256[:12]}"
+image = image_tag(revision, manifest)
 subprocess.run(
     [
         "docker",

@@ -128,6 +128,16 @@ def test_missing_model_liveness_is_independent(tmp_path):
         assert str(tmp_path) not in client.get("/readyz").text
 
 
+def test_image_identity_includes_run_provenance_even_for_identical_weights(bundle):
+    from mlops_agent.model_bundle import image_tag, read_manifest
+
+    manifest = read_manifest(bundle[0])
+    changed = manifest.model_copy(deep=True)
+    changed.selection.run_id = "a" * 32
+    assert changed.files == manifest.files
+    assert image_tag("b" * 40, manifest) != image_tag("b" * 40, changed)
+
+
 def test_empty_bundle_environment_uses_local_default(bundle, tmp_path, monkeypatch):
     path, _, _ = bundle
     destination = tmp_path / "artifacts/inference"
