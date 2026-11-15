@@ -1,0 +1,947 @@
+{
+  "prompt": "Find the best recent model, identify the dataset version used to train it, check the deployment status, and explain whether retraining is necessary.",
+  "checks": {
+    "conversation_complete": true,
+    "all_four_services": true,
+    "selected_lineage_verified": true,
+    "all_tool_responses_ok": true,
+    "one_request_id": true,
+    "no_trigger": true,
+    "only_assessment_allowlist": true,
+    "four_services_cited": true,
+    "free_request_costs": true
+  },
+  "conversation": {
+    "request_id": "3f0b99a6-f540-49ad-b238-d03e7d58da8a",
+    "observed_at": "2026-11-15T04:12:52.806052Z",
+    "status": "complete",
+    "provider": {
+      "provider": "openrouter",
+      "requested_model": "openrouter/free",
+      "free_tier_verified": true,
+      "catalog_model_verified": true,
+      "free_router_filters_tool_support": true
+    },
+    "turns": [
+      {
+        "iteration": 1,
+        "model": "nvidia/nemotron-3.5-super-vl:free",
+        "cost": 0,
+        "duration_ms": 1785.7764999999972
+      },
+      {
+        "iteration": 2,
+        "model": "inclusionai/ling-3.2-flash:free",
+        "cost": 0,
+        "duration_ms": 4190.581959000042
+      },
+      {
+        "iteration": 3,
+        "model": "inclusionai/ling-3.2-flash:free",
+        "cost": 0,
+        "duration_ms": 12665.058792000082
+      },
+      {
+        "iteration": 4,
+        "model": "baidu/ernie-5.5-flash-preview:free",
+        "cost": 0,
+        "duration_ms": 8813.709750000044
+      }
+    ],
+    "tool_calls": [
+      {
+        "arguments": {
+          "limit": 20
+        },
+        "result": {
+          "request_id": "3f0b99a6-f540-49ad-b238-d03e7d58da8a",
+          "tool": "mlflow_list_experiments",
+          "observed_at": "2026-11-15T04:12:24.539041Z",
+          "status": "ok",
+          "evidence": {
+            "experiments": [
+              {
+                "experiment_id": "0",
+                "name": "Default",
+                "artifact_location": "mlflow-artifacts:/0"
+              },
+              {
+                "experiment_id": "2",
+                "name": "assignment-iris-forest",
+                "artifact_location": "mlflow-artifacts:/2"
+              },
+              {
+                "experiment_id": "1",
+                "name": "assignment-iris-logistic",
+                "artifact_location": "mlflow-artifacts:/1"
+              }
+            ],
+            "has_more": false
+          },
+          "error": null,
+          "duration_ms": 734.5932089999678
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "3f0b99a6-f540-49ad-b238-d03e7d58da8a",
+          "tool": "kubernetes_workloads",
+          "observed_at": "2026-11-15T04:12:24.905840Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pods": [
+              {
+                "name": "inference-74fdf9f969-5pmgp",
+                "uid": "12da8d15-f8a4-4d03-bf00-c928a08bb385",
+                "phase": "Running",
+                "ready": true,
+                "deleting": false,
+                "conditions": [
+                  {
+                    "type": "PodReadyToStartContainers",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Initialized",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Ready",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "ContainersReady",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "PodScheduled",
+                    "status": "True",
+                    "reason": null
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "ready": true,
+                    "restart_count": 0,
+                    "image": "docker.io/library/mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+                    "image_id": "sha256:9a0b8cc33a61b166b448f5269665208c68f3a6f0d56c3364a75027a88f881da5",
+                    "state": "running",
+                    "reason": null,
+                    "exit_code": null,
+                    "last_termination_reason": null
+                  }
+                ]
+              },
+              {
+                "name": "inference-74fdf9f969-hq5cb",
+                "uid": "c5c0f523-b553-4baf-8807-dc2ee13ab830",
+                "phase": "Running",
+                "ready": true,
+                "deleting": false,
+                "conditions": [
+                  {
+                    "type": "PodReadyToStartContainers",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Initialized",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Ready",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "ContainersReady",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "PodScheduled",
+                    "status": "True",
+                    "reason": null
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "ready": true,
+                    "restart_count": 0,
+                    "image": "docker.io/library/mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+                    "image_id": "sha256:9a0b8cc33a61b166b448f5269665208c68f3a6f0d56c3364a75027a88f881da5",
+                    "state": "running",
+                    "reason": null,
+                    "exit_code": null,
+                    "last_termination_reason": null
+                  }
+                ]
+              }
+            ],
+            "deployments": [
+              {
+                "name": "inference",
+                "generation": 4,
+                "observed_generation": 4,
+                "desired_replicas": 2,
+                "ready_replicas": 2,
+                "available_replicas": 2,
+                "updated_replicas": 2,
+                "conditions": [
+                  {
+                    "type": "Available",
+                    "status": "True",
+                    "reason": "MinimumReplicasAvailable"
+                  },
+                  {
+                    "type": "Progressing",
+                    "status": "True",
+                    "reason": "NewReplicaSetAvailable"
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "image": "mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "192Mi"
+                    },
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "512Mi"
+                    },
+                    "readiness_path": "/readyz",
+                    "liveness_path": "/livez"
+                  }
+                ]
+              }
+            ],
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 364.0409999999292
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "3f0b99a6-f540-49ad-b238-d03e7d58da8a",
+          "tool": "kubernetes_health",
+          "observed_at": "2026-11-15T04:12:25.169384Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "service": "inference",
+            "transport": "GET service proxy",
+            "liveness": {
+              "status": "alive"
+            },
+            "readiness": {
+              "status": "ready",
+              "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+            },
+            "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
+            "model": {
+              "run_id": "f1aa8c88b5d645418f17e18898805dba",
+              "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+              "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+              "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset": {
+                "path": "data/iris.csv",
+                "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+                "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+              },
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "sklearn_version": "1.7.2",
+              "numpy_version": "2.5.4",
+              "cloudpickle_version": "3.1.2"
+            },
+            "scope": "Service sampled one or more backends; use workloads for all replica states"
+          },
+          "error": null,
+          "duration_ms": 263.2377090000091
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "3f0b99a6-f540-49ad-b238-d03e7d58da8a",
+          "tool": "kubernetes_services",
+          "observed_at": "2026-11-15T04:12:25.429896Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "services": [
+              {
+                "name": "inference",
+                "type": "ClusterIP",
+                "cluster_ip": "10.96.207.167",
+                "selector": {
+                  "app.kubernetes.io/name": "inference"
+                },
+                "ports": [
+                  {
+                    "port": 8000,
+                    "target_port": "http"
+                  }
+                ]
+              }
+            ],
+            "endpoints": [
+              {
+                "addresses": [
+                  "10.244.0.11"
+                ],
+                "ready": true,
+                "pod": "inference-74fdf9f969-hq5cb"
+              },
+              {
+                "addresses": [
+                  "10.244.0.12"
+                ],
+                "ready": true,
+                "pod": "inference-74fdf9f969-5pmgp"
+              }
+            ],
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 260.2514580000843
+        }
+      },
+      {
+        "arguments": {
+          "dag_id": "assignment_training",
+          "limit": 10
+        },
+        "result": {
+          "request_id": "3f0b99a6-f540-49ad-b238-d03e7d58da8a",
+          "tool": "airflow_list_runs",
+          "observed_at": "2026-11-15T04:12:25.625506Z",
+          "status": "ok",
+          "evidence": {
+            "dag_runs": [
+              {
+                "start_date": "2026-11-15T04:04:10.645011Z",
+                "end_date": "2026-11-15T04:04:32.693939Z",
+                "duration": 22.048928,
+                "dag_id": "assignment_training",
+                "dag_run_id": "agent__c8ccfccb694740dd8751bebfc54107d6",
+                "state": "success",
+                "logical_date": null,
+                "negative_duration_reported": false
+              },
+              {
+                "start_date": "2026-11-14T14:54:53.302186Z",
+                "end_date": "2026-11-14T14:55:13.414325Z",
+                "duration": 20.112139,
+                "dag_id": "assignment_training",
+                "dag_run_id": "agent__20261114T145452_c2af24b9",
+                "state": "success",
+                "logical_date": null,
+                "negative_duration_reported": false
+              },
+              {
+                "start_date": "2026-11-14T13:28:03.246238Z",
+                "end_date": "2026-11-14T13:28:23.370475Z",
+                "duration": 20.124237,
+                "dag_id": "assignment_training",
+                "dag_run_id": "engineering__20261114T132643_recovery",
+                "state": "success",
+                "logical_date": null,
+                "negative_duration_reported": false
+              },
+              {
+                "start_date": "2026-11-14T13:27:32.167873Z",
+                "end_date": "2026-11-14T13:27:59.184263Z",
+                "duration": 27.01639,
+                "dag_id": "assignment_training",
+                "dag_run_id": "engineering__20261114T132643_gate_failure",
+                "state": "failed",
+                "logical_date": null,
+                "negative_duration_reported": false
+              },
+              {
+                "start_date": "2026-11-14T13:27:12.962006Z",
+                "end_date": "2026-11-14T13:27:28.080309Z",
+                "duration": 15.118303,
+                "dag_id": "assignment_training",
+                "dag_run_id": "engineering__20261114T132643_validation_failure",
+                "state": "failed",
+                "logical_date": null,
+                "negative_duration_reported": false
+              },
+              {
+                "start_date": "2026-11-14T13:26:44.960147Z",
+                "end_date": "2026-11-14T13:27:05.958357Z",
+                "duration": 20.99821,
+                "dag_id": "assignment_training",
+                "dag_run_id": "engineering__20261114T132643_smoke",
+                "state": "success",
+                "logical_date": null,
+                "negative_duration_reported": false
+              }
+            ],
+            "total_entries": 6,
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 195.37891599998147
+        }
+      },
+      {
+        "arguments": {
+          "experiment_ids": [
+            "1",
+            "2"
+          ],
+          "limit": 5,
+          "recent_hours": 168,
+          "metric": "f1_macro",
+          "direction": "maximize",
+          "evaluation_id": null
+        },
+        "result": {
+          "request_id": "3f0b99a6-f540-49ad-b238-d03e7d58da8a",
+          "tool": "mlflow_select_best",
+          "observed_at": "2026-11-15T04:12:30.464193Z",
+          "status": "ok",
+          "evidence": {
+            "runs": [
+              {
+                "run_id": "faa161747dba4debad75b62de575ddf4",
+                "experiment_id": "1",
+                "status": "FINISHED",
+                "start_time_ms": 1794715463423,
+                "end_time_ms": 1794715464777,
+                "metrics": {
+                  "accuracy": 0.9111111111111111,
+                  "f1_macro": 0.9107142857142857,
+                  "log_loss": 0.2146311900295925
+                },
+                "parameters": {
+                  "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+                  "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_path": "data/iris.csv",
+                  "dataset_recipe": "iris-sepal-resolution-v2",
+                  "sklearn_version": "1.7.2",
+                  "classifier": "logistic",
+                  "C": "1.0",
+                  "max_depth": "4",
+                  "n_estimators": "100",
+                  "model_seed": "42",
+                  "split_seed": "42",
+                  "test_fraction": "0.3",
+                  "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+                  "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+                  "test_rows": "45",
+                  "train_rows": "105",
+                  "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+                },
+                "model_id": "m-8eca931dd5bc49aba10880ce02181992"
+              },
+              {
+                "run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+                "experiment_id": "1",
+                "status": "FINISHED",
+                "start_time_ms": 1794668104778,
+                "end_time_ms": 1794668106091,
+                "metrics": {
+                  "accuracy": 0.9111111111111111,
+                  "f1_macro": 0.9107142857142857,
+                  "log_loss": 0.2146311900295925
+                },
+                "parameters": {
+                  "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+                  "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_path": "data/iris.csv",
+                  "dataset_recipe": "iris-sepal-resolution-v2",
+                  "sklearn_version": "1.7.2",
+                  "classifier": "logistic",
+                  "C": "1.0",
+                  "max_depth": "4",
+                  "n_estimators": "100",
+                  "model_seed": "42",
+                  "split_seed": "42",
+                  "test_fraction": "0.3",
+                  "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+                  "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+                  "test_rows": "45",
+                  "train_rows": "105",
+                  "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+                },
+                "model_id": "m-049121e6b28b4f76a25fac4aff10c617"
+              },
+              {
+                "run_id": "ceac5b172cf84703a2fa32c9ed608398",
+                "experiment_id": "1",
+                "status": "FINISHED",
+                "start_time_ms": 1794662894746,
+                "end_time_ms": 1794662896027,
+                "metrics": {
+                  "accuracy": 0.9111111111111111,
+                  "f1_macro": 0.9107142857142857,
+                  "log_loss": 0.2146311900295925
+                },
+                "parameters": {
+                  "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+                  "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_path": "data/iris.csv",
+                  "dataset_recipe": "iris-sepal-resolution-v2",
+                  "sklearn_version": "1.7.2",
+                  "classifier": "logistic",
+                  "C": "1.0",
+                  "max_depth": "4",
+                  "n_estimators": "100",
+                  "model_seed": "42",
+                  "split_seed": "42",
+                  "test_fraction": "0.3",
+                  "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+                  "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+                  "test_rows": "45",
+                  "train_rows": "105",
+                  "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+                },
+                "model_id": "m-63cd133ff05044ffa7d8ee66697114b3"
+              },
+              {
+                "run_id": "2e1492bda3e949c0a055c574d6dfd5d0",
+                "experiment_id": "1",
+                "status": "FINISHED",
+                "start_time_ms": 1794662863664,
+                "end_time_ms": 1794662865034,
+                "metrics": {
+                  "accuracy": 0.7111111111111111,
+                  "f1_macro": 0.6570793972109762,
+                  "log_loss": 1.0897690793951083
+                },
+                "parameters": {
+                  "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+                  "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_path": "data/iris.csv",
+                  "dataset_recipe": "iris-sepal-resolution-v2",
+                  "sklearn_version": "1.7.2",
+                  "classifier": "logistic",
+                  "C": "0.0001",
+                  "max_depth": "4",
+                  "n_estimators": "100",
+                  "model_seed": "42",
+                  "split_seed": "42",
+                  "test_fraction": "0.3",
+                  "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+                  "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+                  "test_rows": "45",
+                  "train_rows": "105",
+                  "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+                },
+                "model_id": "m-f30943743c8e4ecb861393166381a8b2"
+              },
+              {
+                "run_id": "9f7d4a48860c431c94093689558a35a5",
+                "experiment_id": "1",
+                "status": "FINISHED",
+                "start_time_ms": 1794662817934,
+                "end_time_ms": 1794662819257,
+                "metrics": {
+                  "accuracy": 0.9111111111111111,
+                  "f1_macro": 0.9107142857142857,
+                  "log_loss": 0.2146311900295925
+                },
+                "parameters": {
+                  "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+                  "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                  "dataset_path": "data/iris.csv",
+                  "dataset_recipe": "iris-sepal-resolution-v2",
+                  "sklearn_version": "1.7.2",
+                  "classifier": "logistic",
+                  "C": "1.0",
+                  "max_depth": "4",
+                  "n_estimators": "100",
+                  "model_seed": "42",
+                  "split_seed": "42",
+                  "test_fraction": "0.3",
+                  "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+                  "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+                  "test_rows": "45",
+                  "train_rows": "105",
+                  "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+                },
+                "model_id": "m-b7001e01f5cf4a13ab6d756bed18607f"
+              }
+            ],
+            "has_more": true,
+            "since_ms": 1794111150345,
+            "limit": 5,
+            "order": "newest_first",
+            "metric": "f1_macro",
+            "direction": "maximize",
+            "comparable": true,
+            "evaluation_groups": 1,
+            "selected_run": {
+              "run_id": "faa161747dba4debad75b62de575ddf4",
+              "experiment_id": "1",
+              "status": "FINISHED",
+              "start_time_ms": 1794715463423,
+              "end_time_ms": 1794715464777,
+              "metrics": {
+                "accuracy": 0.9111111111111111,
+                "f1_macro": 0.9107142857142857,
+                "log_loss": 0.2146311900295925
+              },
+              "parameters": {
+                "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+                "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+                "dataset_path": "data/iris.csv",
+                "dataset_recipe": "iris-sepal-resolution-v2",
+                "sklearn_version": "1.7.2",
+                "classifier": "logistic",
+                "C": "1.0",
+                "max_depth": "4",
+                "n_estimators": "100",
+                "model_seed": "42",
+                "split_seed": "42",
+                "test_fraction": "0.3",
+                "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+                "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+                "test_rows": "45",
+                "train_rows": "105",
+                "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+              },
+              "model_id": "m-8eca931dd5bc49aba10880ce02181992"
+            },
+            "ranking": [
+              {
+                "run_id": "faa161747dba4debad75b62de575ddf4",
+                "value": 0.9107142857142857
+              },
+              {
+                "run_id": "a9cd0c64cb8a414496f185a1e69b2352",
+                "value": 0.9107142857142857
+              },
+              {
+                "run_id": "ceac5b172cf84703a2fa32c9ed608398",
+                "value": 0.9107142857142857
+              },
+              {
+                "run_id": "9f7d4a48860c431c94093689558a35a5",
+                "value": 0.9107142857142857
+              },
+              {
+                "run_id": "2e1492bda3e949c0a055c574d6dfd5d0",
+                "value": 0.6570793972109762
+              }
+            ],
+            "excluded": [],
+            "selection_scope": "Only the returned recent window, not all historical runs",
+            "reason": "ranked_comparable_runs",
+            "caveats": [
+              "Scores are comparable only within one evaluation_id (data, split and metric policy).",
+              "Repeated selection on this small held-out split introduces selection bias; no independent final test.",
+              "Best requested metric is a candidate, not production readiness or a retraining recommendation.",
+              "No deployment, freshness, drift, latency or quality-gate evidence is supplied by this tool."
+            ]
+          },
+          "error": null,
+          "duration_ms": 647.8244580000592
+        }
+      },
+      {
+        "arguments": {
+          "run_id": "faa161747dba4debad75b62de575ddf4"
+        },
+        "result": {
+          "request_id": "3f0b99a6-f540-49ad-b238-d03e7d58da8a",
+          "tool": "dvc_resolve_mlflow_run",
+          "observed_at": "2026-11-15T04:12:43.992065Z",
+          "status": "ok",
+          "evidence": {
+            "dataset_path": "data/iris.csv",
+            "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+            "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "size_bytes": 2757,
+            "supplied_run_id": "faa161747dba4debad75b62de575ddf4",
+            "reference_matches": true,
+            "run_record_verified": true,
+            "limitation": "Run lineage was retrieved; hash agreement does not prove model quality"
+          },
+          "error": null,
+          "duration_ms": 862.4492909999617
+        }
+      }
+    ],
+    "policy_events": [],
+    "known_facts": [
+      {
+        "result_index": 0,
+        "tool": "mlflow_list_experiments",
+        "pointer": "/experiments/1",
+        "observed_at": "2026-11-15T04:12:24.539041Z",
+        "value": {
+          "experiment_id": "2",
+          "name": "assignment-iris-forest",
+          "artifact_location": "mlflow-artifacts:/2"
+        }
+      },
+      {
+        "result_index": 0,
+        "tool": "mlflow_list_experiments",
+        "pointer": "/experiments/2",
+        "observed_at": "2026-11-15T04:12:24.539041Z",
+        "value": {
+          "experiment_id": "1",
+          "name": "assignment-iris-logistic",
+          "artifact_location": "mlflow-artifacts:/1"
+        }
+      },
+      {
+        "result_index": 5,
+        "tool": "mlflow_select_best",
+        "pointer": "/selected_run",
+        "observed_at": "2026-11-15T04:12:30.464193Z",
+        "value": {
+          "run_id": "faa161747dba4debad75b62de575ddf4",
+          "experiment_id": "1",
+          "status": "FINISHED",
+          "start_time_ms": 1794715463423,
+          "end_time_ms": 1794715464777,
+          "metrics": {
+            "accuracy": 0.9111111111111111,
+            "f1_macro": 0.9107142857142857,
+            "log_loss": 0.2146311900295925
+          },
+          "parameters": {
+            "code_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+            "dataset_dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37",
+            "dataset_git_revision": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2",
+            "dataset_path": "data/iris.csv",
+            "dataset_recipe": "iris-sepal-resolution-v2",
+            "sklearn_version": "1.7.2",
+            "classifier": "logistic",
+            "C": "1.0",
+            "max_depth": "4",
+            "n_estimators": "100",
+            "model_seed": "42",
+            "split_seed": "42",
+            "test_fraction": "0.3",
+            "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+            "split_sha256": "aef71262d59c0e1d273f94890513578659a4e8954c585d2da474bf50f526d4bc",
+            "test_rows": "45",
+            "train_rows": "105",
+            "evaluation_policy": "iris-stratified-holdout-v1;f1=macro;labels=0,1,2;zero_division=0"
+          },
+          "model_id": "m-8eca931dd5bc49aba10880ce02181992"
+        }
+      },
+      {
+        "result_index": 5,
+        "tool": "mlflow_select_best",
+        "pointer": "/selected_run/parameters/dataset_dvc_md5",
+        "observed_at": "2026-11-15T04:12:30.464193Z",
+        "value": "c53cf26bbf3cda572dfcbfeee37b4b37"
+      },
+      {
+        "result_index": 5,
+        "tool": "mlflow_select_best",
+        "pointer": "/selected_run/parameters/evaluation_id",
+        "observed_at": "2026-11-15T04:12:30.464193Z",
+        "value": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb"
+      },
+      {
+        "result_index": 6,
+        "tool": "dvc_resolve_mlflow_run",
+        "pointer": "/dataset_dvc_md5",
+        "observed_at": "2026-11-15T04:12:43.992065Z",
+        "value": "c53cf26bbf3cda572dfcbfeee37b4b37"
+      },
+      {
+        "result_index": 6,
+        "tool": "dvc_resolve_mlflow_run",
+        "pointer": "/dataset_git_revision",
+        "observed_at": "2026-11-15T04:12:43.992065Z",
+        "value": "4281a7a0bbdcbf5f45b9b49f751d95965e1c50c2"
+      },
+      {
+        "result_index": 1,
+        "tool": "kubernetes_workloads",
+        "pointer": "/deployments/0",
+        "observed_at": "2026-11-15T04:12:24.905840Z",
+        "value": {
+          "name": "inference",
+          "generation": 4,
+          "observed_generation": 4,
+          "desired_replicas": 2,
+          "ready_replicas": 2,
+          "available_replicas": 2,
+          "updated_replicas": 2,
+          "conditions": [
+            {
+              "type": "Available",
+              "status": "True",
+              "reason": "MinimumReplicasAvailable"
+            },
+            {
+              "type": "Progressing",
+              "status": "True",
+              "reason": "NewReplicaSetAvailable"
+            }
+          ],
+          "containers": [
+            {
+              "name": "inference",
+              "image": "mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+              "requests": {
+                "cpu": "100m",
+                "memory": "192Mi"
+              },
+              "limits": {
+                "cpu": "1",
+                "memory": "512Mi"
+              },
+              "readiness_path": "/readyz",
+              "liveness_path": "/livez"
+            }
+          ]
+        }
+      },
+      {
+        "result_index": 1,
+        "tool": "kubernetes_workloads",
+        "pointer": "/pods/0/containers/0/restart_count",
+        "observed_at": "2026-11-15T04:12:24.905840Z",
+        "value": 0
+      },
+      {
+        "result_index": 2,
+        "tool": "kubernetes_health",
+        "pointer": "/readiness",
+        "observed_at": "2026-11-15T04:12:25.169384Z",
+        "value": {
+          "status": "ready",
+          "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+        }
+      },
+      {
+        "result_index": 2,
+        "tool": "kubernetes_health",
+        "pointer": "/model/dataset/dvc_md5",
+        "observed_at": "2026-11-15T04:12:25.169384Z",
+        "value": "c53cf26bbf3cda572dfcbfeee37b4b37"
+      },
+      {
+        "result_index": 3,
+        "tool": "kubernetes_services",
+        "pointer": "/endpoints",
+        "observed_at": "2026-11-15T04:12:25.429896Z",
+        "value": [
+          {
+            "addresses": [
+              "10.244.0.11"
+            ],
+            "ready": true,
+            "pod": "inference-74fdf9f969-hq5cb"
+          },
+          {
+            "addresses": [
+              "10.244.0.12"
+            ],
+            "ready": true,
+            "pod": "inference-74fdf9f969-5pmgp"
+          }
+        ]
+      },
+      {
+        "result_index": 4,
+        "tool": "airflow_list_runs",
+        "pointer": "/dag_runs/0",
+        "observed_at": "2026-11-15T04:12:25.625506Z",
+        "value": {
+          "start_date": "2026-11-15T04:04:10.645011Z",
+          "end_date": "2026-11-15T04:04:32.693939Z",
+          "duration": 22.048928,
+          "dag_id": "assignment_training",
+          "dag_run_id": "agent__c8ccfccb694740dd8751bebfc54107d6",
+          "state": "success",
+          "logical_date": null,
+          "negative_duration_reported": false
+        }
+      },
+      {
+        "result_index": 4,
+        "tool": "airflow_list_runs",
+        "pointer": "/dag_runs/4",
+        "observed_at": "2026-11-15T04:12:25.625506Z",
+        "value": {
+          "start_date": "2026-11-14T13:27:12.962006Z",
+          "end_date": "2026-11-14T13:27:28.080309Z",
+          "duration": 15.118303,
+          "dag_id": "assignment_training",
+          "dag_run_id": "engineering__20261114T132643_validation_failure",
+          "state": "failed",
+          "logical_date": null,
+          "negative_duration_reported": false
+        }
+      },
+      {
+        "result_index": 4,
+        "tool": "airflow_list_runs",
+        "pointer": "/dag_runs/5",
+        "observed_at": "2026-11-15T04:12:25.625506Z",
+        "value": {
+          "start_date": "2026-11-14T13:26:44.960147Z",
+          "end_date": "2026-11-14T13:27:05.958357Z",
+          "duration": 20.99821,
+          "dag_id": "assignment_training",
+          "dag_run_id": "engineering__20261114T132643_smoke",
+          "state": "success",
+          "logical_date": null,
+          "negative_duration_reported": false
+        }
+      }
+    ],
+    "uncertainties": [
+      "Production readiness and retraining necessity are not established by best F1.",
+      "No approved freshness policy or current degradation measurements were supplied; historical controlled test failures do not establish production degradation."
+    ],
+    "recommendations": [
+      "Review the candidate with an independent evaluation before promotion.",
+      "Review the observed candidate/deployed version difference; do not automatically deploy.",
+      "Collect current degradation measurements and an explicit freshness/quality policy before deciding whether retraining is necessary."
+    ],
+    "correlation": {
+      "selected_run_id": "faa161747dba4debad75b62de575ddf4",
+      "selected_lineage_verified": true,
+      "deployed_run_id": "f1aa8c88b5d645418f17e18898805dba",
+      "candidate_is_deployed": false,
+      "candidate_is_production_ready": "not_established",
+      "observations_are_atomic_snapshot": false
+    },
+    "retraining": {
+      "decision": "not_established",
+      "initiated_by_assessment": false,
+      "policy": "Explicit training mode plus exact user confirmation required"
+    },
+    "error": null
+  }
+}

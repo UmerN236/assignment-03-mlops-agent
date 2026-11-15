@@ -32,3 +32,5 @@ jobs:
           uv sync --frozen
       - name: Lint, format and mocked service tests
         run: make check UV=uv
+      - name: Validate captured submission evidence offline
+        run: make verify-submission UV=uv

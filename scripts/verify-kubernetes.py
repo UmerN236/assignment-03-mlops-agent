@@ -214,7 +214,7 @@ print(json.dumps(observations))
             "Only bounded log tails/event reasons exported; missing history remains unknown.",
             "Read-only tools provide no cluster mutation even with claimed confirmation.",
             "Expiring TokenRequest credential must be refreshed by an engineer after expiry.",
-            "Direct tool evidence; LLM diagnosis and controlled failures remain pending.",
+            "Direct tool export; conversations and failure investigations are separate exports.",
         ],
     }
     output = ROOT / "docs/evidence/kubernetes-live.json"

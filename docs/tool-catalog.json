@@ -1,0 +1,2238 @@
+{
+  "tool_count": 25,
+  "permissions": "Only explicit trigger_training mode exposes the approved confirmed DAG trigger. Kubernetes is read-only.",
+  "tools": [
+    {
+      "name": "mlflow_list_experiments",
+      "description": "List experiments and artifact locations",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "limit": {
+            "default": 20,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "ExperimentsInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "mlflow_list_runs",
+      "description": "List recent recorded assignment training runs",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "experiment_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Experiment Ids",
+            "type": "array"
+          },
+          "limit": {
+            "default": 5,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "recent_hours": {
+            "default": 168,
+            "maximum": 8760,
+            "minimum": 1,
+            "title": "Recent Hours",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "experiment_ids"
+        ],
+        "title": "RunsInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "mlflow_get_run",
+      "description": "Retrieve metrics, parameters and run/model artifact metadata",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "run_id": {
+            "pattern": "^[a-f0-9]{32}$",
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id"
+        ],
+        "title": "RunInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "mlflow_select_best",
+      "description": "Select a comparable candidate by metric and direction",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "experiment_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Experiment Ids",
+            "type": "array"
+          },
+          "limit": {
+            "default": 5,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "recent_hours": {
+            "default": 168,
+            "maximum": 8760,
+            "minimum": 1,
+            "title": "Recent Hours",
+            "type": "integer"
+          },
+          "metric": {
+            "default": "f1_macro",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$",
+            "title": "Metric",
+            "type": "string"
+          },
+          "direction": {
+            "enum": [
+              "maximize",
+              "minimize"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "evaluation_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Evaluation Id"
+          }
+        },
+        "required": [
+          "experiment_ids",
+          "direction"
+        ],
+        "title": "SelectionInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "mlflow_compare_runs",
+      "description": "Compare the last N runs with evaluation caveats",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "experiment_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "minItems": 1,
+            "title": "Experiment Ids",
+            "type": "array"
+          },
+          "limit": {
+            "default": 5,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "recent_hours": {
+            "default": 168,
+            "maximum": 8760,
+            "minimum": 1,
+            "title": "Recent Hours",
+            "type": "integer"
+          },
+          "metric": {
+            "default": "f1_macro",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$",
+            "title": "Metric",
+            "type": "string"
+          },
+          "direction": {
+            "enum": [
+              "maximize",
+              "minimize"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "evaluation_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Evaluation Id"
+          }
+        },
+        "required": [
+          "experiment_ids",
+          "direction"
+        ],
+        "title": "SelectionInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "mlflow_compare_experiments",
+      "description": "Compare recent runs across distinct experiments",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "experiment_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "minItems": 2,
+            "title": "Experiment Ids",
+            "type": "array"
+          },
+          "limit": {
+            "default": 5,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "recent_hours": {
+            "default": 168,
+            "maximum": 8760,
+            "minimum": 1,
+            "title": "Recent Hours",
+            "type": "integer"
+          },
+          "metric": {
+            "default": "f1_macro",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$",
+            "title": "Metric",
+            "type": "string"
+          },
+          "direction": {
+            "enum": [
+              "maximize",
+              "minimize"
+            ],
+            "title": "Direction",
+            "type": "string"
+          },
+          "evaluation_id": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Evaluation Id"
+          }
+        },
+        "required": [
+          "experiment_ids",
+          "direction"
+        ],
+        "title": "ComparisonInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "mlflow_model_versions",
+      "description": "Retrieve registered assignment model versions",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "model_name": {
+            "const": "assignment-iris",
+            "default": "assignment-iris",
+            "title": "Model Name",
+            "type": "string"
+          },
+          "limit": {
+            "default": 20,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "RegistryInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "dvc_resolve_mlflow_run",
+      "description": "Resolve a run's recorded lineage through the configured MLflow run lookup",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "run_id": {
+            "pattern": "^[a-f0-9]{32}$",
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id"
+        ],
+        "title": "RunLookupInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "dvc_list_datasets",
+      "description": "List allowlisted DVC datasets at a Git revision",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "revision": {
+            "default": "HEAD",
+            "title": "Revision",
+            "type": "string"
+          }
+        },
+        "title": "RevisionInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "dvc_get_dataset_version",
+      "description": "Read committed content hash and workspace identity",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "revision": {
+            "default": "HEAD",
+            "title": "Revision",
+            "type": "string"
+          },
+          "dataset_path": {
+            "const": "data/iris.csv",
+            "default": "data/iris.csv",
+            "title": "Dataset Path",
+            "type": "string"
+          }
+        },
+        "title": "DatasetInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "dvc_compare_versions",
+      "description": "Compare two commits or a commit with workspace data",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "old_revision": {
+            "title": "Old Revision",
+            "type": "string"
+          },
+          "new_revision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "New Revision"
+          }
+        },
+        "required": [
+          "old_revision"
+        ],
+        "title": "CompareInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "dvc_get_data_status",
+      "description": "Observe actual DVC workspace changes",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "dataset_path": {
+            "const": "data/iris.csv",
+            "default": "data/iris.csv",
+            "title": "Dataset Path",
+            "type": "string"
+          }
+        },
+        "title": "StatusInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "dvc_resolve_run_reference",
+      "description": "Verify supplied MLflow lineage against Git/DVC; does not fetch the MLflow run",
+      "parameters": {
+        "additionalProperties": false,
+        "description": "Exact lineage fields returned by an MLflow run-details tool, not an invented run.",
+        "properties": {
+          "run_id": {
+            "pattern": "^[a-f0-9]{32}$",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "dataset_path": {
+            "const": "data/iris.csv",
+            "default": "data/iris.csv",
+            "title": "Dataset Path",
+            "type": "string"
+          },
+          "dataset_git_revision": {
+            "pattern": "^[a-f0-9]{40}$",
+            "title": "Dataset Git Revision",
+            "type": "string"
+          },
+          "dataset_dvc_md5": {
+            "pattern": "^[a-f0-9]{32}$",
+            "title": "Dataset Dvc Md5",
+            "type": "string"
+          }
+        },
+        "required": [
+          "run_id",
+          "dataset_git_revision",
+          "dataset_dvc_md5"
+        ],
+        "title": "RunReferenceInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "dvc_explain_reproduction",
+      "description": "Plan historical recovery in a separate clone",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "revision": {
+            "default": "HEAD",
+            "title": "Revision",
+            "type": "string"
+          },
+          "dataset_path": {
+            "const": "data/iris.csv",
+            "default": "data/iris.csv",
+            "title": "Dataset Path",
+            "type": "string"
+          }
+        },
+        "title": "DatasetInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "kubernetes_workloads",
+      "description": "Read inference Pods, Deployments, conditions, images and restart counts",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "const": "mlops-agent",
+            "default": "mlops-agent",
+            "title": "Namespace",
+            "type": "string"
+          }
+        },
+        "title": "ScopeInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "kubernetes_services",
+      "description": "Read inference Service and ready EndpointSlice backends",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "const": "mlops-agent",
+            "default": "mlops-agent",
+            "title": "Namespace",
+            "type": "string"
+          }
+        },
+        "title": "ScopeInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "kubernetes_diagnostics",
+      "description": "Read one approved Pod's status and relevant event reasons/counts",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "const": "mlops-agent",
+            "default": "mlops-agent",
+            "title": "Namespace",
+            "type": "string"
+          },
+          "pod": {
+            "pattern": "^inference-[a-z0-9]{1,10}-[a-z0-9]{5}$",
+            "title": "Pod",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pod"
+        ],
+        "title": "PodInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "kubernetes_logs",
+      "description": "Read a bounded sanitized structured inference log tail",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "const": "mlops-agent",
+            "default": "mlops-agent",
+            "title": "Namespace",
+            "type": "string"
+          },
+          "pod": {
+            "pattern": "^inference-[a-z0-9]{1,10}-[a-z0-9]{5}$",
+            "title": "Pod",
+            "type": "string"
+          },
+          "tail_lines": {
+            "default": 30,
+            "maximum": 100,
+            "minimum": 1,
+            "title": "Tail Lines",
+            "type": "integer"
+          },
+          "previous": {
+            "default": false,
+            "title": "Previous",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "pod"
+        ],
+        "title": "LogsInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "kubernetes_health",
+      "description": "GET live health and deployed application/model/data version through Service",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "const": "mlops-agent",
+            "default": "mlops-agent",
+            "title": "Namespace",
+            "type": "string"
+          }
+        },
+        "title": "ScopeInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "airflow_list_dags",
+      "description": "List the approved DAG, pause and import-error states",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "dag_id": {
+            "const": "assignment_training",
+            "default": "assignment_training",
+            "title": "Dag Id",
+            "type": "string"
+          },
+          "limit": {
+            "default": 10,
+            "maximum": 50,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "ListInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "airflow_list_runs",
+      "description": "Read recent approved-DAG runs ordered by run_after descending",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "dag_id": {
+            "const": "assignment_training",
+            "default": "assignment_training",
+            "title": "Dag Id",
+            "type": "string"
+          },
+          "limit": {
+            "default": 10,
+            "maximum": 50,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "ListInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "airflow_get_run",
+      "description": "Read actual run/task states with optional bounded polling",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "dag_id": {
+            "const": "assignment_training",
+            "default": "assignment_training",
+            "title": "Dag Id",
+            "type": "string"
+          },
+          "dag_run_id": {
+            "maxLength": 250,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.:+-]*$",
+            "title": "Dag Run Id",
+            "type": "string"
+          },
+          "wait_seconds": {
+            "default": 0,
+            "maximum": 60,
+            "minimum": 0,
+            "title": "Wait Seconds",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "dag_run_id"
+        ],
+        "title": "StatusInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "airflow_trigger_training",
+      "description": "Explicitly trigger canonical training; requires host authorization",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "dag_id": {
+            "const": "assignment_training",
+            "default": "assignment_training",
+            "title": "Dag Id",
+            "type": "string"
+          },
+          "dag_run_id": {
+            "pattern": "^agent__[A-Za-z0-9_]{1,100}$",
+            "title": "Dag Run Id",
+            "type": "string"
+          },
+          "confirmation": {
+            "const": "trigger assignment_training",
+            "title": "Confirmation",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dag_run_id",
+          "confirmation"
+        ],
+        "title": "TriggerInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "airflow_get_failed_tasks",
+      "description": "Identify failed, upstream-blocked and retrying tasks",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "dag_id": {
+            "const": "assignment_training",
+            "default": "assignment_training",
+            "title": "Dag Id",
+            "type": "string"
+          },
+          "dag_run_id": {
+            "maxLength": 250,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.:+-]*$",
+            "title": "Dag Run Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "dag_run_id"
+        ],
+        "title": "RunInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    },
+    {
+      "name": "airflow_get_task_diagnostics",
+      "description": "Read execution timing, attempts and sanitized log events",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "dag_id": {
+            "const": "assignment_training",
+            "default": "assignment_training",
+            "title": "Dag Id",
+            "type": "string"
+          },
+          "dag_run_id": {
+            "maxLength": 250,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_][A-Za-z0-9_.:+-]*$",
+            "title": "Dag Run Id",
+            "type": "string"
+          },
+          "task_id": {
+            "enum": [
+              "validation",
+              "preprocessing",
+              "training",
+              "evaluation",
+              "quality_gate",
+              "approve_candidate"
+            ],
+            "title": "Task Id",
+            "type": "string"
+          },
+          "try_number": {
+            "default": 1,
+            "maximum": 10,
+            "minimum": 1,
+            "title": "Try Number",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "dag_run_id",
+          "task_id"
+        ],
+        "title": "DiagnosticsInput",
+        "type": "object"
+      },
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "invalid_request",
+              "unavailable",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "title": "Evidence",
+            "type": "object"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Error"
+          },
+          "duration_ms": {
+            "minimum": 0,
+            "title": "Duration Ms",
+            "type": "number"
+          }
+        },
+        "required": [
+          "request_id",
+          "tool",
+          "observed_at",
+          "status",
+          "duration_ms"
+        ],
+        "title": "ToolResult",
+        "type": "object"
+      }
+    }
+  ]
+}

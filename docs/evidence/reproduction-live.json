@@ -1,0 +1,99 @@
+{
+  "observed_at": "2026-11-15T04:15:24.901148+00:00",
+  "source_revision": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
+  "fresh_checkout": true,
+  "fresh_virtual_environment": true,
+  "fresh_tracking_database": true,
+  "original_tracking_state_used": false,
+  "configured_secrets_copied": false,
+  "training_runs": 5,
+  "experiments": 2,
+  "candidate_run_id": "42d50c42c7df46b8a0a32fa170d78937",
+  "image": {
+    "image_tag": "mlops-assignment3-inference:b869d2fa544c-7bf16e000f7f",
+    "image_id": "sha256:19b19223aa565184bfdbdcf4c9aadf6636d6044053a007954effac4411eb9a27",
+    "code_revision": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
+    "model_run_id": "42d50c42c7df46b8a0a32fa170d78937"
+  },
+  "prediction": {
+    "predictions": [
+      {
+        "class_id": 0,
+        "class_name": "setosa",
+        "probabilities": [
+          0.998,
+          0.002,
+          0.0
+        ]
+      }
+    ],
+    "model_run_id": "42d50c42c7df46b8a0a32fa170d78937",
+    "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8"
+  },
+  "checks": [
+    {
+      "command": [
+        "/Users/umernaseer/Desktop/Semester 7/MLOPS/Assignment 3/.local/submission-clean-checkout/.local/bin/uv",
+        "sync",
+        "--frozen",
+        "--python",
+        "3.12.12"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "/Users/umernaseer/Desktop/Semester 7/MLOPS/Assignment 3/.local/submission-clean-checkout/.venv/bin/python",
+        "scripts/repair-local-pth.py"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "make",
+        "check"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "make",
+        "data-bootstrap"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "/Users/umernaseer/Desktop/Semester 7/MLOPS/Assignment 3/.local/submission-clean-checkout/.venv/bin/python",
+        "scripts/train-models.py"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "/Users/umernaseer/Desktop/Semester 7/MLOPS/Assignment 3/.local/submission-clean-checkout/.venv/bin/python",
+        "scripts/select-model.py",
+        "--run-id",
+        "42d50c42c7df46b8a0a32fa170d78937"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "/Users/umernaseer/Desktop/Semester 7/MLOPS/Assignment 3/.local/submission-clean-checkout/.venv/bin/python",
+        "scripts/package-inference.py",
+        "--selection",
+        ".local/model-selection.json"
+      ],
+      "passed": true
+    },
+    {
+      "command": [
+        "/Users/umernaseer/Desktop/Semester 7/MLOPS/Assignment 3/.local/submission-clean-checkout/.venv/bin/python",
+        "scripts/build-inference.py"
+      ],
+      "passed": true
+    }
+  ],
+  "scope": "Fresh clone, locked venv, DVC regeneration, new MLflow store, five real runs, explicit selection, packaging, image build and live HTTP prediction. Existing verified uv/Python distribution and Docker engine reused. Airflow/Kubernetes tested separately in the dedicated live environment."
+}

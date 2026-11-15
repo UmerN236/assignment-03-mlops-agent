@@ -1,10 +1,10 @@
 {
-  "observed_at": "2026-11-14T11:12:49.689017+00:00",
-  "image_tag": "mlops-assignment3-inference:c20e0106c52d",
-  "image_id": "sha256:c3d340652266361752a16347e5e8779d143c734f6aff46ea7ffa2bc21ea523ae",
+  "observed_at": "2026-11-15T04:11:09.409601+00:00",
+  "image_tag": "mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+  "image_id": "sha256:7369df1ad77f2899d7723151b938e0b92d20fe792af5fb56aeb5d58ad4bd8a8a",
   "platform": "linux/arm64",
   "container": "mlops-assignment3-inference",
-  "review_url": "http://127.0.0.1:62185",
+  "review_url": "http://127.0.0.1:49723",
   "user": "10001:10001",
   "model_selection": {
     "run_id": "f1aa8c88b5d645418f17e18898805dba",
@@ -48,7 +48,7 @@
       "status": 200,
       "body": {
         "application": "assignment-iris-inference",
-        "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+        "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
         "model_ready": true,
         "model": {
           "run_id": "f1aa8c88b5d645418f17e18898805dba",
@@ -491,7 +491,7 @@
           }
         ],
         "model_run_id": "f1aa8c88b5d645418f17e18898805dba",
-        "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353"
+        "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8"
       }
     },
     {
@@ -534,7 +534,7 @@
         "predict": 503,
         "version": {
           "application": "assignment-iris-inference",
-          "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+          "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
           "model_ready": false,
           "model": null,
           "feature_order": [
@@ -558,40 +558,40 @@
       "tool_name": "inference.prediction",
       "status": "error",
       "http_status": 422,
-      "duration_ms": 0.184,
-      "request_id": "14cee1e7-e66b-413a-9054-8e2ce97560ea"
+      "duration_ms": 0.171,
+      "request_id": "801c5742-d343-4cc7-b822-0551f7ee60e1"
     },
     {
       "tool_name": "inference.prediction",
       "status": "error",
       "http_status": 422,
-      "duration_ms": 0.309,
-      "request_id": "03de3ae9-9400-405f-9414-6275742ed2df"
+      "duration_ms": 0.302,
+      "request_id": "049f127f-b2c1-48e6-8db4-9ce6dc173c91"
     },
     {
       "tool_name": "inference.prediction",
       "status": "error",
       "http_status": 422,
-      "duration_ms": 0.399,
-      "request_id": "571bf6b7-e725-4474-a4ef-c44b35863244"
+      "duration_ms": 0.293,
+      "request_id": "f7beaeb1-1458-4abd-b473-978ea924fcd5"
     },
     {
       "tool_name": "inference.prediction",
       "status": "error",
       "http_status": 422,
-      "duration_ms": 0.29,
-      "request_id": "4f6660e4-ca63-4f44-9b62-a621c71d0cd1"
+      "duration_ms": 0.193,
+      "request_id": "55ed2922-babe-4c56-8ccf-a398778bb30c"
     },
     {
       "tool_name": "inference.prediction",
       "status": "error",
       "http_status": 422,
-      "duration_ms": 0.192,
-      "request_id": "3b358514-5767-4850-9797-d1019d1e9a15"
+      "duration_ms": 0.148,
+      "request_id": "ea1436b9-f111-4fcf-adee-4c786016bd3c"
     }
   ],
   "limitations": [
-    "Local Docker verification; Kubernetes deployment is a later milestone.",
+    "Docker verification; Kubernetes has a separate live routing/RBAC export.",
     "Candidate selection is explicit; no production promotion or drift claim."
   ]
 }

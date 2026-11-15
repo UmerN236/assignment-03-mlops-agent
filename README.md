@@ -8,9 +8,10 @@ model. Responses separate observed facts, unknowns and recommendations.
 The four service adapters and the integrated read-only conversation are
 implemented and live-verified. See [architecture](architecture.md),
 [acceptance checklist](docs/requirements.md), [reliability audit](docs/reliability.md)
-and [actual integrated evidence](docs/evidence/agent.md). Five complete
-conversations, the Kubernetes readiness failure exercise, the final report and
-fresh-machine reproduction audit remain pending. Evidence records observations
+and [five tested conversations](docs/evidence/conversations/README.md). The
+[technical report](docs/report.md), [failure investigations](docs/failure-investigations.md),
+[defense guide](docs/defense.md) and [fresh-checkout procedure](docs/reproduction.md)
+complete the submission documentation. Evidence records observations
 at their timestamps, rather than guaranteeing current service health.
 
 ## Install and test
@@ -27,6 +28,7 @@ make setup                  # project-local Python and frozen uv.lock
 test -e .env || cp .env.example .env
 make config                 # presence booleans only; never prints keys
 make check                  # Ruff lint + format check + pytest
+make verify-submission      # offline evidence/fact-reference acceptance check
 ```
 
 Tests require neither Docker nor live API credentials. All external service
@@ -121,7 +123,7 @@ can instead explicitly select a newly trained, trusted run without editing
 historical IDs or manifests. Follow [fresh-checkout reproduction](docs/reproduction.md):
 `select-model.py --run-id ACTUAL_RUN_ID`, package with its ignored local selection,
 build, verify, and deploy. The image tag identifies both committed source and
-model content. Deployment imports the exact verified image ID and renders its tag
+complete model-bundle provenance. Deployment imports the exact verified image ID and renders its tag
 into a local manifest copy. New training never silently changes deployment.
 
 Live verifiers write sanitized exports and may refuse an existing different

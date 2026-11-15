@@ -1,19 +1,19 @@
 {
-  "observed_at": "2026-11-14T11:26:26.486197+00:00",
+  "observed_at": "2026-11-15T04:11:24.566675+00:00",
   "cluster": "mlops-assignment3",
   "namespace": "mlops-agent",
   "tools": [
     {
-      "request_id": "9c6d5278-a93d-43c6-930e-5a8aa8a4e84b",
+      "request_id": "c8624cdf-8ecb-4027-8846-4b7a8447956c",
       "tool": "kubernetes_workloads",
-      "observed_at": "2026-11-14T11:26:15.439797Z",
+      "observed_at": "2026-11-15T04:11:22.184497Z",
       "status": "ok",
       "evidence": {
         "namespace": "mlops-agent",
         "pods": [
           {
-            "name": "inference-b4cf4fcf9-rclrx",
-            "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+            "name": "inference-74fdf9f969-5pmgp",
+            "uid": "12da8d15-f8a4-4d03-bf00-c928a08bb385",
             "phase": "Running",
             "ready": true,
             "deleting": false,
@@ -49,8 +49,8 @@
                 "name": "inference",
                 "ready": true,
                 "restart_count": 0,
-                "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
-                "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                "image": "docker.io/library/mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+                "image_id": "sha256:9a0b8cc33a61b166b448f5269665208c68f3a6f0d56c3364a75027a88f881da5",
                 "state": "running",
                 "reason": null,
                 "exit_code": null,
@@ -59,8 +59,8 @@
             ]
           },
           {
-            "name": "inference-b4cf4fcf9-shz8x",
-            "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+            "name": "inference-74fdf9f969-hq5cb",
+            "uid": "c5c0f523-b553-4baf-8807-dc2ee13ab830",
             "phase": "Running",
             "ready": true,
             "deleting": false,
@@ -96,8 +96,8 @@
                 "name": "inference",
                 "ready": true,
                 "restart_count": 0,
-                "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
-                "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                "image": "docker.io/library/mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+                "image_id": "sha256:9a0b8cc33a61b166b448f5269665208c68f3a6f0d56c3364a75027a88f881da5",
                 "state": "running",
                 "reason": null,
                 "exit_code": null,
@@ -109,8 +109,8 @@
         "deployments": [
           {
             "name": "inference",
-            "generation": 1,
-            "observed_generation": 1,
+            "generation": 4,
+            "observed_generation": 4,
             "desired_replicas": 2,
             "ready_replicas": 2,
             "available_replicas": 2,
@@ -130,7 +130,7 @@
             "containers": [
               {
                 "name": "inference",
-                "image": "mlops-assignment3-inference:c20e0106c52d",
+                "image": "mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
                 "requests": {
                   "cpu": "100m",
                   "memory": "192Mi"
@@ -148,12 +148,12 @@
         "truncated": false
       },
       "error": null,
-      "duration_ms": 1179.987000010442
+      "duration_ms": 314.50454100001934
     },
     {
-      "request_id": "399cc787-69aa-4813-a5fa-181a1a40aaf8",
+      "request_id": "caf868fb-ab96-407b-a7ef-26aa8a0ce048",
       "tool": "kubernetes_services",
-      "observed_at": "2026-11-14T11:26:16.608643Z",
+      "observed_at": "2026-11-15T04:11:22.386641Z",
       "status": "ok",
       "evidence": {
         "namespace": "mlops-agent",
@@ -176,28 +176,28 @@
         "endpoints": [
           {
             "addresses": [
-              "10.244.0.5"
+              "10.244.0.11"
             ],
             "ready": true,
-            "pod": "inference-b4cf4fcf9-shz8x"
+            "pod": "inference-74fdf9f969-hq5cb"
           },
           {
             "addresses": [
-              "10.244.0.6"
+              "10.244.0.12"
             ],
             "ready": true,
-            "pod": "inference-b4cf4fcf9-rclrx"
+            "pod": "inference-74fdf9f969-5pmgp"
           }
         ],
         "truncated": false
       },
       "error": null,
-      "duration_ms": 1167.3253330227453
+      "duration_ms": 202.01408299999457
     },
     {
-      "request_id": "2a0562f2-414d-4585-a6bd-ceb3b56d879d",
+      "request_id": "0decde3f-4844-44dc-8de6-e6a2ada12bf7",
       "tool": "kubernetes_health",
-      "observed_at": "2026-11-14T11:26:17.787119Z",
+      "observed_at": "2026-11-15T04:11:22.610866Z",
       "status": "ok",
       "evidence": {
         "namespace": "mlops-agent",
@@ -210,7 +210,7 @@
           "status": "ready",
           "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
         },
-        "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+        "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
         "model": {
           "run_id": "f1aa8c88b5d645418f17e18898805dba",
           "model_id": "m-be27d8728a7f4331a812c37b663e8098",
@@ -229,18 +229,18 @@
         "scope": "Service sampled one or more backends; use workloads for all replica states"
       },
       "error": null,
-      "duration_ms": 1177.4499169841874
+      "duration_ms": 224.13699999992787
     },
     {
-      "request_id": "4b95d6eb-395c-4be6-9d10-4dff0a212de9",
+      "request_id": "e5078714-9d80-4e77-a093-3b7c3f8f6466",
       "tool": "kubernetes_diagnostics",
-      "observed_at": "2026-11-14T11:26:20.714405Z",
+      "observed_at": "2026-11-15T04:11:23.375049Z",
       "status": "ok",
       "evidence": {
         "namespace": "mlops-agent",
         "pod": {
-          "name": "inference-b4cf4fcf9-rclrx",
-          "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+          "name": "inference-74fdf9f969-5pmgp",
+          "uid": "12da8d15-f8a4-4d03-bf00-c928a08bb385",
           "phase": "Running",
           "ready": true,
           "deleting": false,
@@ -276,8 +276,8 @@
               "name": "inference",
               "ready": true,
               "restart_count": 0,
-              "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
-              "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+              "image": "docker.io/library/mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+              "image_id": "sha256:9a0b8cc33a61b166b448f5269665208c68f3a6f0d56c3364a75027a88f881da5",
               "state": "running",
               "reason": null,
               "exit_code": null,
@@ -289,41 +289,41 @@
           {
             "type": "Normal",
             "reason": "Scheduled",
-            "count": 1,
-            "first_timestamp": "2026-11-14 11:20:16+00:00",
-            "last_timestamp": "2026-11-14 11:20:16+00:00",
-            "component": "default-scheduler"
+            "count": null,
+            "first_timestamp": null,
+            "last_timestamp": null,
+            "component": null
           },
           {
             "type": "Normal",
             "reason": "Pulled",
             "count": 1,
-            "first_timestamp": "2026-11-14 11:20:16+00:00",
-            "last_timestamp": "2026-11-14 11:20:16+00:00",
+            "first_timestamp": "2026-11-15 04:11:16+00:00",
+            "last_timestamp": "2026-11-15 04:11:16+00:00",
             "component": "kubelet"
           },
           {
             "type": "Normal",
             "reason": "Created",
             "count": 1,
-            "first_timestamp": "2026-11-14 11:20:16+00:00",
-            "last_timestamp": "2026-11-14 11:20:16+00:00",
+            "first_timestamp": "2026-11-15 04:11:16+00:00",
+            "last_timestamp": "2026-11-15 04:11:16+00:00",
             "component": "kubelet"
           },
           {
             "type": "Normal",
             "reason": "Started",
             "count": 1,
-            "first_timestamp": "2026-11-14 11:20:17+00:00",
-            "last_timestamp": "2026-11-14 11:20:17+00:00",
+            "first_timestamp": "2026-11-15 04:11:16+00:00",
+            "last_timestamp": "2026-11-15 04:11:16+00:00",
             "component": "kubelet"
           },
           {
             "type": "Warning",
             "reason": "Unhealthy",
             "count": 1,
-            "first_timestamp": "2026-11-14 11:20:18+00:00",
-            "last_timestamp": "2026-11-14 11:20:18+00:00",
+            "first_timestamp": "2026-11-15 04:11:18+00:00",
+            "last_timestamp": "2026-11-15 04:11:18+00:00",
             "component": "kubelet"
           }
         ],
@@ -331,101 +331,94 @@
         "truncated": false
       },
       "error": null,
-      "duration_ms": 1164.1475830110721
+      "duration_ms": 230.14499999999316
     },
     {
-      "request_id": "83592ec5-4dfc-4893-bc28-e9f54c3bee99",
+      "request_id": "bd3baf1b-2013-4b40-bf3a-a0e8db9a30eb",
       "tool": "kubernetes_logs",
-      "observed_at": "2026-11-14T11:26:21.814892Z",
+      "observed_at": "2026-11-15T04:11:23.594029Z",
       "status": "ok",
       "evidence": {
         "namespace": "mlops-agent",
-        "pod": "inference-b4cf4fcf9-rclrx",
+        "pod": "inference-74fdf9f969-5pmgp",
         "previous": false,
         "entries": [
           {
-            "tool_name": "inference.version",
+            "tool_name": "inference.liveness",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.904,
-            "request_id": "d158993d-2c52-4470-b446-c3c9e74a510d"
-          },
-          {
-            "tool_name": "inference.version",
-            "status": "ok",
-            "http_status": 200,
-            "duration_ms": 0.292,
-            "request_id": "a61c4aaf-6277-48f5-b47e-39087141cdc4"
+            "duration_ms": 0.619,
+            "request_id": "19546b56-4f4a-479b-b17c-dd8e593eb062"
           },
           {
             "tool_name": "inference.readiness",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.169,
-            "request_id": "03e1c9dd-b69d-4832-8493-ef968b9bbe60"
-          },
-          {
-            "tool_name": "inference.prediction",
-            "status": "ok",
-            "http_status": 200,
-            "duration_ms": 4.657,
-            "request_id": "d1003e3b-87ad-4d35-9c68-98c06400cfa3"
-          },
-          {
-            "tool_name": "inference.prediction",
-            "status": "error",
-            "http_status": 422,
-            "duration_ms": 0.246,
-            "request_id": "bb1829d4-1682-4f8f-988c-2f0a0085c7a1"
-          },
-          {
-            "tool_name": "inference.prediction",
-            "status": "ok",
-            "http_status": 200,
-            "duration_ms": 2.879,
-            "request_id": "b86f76c7-270a-48bd-be59-a20b10723968"
+            "duration_ms": 0.32,
+            "request_id": "3a4a0023-c9c5-431b-979d-1a1f88cc91f0"
           },
           {
             "tool_name": "inference.version",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.223,
-            "request_id": "002eb931-a4ec-4fef-b07d-46a791d1ef92"
+            "duration_ms": 1.545,
+            "request_id": "a4aede75-807a-46e0-b88f-e590f454de89"
+          },
+          {
+            "tool_name": "inference.readiness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.218,
+            "request_id": "dafb87dd-8bc8-4c25-97ad-78b8f74de879"
           },
           {
             "tool_name": "inference.liveness",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.127,
-            "request_id": "44010803-7646-49f2-85b7-958f3ac3265e"
-          },
-          {
-            "tool_name": "inference.readiness",
-            "status": "ok",
-            "http_status": 200,
-            "duration_ms": 0.121,
-            "request_id": "283fe776-2dc7-493f-a406-69c272f77243"
-          },
-          {
-            "tool_name": "inference.prediction",
-            "status": "ok",
-            "http_status": 200,
-            "duration_ms": 2.9,
-            "request_id": "d17e0414-de56-4f33-bf1f-d51a83b426d3"
+            "duration_ms": 0.857,
+            "request_id": "45e4e08d-9714-4a0c-8197-3bbd68a342aa"
           },
           {
             "tool_name": "inference.prediction",
             "status": "error",
             "http_status": 422,
-            "duration_ms": 0.154,
-            "request_id": "24d8cab2-b886-42a1-9f6c-20fb527d7ef5"
+            "duration_ms": 0.349,
+            "request_id": "17211917-fba6-493b-bf44-37efe5092496"
+          },
+          {
+            "tool_name": "inference.version",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.208,
+            "request_id": "0659a2cc-a024-40e3-8d20-ed8862531312"
+          },
+          {
+            "tool_name": "inference.liveness",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 0.126,
+            "request_id": "6d7da3f2-3d14-4f94-9e04-827b3d9bbc75"
           },
           {
             "tool_name": "inference.readiness",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.852,
-            "request_id": "5e7c9d90-008f-48a7-9e7e-ffaba513b5e0"
+            "duration_ms": 0.122,
+            "request_id": "435ecfc1-8b9c-4f94-aba1-dc98e044b9da"
+          },
+          {
+            "tool_name": "inference.prediction",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 3.704,
+            "request_id": "21ad10e1-a17f-4fae-9fd5-1850a43bd209"
+          },
+          {
+            "tool_name": "inference.prediction",
+            "status": "error",
+            "http_status": 422,
+            "duration_ms": 0.183,
+            "request_id": "dc416b1d-6ab5-4117-85cf-485a51bf6b74"
           }
         ],
         "bounded_tail": true,
@@ -433,18 +426,18 @@
         "untrusted_observations": true
       },
       "error": null,
-      "duration_ms": 1099.946500005899
+      "duration_ms": 218.87691699998868
     },
     {
-      "request_id": "64118bd6-3ccd-42b7-bb5b-f48b1e3f7597",
+      "request_id": "09358313-7d62-42a3-9c86-4e77ecb99bdb",
       "tool": "kubernetes_diagnostics",
-      "observed_at": "2026-11-14T11:26:23.004894Z",
+      "observed_at": "2026-11-15T04:11:23.799475Z",
       "status": "ok",
       "evidence": {
         "namespace": "mlops-agent",
         "pod": {
-          "name": "inference-b4cf4fcf9-shz8x",
-          "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+          "name": "inference-74fdf9f969-hq5cb",
+          "uid": "c5c0f523-b553-4baf-8807-dc2ee13ab830",
           "phase": "Running",
           "ready": true,
           "deleting": false,
@@ -480,8 +473,8 @@
               "name": "inference",
               "ready": true,
               "restart_count": 0,
-              "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
-              "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+              "image": "docker.io/library/mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+              "image_id": "sha256:9a0b8cc33a61b166b448f5269665208c68f3a6f0d56c3364a75027a88f881da5",
               "state": "running",
               "reason": null,
               "exit_code": null,
@@ -493,41 +486,41 @@
           {
             "type": "Normal",
             "reason": "Scheduled",
-            "count": 1,
-            "first_timestamp": "2026-11-14 11:20:16+00:00",
-            "last_timestamp": "2026-11-14 11:20:16+00:00",
-            "component": "default-scheduler"
+            "count": null,
+            "first_timestamp": null,
+            "last_timestamp": null,
+            "component": null
           },
           {
             "type": "Normal",
             "reason": "Pulled",
             "count": 1,
-            "first_timestamp": "2026-11-14 11:20:16+00:00",
-            "last_timestamp": "2026-11-14 11:20:16+00:00",
+            "first_timestamp": "2026-11-15 04:11:12+00:00",
+            "last_timestamp": "2026-11-15 04:11:12+00:00",
             "component": "kubelet"
           },
           {
             "type": "Normal",
             "reason": "Created",
             "count": 1,
-            "first_timestamp": "2026-11-14 11:20:16+00:00",
-            "last_timestamp": "2026-11-14 11:20:16+00:00",
+            "first_timestamp": "2026-11-15 04:11:12+00:00",
+            "last_timestamp": "2026-11-15 04:11:12+00:00",
             "component": "kubelet"
           },
           {
             "type": "Normal",
             "reason": "Started",
             "count": 1,
-            "first_timestamp": "2026-11-14 11:20:17+00:00",
-            "last_timestamp": "2026-11-14 11:20:17+00:00",
+            "first_timestamp": "2026-11-15 04:11:12+00:00",
+            "last_timestamp": "2026-11-15 04:11:12+00:00",
             "component": "kubelet"
           },
           {
             "type": "Warning",
             "reason": "Unhealthy",
             "count": 1,
-            "first_timestamp": "2026-11-14 11:20:18+00:00",
-            "last_timestamp": "2026-11-14 11:20:18+00:00",
+            "first_timestamp": "2026-11-15 04:11:14+00:00",
+            "last_timestamp": "2026-11-15 04:11:14+00:00",
             "component": "kubelet"
           }
         ],
@@ -535,101 +528,101 @@
         "truncated": false
       },
       "error": null,
-      "duration_ms": 1189.68104099622
+      "duration_ms": 205.35462500004087
     },
     {
-      "request_id": "a08e8c3f-c9cd-4c2c-bfa2-aba40b6ad65c",
+      "request_id": "7c046689-114d-4d39-8207-d8f10a76eb51",
       "tool": "kubernetes_logs",
-      "observed_at": "2026-11-14T11:26:24.174889Z",
+      "observed_at": "2026-11-15T04:11:24.004626Z",
       "status": "ok",
       "evidence": {
         "namespace": "mlops-agent",
-        "pod": "inference-b4cf4fcf9-shz8x",
+        "pod": "inference-74fdf9f969-hq5cb",
         "previous": false,
         "entries": [
           {
-            "tool_name": "inference.readiness",
+            "tool_name": "inference.version",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.579,
-            "request_id": "9b3138f9-0bcd-4700-ab6c-feabaaac5857"
+            "duration_ms": 0.286,
+            "request_id": "1f512863-f1f9-46aa-b402-dcab6b3fbed8"
           },
           {
             "tool_name": "inference.liveness",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.212,
-            "request_id": "ab0a480b-f2ca-4745-92c2-86603c3587ec"
+            "duration_ms": 0.154,
+            "request_id": "a7a469ed-8101-4a94-a319-2875c882fea3"
+          },
+          {
+            "tool_name": "inference.prediction",
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 4.301,
+            "request_id": "1900e80b-8d3b-410d-877f-9a7fa55f4cfa"
+          },
+          {
+            "tool_name": "inference.prediction",
+            "status": "error",
+            "http_status": 422,
+            "duration_ms": 0.258,
+            "request_id": "ea4d9ce9-a977-4459-929b-d3d939da3f55"
           },
           {
             "tool_name": "inference.version",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.223,
-            "request_id": "536e8ccb-537e-4d31-9927-86e551f81a25"
-          },
-          {
-            "tool_name": "inference.liveness",
-            "status": "ok",
-            "http_status": 200,
-            "duration_ms": 0.165,
-            "request_id": "6b1c580f-6681-49d8-aff9-13f3b30cb682"
+            "duration_ms": 0.204,
+            "request_id": "ed66403b-dd23-4a80-a819-8406b0766880"
           },
           {
             "tool_name": "inference.readiness",
             "status": "ok",
             "http_status": 200,
             "duration_ms": 0.134,
-            "request_id": "5afbdc98-cd1b-4149-8052-36102a4920d0"
+            "request_id": "2ed5752d-02b8-44ac-a66b-fec9eaaaaa1f"
           },
           {
             "tool_name": "inference.prediction",
-            "status": "error",
-            "http_status": 422,
-            "duration_ms": 0.283,
-            "request_id": "29f3efc9-d153-4bcc-a84a-e9f3245340f9"
+            "status": "ok",
+            "http_status": 200,
+            "duration_ms": 2.981,
+            "request_id": "5f77e031-edcd-4722-910f-8b3a7a4b0a81"
           },
           {
             "tool_name": "inference.version",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.159,
-            "request_id": "960df70c-bd00-4c63-943c-92a7a21d6f39"
+            "duration_ms": 0.22,
+            "request_id": "88c3f3ac-0495-4202-ac29-78a1e0b45d7e"
           },
           {
             "tool_name": "inference.liveness",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.119,
-            "request_id": "d9e37616-35f4-4678-a480-049a4d34c518"
+            "duration_ms": 0.124,
+            "request_id": "d8ab84d6-b676-4a99-9b32-ca6f0437d09d"
           },
           {
             "tool_name": "inference.readiness",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 0.113,
-            "request_id": "76019249-1622-446e-b60c-433240248ce2"
+            "duration_ms": 0.124,
+            "request_id": "d9eaea33-7b77-4be7-9700-6abf3fae7976"
           },
           {
             "tool_name": "inference.prediction",
             "status": "ok",
             "http_status": 200,
-            "duration_ms": 3.912,
-            "request_id": "d6fc8c29-790a-4eca-b7c0-d93579f321fa"
+            "duration_ms": 2.789,
+            "request_id": "5a45483c-7fa0-4e2a-8fcd-63a23a95ab5c"
           },
           {
             "tool_name": "inference.prediction",
             "status": "error",
             "http_status": 422,
-            "duration_ms": 0.179,
-            "request_id": "ae0d5c25-b71c-4d2f-a826-ad99874c2eef"
-          },
-          {
-            "tool_name": "inference.readiness",
-            "status": "ok",
-            "http_status": 200,
-            "duration_ms": 0.858,
-            "request_id": "37bcd3c4-df7b-4409-b8a7-b10eb4aa0543"
+            "duration_ms": 0.147,
+            "request_id": "444143bc-8ebc-41b7-b8ed-00946f07100c"
           }
         ],
         "bounded_tail": true,
@@ -637,19 +630,19 @@
         "untrusted_observations": true
       },
       "error": null,
-      "duration_ms": 1169.744750019163
+      "duration_ms": 205.05337500003407
     },
     {
-      "request_id": "2fff0b35-3fa3-41e7-863a-96af424fef81",
+      "request_id": "8e6dbac7-1235-408f-8c68-118bec24b6bf",
       "tool": "kubernetes_workloads",
-      "observed_at": "2026-11-14T11:26:26.485917Z",
+      "observed_at": "2026-11-15T04:11:24.566568Z",
       "status": "ok",
       "evidence": {
         "namespace": "mlops-agent",
         "pods": [
           {
-            "name": "inference-b4cf4fcf9-rclrx",
-            "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+            "name": "inference-74fdf9f969-5pmgp",
+            "uid": "12da8d15-f8a4-4d03-bf00-c928a08bb385",
             "phase": "Running",
             "ready": true,
             "deleting": false,
@@ -685,8 +678,8 @@
                 "name": "inference",
                 "ready": true,
                 "restart_count": 0,
-                "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
-                "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                "image": "docker.io/library/mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+                "image_id": "sha256:9a0b8cc33a61b166b448f5269665208c68f3a6f0d56c3364a75027a88f881da5",
                 "state": "running",
                 "reason": null,
                 "exit_code": null,
@@ -695,8 +688,8 @@
             ]
           },
           {
-            "name": "inference-b4cf4fcf9-shz8x",
-            "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+            "name": "inference-74fdf9f969-hq5cb",
+            "uid": "c5c0f523-b553-4baf-8807-dc2ee13ab830",
             "phase": "Running",
             "ready": true,
             "deleting": false,
@@ -732,8 +725,8 @@
                 "name": "inference",
                 "ready": true,
                 "restart_count": 0,
-                "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
-                "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                "image": "docker.io/library/mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
+                "image_id": "sha256:9a0b8cc33a61b166b448f5269665208c68f3a6f0d56c3364a75027a88f881da5",
                 "state": "running",
                 "reason": null,
                 "exit_code": null,
@@ -745,8 +738,8 @@
         "deployments": [
           {
             "name": "inference",
-            "generation": 1,
-            "observed_generation": 1,
+            "generation": 4,
+            "observed_generation": 4,
             "desired_replicas": 2,
             "ready_replicas": 2,
             "available_replicas": 2,
@@ -766,7 +759,7 @@
             "containers": [
               {
                 "name": "inference",
-                "image": "mlops-assignment3-inference:c20e0106c52d",
+                "image": "mlops-assignment3-inference:b869d2fa544c-d3af7c7bdc99",
                 "requests": {
                   "cpu": "100m",
                   "memory": "192Mi"
@@ -784,7 +777,7 @@
         "truncated": false
       },
       "error": null,
-      "duration_ms": 905.568582995329
+      "duration_ms": 209.4868750000387
     }
   ],
   "in_cluster_routing": [
@@ -797,7 +790,7 @@
         "status": 200,
         "body": {
           "application": "assignment-iris-inference",
-          "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+          "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
           "model_ready": true,
           "model": {
             "run_id": "f1aa8c88b5d645418f17e18898805dba",
@@ -855,7 +848,7 @@
         "status": 200,
         "body": {
           "application": "assignment-iris-inference",
-          "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+          "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
           "model_ready": true,
           "model": {
             "run_id": "f1aa8c88b5d645418f17e18898805dba",
@@ -906,14 +899,14 @@
     },
     {
       "target": {
-        "name": "inference-b4cf4fcf9-shz8x",
-        "url": "http://10.244.0.5:8000"
+        "name": "inference-74fdf9f969-hq5cb",
+        "url": "http://10.244.0.11:8000"
       },
       "version": {
         "status": 200,
         "body": {
           "application": "assignment-iris-inference",
-          "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+          "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
           "model_ready": true,
           "model": {
             "run_id": "f1aa8c88b5d645418f17e18898805dba",
@@ -964,14 +957,14 @@
     },
     {
       "target": {
-        "name": "inference-b4cf4fcf9-rclrx",
-        "url": "http://10.244.0.6:8000"
+        "name": "inference-74fdf9f969-5pmgp",
+        "url": "http://10.244.0.12:8000"
       },
       "version": {
         "status": 200,
         "body": {
           "application": "assignment-iris-inference",
-          "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+          "app_version": "b869d2fa544ca8eed8fe1e020522673f61a2f3a8",
           "model_ready": true,
           "model": {
             "run_id": "f1aa8c88b5d645418f17e18898805dba",
@@ -1085,28 +1078,28 @@
   ],
   "server_dry_run_patch_denied": true,
   "invalid_scope": {
-    "request_id": "d2f7651a-3348-43b9-aa37-21149ff15f4a",
+    "request_id": "49080fa0-b856-424e-90e5-ff78c21318a6",
     "tool": "kubernetes_workloads",
-    "observed_at": "2026-11-14T11:26:25.580103Z",
+    "observed_at": "2026-11-15T04:11:24.357018Z",
     "status": "invalid_request",
     "evidence": {},
     "error": "Invalid tool arguments or disallowed path/revision",
-    "duration_ms": 0.40874999831430614
+    "duration_ms": 0.06441699997594696
   },
   "unauthorized_write": {
-    "request_id": "1f60c040-0f67-4e48-815c-609f7d6a8dd7",
+    "request_id": "d81c17d2-f30d-4729-a9d7-dc0f635e303a",
     "tool": "unregistered",
-    "observed_at": "2026-11-14T11:26:25.580279Z",
+    "observed_at": "2026-11-15T04:11:24.357075Z",
     "status": "unavailable",
     "evidence": {},
     "error": "Tool is not registered",
-    "duration_ms": 0.04700000863522291
+    "duration_ms": 0.014042000088920759
   },
   "limitations": [
     "Single-node local kind deployment; two replicas do not provide node redundancy.",
     "Only bounded log tails/event reasons exported; missing history remains unknown.",
     "Read-only tools provide no cluster mutation even with claimed confirmation.",
     "Expiring TokenRequest credential must be refreshed by an engineer after expiry.",
-    "Direct tool evidence; LLM diagnosis and controlled failures remain pending."
+    "Direct tool export; conversations and failure investigations are separate exports."
   ]
 }

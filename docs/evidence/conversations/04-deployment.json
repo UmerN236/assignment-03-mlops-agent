@@ -1,0 +1,2955 @@
+{
+  "scenario": "04-deployment",
+  "request": {
+    "message": "Inspect the prediction API Deployment, Pods, Service, actual health, application version and relevant Pod logs. Report observed health and any restart or failure evidence.",
+    "mode": "query",
+    "confirmation": null
+  },
+  "conversation": {
+    "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+    "observed_at": "2026-11-15T04:05:29.973965Z",
+    "status": "complete",
+    "provider": {
+      "provider": "openrouter",
+      "requested_model": "openrouter/free",
+      "free_tier_verified": true,
+      "catalog_model_verified": true,
+      "free_router_filters_tool_support": true
+    },
+    "turns": [
+      {
+        "iteration": 1,
+        "model": "inclusionai/ling-3.2-flash:free",
+        "cost": 0,
+        "duration_ms": 8960.973375000038
+      },
+      {
+        "iteration": 2,
+        "model": "baidu/ernie-5.5-flash-preview:free",
+        "cost": 0,
+        "duration_ms": 2782.7546249999955
+      },
+      {
+        "iteration": 3,
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "cost": 0,
+        "duration_ms": 6591.829916999985
+      },
+      {
+        "iteration": 4,
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "cost": 0,
+        "duration_ms": 7892.0477920000285
+      },
+      {
+        "iteration": 5,
+        "model": "particle-ai/particle-1:free",
+        "cost": 0,
+        "duration_ms": 6455.834541999991
+      }
+    ],
+    "tool_calls": [
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_workloads",
+          "observed_at": "2026-11-15T04:05:02.020678Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pods": [
+              {
+                "name": "inference-b4cf4fcf9-rclrx",
+                "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+                "phase": "Running",
+                "ready": true,
+                "deleting": false,
+                "conditions": [
+                  {
+                    "type": "PodReadyToStartContainers",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Initialized",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Ready",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "ContainersReady",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "PodScheduled",
+                    "status": "True",
+                    "reason": null
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "ready": true,
+                    "restart_count": 1,
+                    "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                    "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                    "state": "running",
+                    "reason": null,
+                    "exit_code": null,
+                    "last_termination_reason": "Unknown"
+                  }
+                ]
+              },
+              {
+                "name": "inference-b4cf4fcf9-shz8x",
+                "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+                "phase": "Running",
+                "ready": true,
+                "deleting": false,
+                "conditions": [
+                  {
+                    "type": "PodReadyToStartContainers",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Initialized",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Ready",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "ContainersReady",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "PodScheduled",
+                    "status": "True",
+                    "reason": null
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "ready": true,
+                    "restart_count": 1,
+                    "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                    "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                    "state": "running",
+                    "reason": null,
+                    "exit_code": null,
+                    "last_termination_reason": "Unknown"
+                  }
+                ]
+              }
+            ],
+            "deployments": [
+              {
+                "name": "inference",
+                "generation": 1,
+                "observed_generation": 1,
+                "desired_replicas": 2,
+                "ready_replicas": 2,
+                "available_replicas": 2,
+                "updated_replicas": 2,
+                "conditions": [
+                  {
+                    "type": "Available",
+                    "status": "True",
+                    "reason": "MinimumReplicasAvailable"
+                  },
+                  {
+                    "type": "Progressing",
+                    "status": "True",
+                    "reason": "NewReplicaSetAvailable"
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "image": "mlops-assignment3-inference:c20e0106c52d",
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "192Mi"
+                    },
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "512Mi"
+                    },
+                    "readiness_path": "/readyz",
+                    "liveness_path": "/livez"
+                  }
+                ]
+              }
+            ],
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 392.55074999999806
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_services",
+          "observed_at": "2026-11-15T04:05:02.222258Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "services": [
+              {
+                "name": "inference",
+                "type": "ClusterIP",
+                "cluster_ip": "10.96.207.167",
+                "selector": {
+                  "app.kubernetes.io/name": "inference"
+                },
+                "ports": [
+                  {
+                    "port": 8000,
+                    "target_port": "http"
+                  }
+                ]
+              }
+            ],
+            "endpoints": [
+              {
+                "addresses": [
+                  "10.244.0.2"
+                ],
+                "ready": true,
+                "pod": "inference-b4cf4fcf9-shz8x"
+              },
+              {
+                "addresses": [
+                  "10.244.0.3"
+                ],
+                "ready": true,
+                "pod": "inference-b4cf4fcf9-rclrx"
+              }
+            ],
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 201.31233299997575
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_health",
+          "observed_at": "2026-11-15T04:05:02.433250Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "service": "inference",
+            "transport": "GET service proxy",
+            "liveness": {
+              "status": "alive"
+            },
+            "readiness": {
+              "status": "ready",
+              "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+            },
+            "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+            "model": {
+              "run_id": "f1aa8c88b5d645418f17e18898805dba",
+              "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+              "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+              "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset": {
+                "path": "data/iris.csv",
+                "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+                "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+              },
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "sklearn_version": "1.7.2",
+              "numpy_version": "2.5.4",
+              "cloudpickle_version": "3.1.2"
+            },
+            "scope": "Service sampled one or more backends; use workloads for all replica states"
+          },
+          "error": null,
+          "duration_ms": 210.76133299999356
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-rclrx"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_diagnostics",
+          "observed_at": "2026-11-15T04:05:05.461412Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": {
+              "name": "inference-b4cf4fcf9-rclrx",
+              "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+              "phase": "Running",
+              "ready": true,
+              "deleting": false,
+              "conditions": [
+                {
+                  "type": "PodReadyToStartContainers",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Initialized",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Ready",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "ContainersReady",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "PodScheduled",
+                  "status": "True",
+                  "reason": null
+                }
+              ],
+              "containers": [
+                {
+                  "name": "inference",
+                  "ready": true,
+                  "restart_count": 1,
+                  "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                  "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                  "state": "running",
+                  "reason": null,
+                  "exit_code": null,
+                  "last_termination_reason": "Unknown"
+                }
+              ]
+            },
+            "events": [
+              {
+                "type": "Normal",
+                "reason": "SandboxChanged",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Pulled",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Created",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Started",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Warning",
+                "reason": "Unhealthy",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:59+00:00",
+                "last_timestamp": "2026-11-15 04:00:59+00:00",
+                "component": "kubelet"
+              }
+            ],
+            "event_messages_omitted": "Arbitrary text excluded; reason/count are observations",
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 245.04699999999957
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-shz8x"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_diagnostics",
+          "observed_at": "2026-11-15T04:05:05.660216Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": {
+              "name": "inference-b4cf4fcf9-shz8x",
+              "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+              "phase": "Running",
+              "ready": true,
+              "deleting": false,
+              "conditions": [
+                {
+                  "type": "PodReadyToStartContainers",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Initialized",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Ready",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "ContainersReady",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "PodScheduled",
+                  "status": "True",
+                  "reason": null
+                }
+              ],
+              "containers": [
+                {
+                  "name": "inference",
+                  "ready": true,
+                  "restart_count": 1,
+                  "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                  "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                  "state": "running",
+                  "reason": null,
+                  "exit_code": null,
+                  "last_termination_reason": "Unknown"
+                }
+              ]
+            },
+            "events": [
+              {
+                "type": "Normal",
+                "reason": "SandboxChanged",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Pulled",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Created",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Started",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Warning",
+                "reason": "Unhealthy",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:59+00:00",
+                "last_timestamp": "2026-11-15 04:00:59+00:00",
+                "component": "kubelet"
+              }
+            ],
+            "event_messages_omitted": "Arbitrary text excluded; reason/count are observations",
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 198.54208300000664
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-rclrx",
+          "tail_lines": 30,
+          "previous": false
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_logs",
+          "observed_at": "2026-11-15T04:05:05.877084Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": "inference-b4cf4fcf9-rclrx",
+            "previous": false,
+            "entries": [
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.194,
+                "request_id": "c9eaca77-d4cf-4680-9208-0409b77ee90f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.81,
+                "request_id": "62e2a148-4de6-4585-bae6-53ee9241697a"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.494,
+                "request_id": "5bfe81d3-ffc6-45b3-8470-5fc113e4f025"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.126,
+                "request_id": "242ce7c0-9b3e-401f-9724-5bd2250eb062"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.533,
+                "request_id": "a80cf6e4-05e3-45b7-8e92-55044c672d02"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.189,
+                "request_id": "a1f36ff8-3896-46a5-aea9-685c1a61ed45"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.815,
+                "request_id": "05ce9270-b0e9-4b2e-a823-b4a1223054dc"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.691,
+                "request_id": "3636ab4a-136a-4f7d-8c1d-db4942826b53"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.807,
+                "request_id": "4edb85b0-0624-49b6-bdc9-974c8d06f991"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.785,
+                "request_id": "23aecf0d-93a5-4a69-a3f7-7f8e7522d740"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.326,
+                "request_id": "f1c7d193-5420-431e-a7a6-3b030a7cab91"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.861,
+                "request_id": "3ceaa02b-b9d5-420b-bb17-f6ac852c775c"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.853,
+                "request_id": "16dee542-5e78-4244-9f14-bc38f39a3b0f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.821,
+                "request_id": "b75bb057-a543-434f-b025-3b127e388b10"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.232,
+                "request_id": "7b8ff60f-1c49-4da2-8069-ea10fee1cbed"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.467,
+                "request_id": "7331dd2c-c8f7-48ec-98e1-0cd3536e476f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.268,
+                "request_id": "95f4dbd2-a9b1-4591-8d94-9c433889944d"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.233,
+                "request_id": "acdac3eb-740b-44e2-badf-6aaa222f31a1"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.624,
+                "request_id": "eae3f10c-79d9-412a-af13-17b40ee81656"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.319,
+                "request_id": "3365ed98-5003-4d17-b175-ee2d17e277ba"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.237,
+                "request_id": "9d9f7d1a-28ee-44c9-873b-bd8f832766f7"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.814,
+                "request_id": "8aead8e0-f1cf-45de-a2a2-b4d01a7265e9"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.803,
+                "request_id": "6a817886-f4a6-4d12-be5f-99d0f9441b40"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.817,
+                "request_id": "690ca056-d243-46e4-a70c-d637be47dfef"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.647,
+                "request_id": "1aabd745-63c7-44ff-b9af-439c26c942ca"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.778,
+                "request_id": "8ee40479-5d54-4271-8ec8-9dde748ea8a0"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.456,
+                "request_id": "97d7173e-2d97-4dd4-9060-6b75b7846859"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.445,
+                "request_id": "47b38115-36d9-48b4-acfc-3092ed2d455a"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.719,
+                "request_id": "88e13b7f-9eeb-4148-ada4-ac5e628e5c47"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.774,
+                "request_id": "1a0f6b41-4a0b-4147-aef8-804445518390"
+              }
+            ],
+            "bounded_tail": true,
+            "raw_text_omitted": true,
+            "untrusted_observations": true
+          },
+          "error": null,
+          "duration_ms": 216.58520900001577
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-shz8x",
+          "tail_lines": 30,
+          "previous": false
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_logs",
+          "observed_at": "2026-11-15T04:05:06.081816Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": "inference-b4cf4fcf9-shz8x",
+            "previous": false,
+            "entries": [
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.976,
+                "request_id": "1ac847b3-4a9a-4be2-becb-fe2a6e574e75"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.308,
+                "request_id": "6a80a4aa-f7ad-40d5-b163-2fcc97210cdf"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.761,
+                "request_id": "505ca577-0dc8-4f64-860e-29d256d56e98"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.795,
+                "request_id": "b470faf3-e25c-4764-9a13-4a6dfa4b83d5"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.746,
+                "request_id": "765cff1b-a26a-4d94-99ea-e015a31d7483"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.592,
+                "request_id": "eae2eec1-c46a-4817-85d7-116e7e12793c"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.58,
+                "request_id": "4fb6aa7f-02e2-4056-a8eb-86b90c086198"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.798,
+                "request_id": "c82c0197-e16f-4786-ba89-3c8318ac7ff8"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.55,
+                "request_id": "7ba78109-a6ca-4e85-85f7-fa754bb39c9a"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.828,
+                "request_id": "a8102c97-05e7-4b5d-b7d7-4e5187d8fab8"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.222,
+                "request_id": "dc53c888-dd20-4b57-bc02-21d09206e7e3"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.23,
+                "request_id": "6379f2a6-ff9d-4d27-96c3-32c1381b1e36"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.237,
+                "request_id": "d7839efb-8aca-47b3-a3c7-8f1ce5a945cc"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.506,
+                "request_id": "8c9a1dab-0f16-4d78-97fc-d3c73d2d78e6"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.241,
+                "request_id": "96669e33-ca0f-4413-85a6-7af51264c6f0"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.543,
+                "request_id": "3bdb09de-e982-4993-b8cb-f333090d3e75"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.371,
+                "request_id": "6fbdb640-da28-41a4-b957-a3aadb4983f1"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.262,
+                "request_id": "cbf1f7ee-4116-41ca-8373-b4ba6e5604fb"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.818,
+                "request_id": "5d8ca2bc-b87f-4e5c-9246-64352530e0d7"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.81,
+                "request_id": "82669007-906a-47fe-9883-a8a138ee23d4"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.799,
+                "request_id": "73ea79df-9690-4234-9f53-0fd8dff57080"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.864,
+                "request_id": "4a5f3a64-fcce-4859-82af-a0de71d2f2aa"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.86,
+                "request_id": "6a65969e-d847-4739-afcd-efa8b4736692"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.769,
+                "request_id": "379892f1-423b-44e9-a103-99d710ceef29"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.756,
+                "request_id": "bcd935f4-7607-4479-aab5-46ee8fae001e"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.564,
+                "request_id": "6abda456-821a-4f99-bcee-cd2f1b5b30b5"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.732,
+                "request_id": "7240d436-8c05-41e5-8efa-c63de9694e23"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.773,
+                "request_id": "b144981a-1019-4878-9d9e-18a9beac0f32"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.517,
+                "request_id": "6ae1da3e-246a-473a-8704-be2e10514923"
+              },
+              {
+                "tool_name": "inference.version",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.26,
+                "request_id": "9c559580-116b-481a-98ff-54af208ce17a"
+              }
+            ],
+            "bounded_tail": true,
+            "raw_text_omitted": true,
+            "untrusted_observations": true
+          },
+          "error": null,
+          "duration_ms": 204.42387499997494
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_workloads",
+          "observed_at": "2026-11-15T04:05:12.911205Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pods": [
+              {
+                "name": "inference-b4cf4fcf9-rclrx",
+                "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+                "phase": "Running",
+                "ready": true,
+                "deleting": false,
+                "conditions": [
+                  {
+                    "type": "PodReadyToStartContainers",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Initialized",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Ready",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "ContainersReady",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "PodScheduled",
+                    "status": "True",
+                    "reason": null
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "ready": true,
+                    "restart_count": 1,
+                    "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                    "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                    "state": "running",
+                    "reason": null,
+                    "exit_code": null,
+                    "last_termination_reason": "Unknown"
+                  }
+                ]
+              },
+              {
+                "name": "inference-b4cf4fcf9-shz8x",
+                "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+                "phase": "Running",
+                "ready": true,
+                "deleting": false,
+                "conditions": [
+                  {
+                    "type": "PodReadyToStartContainers",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Initialized",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Ready",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "ContainersReady",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "PodScheduled",
+                    "status": "True",
+                    "reason": null
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "ready": true,
+                    "restart_count": 1,
+                    "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                    "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                    "state": "running",
+                    "reason": null,
+                    "exit_code": null,
+                    "last_termination_reason": "Unknown"
+                  }
+                ]
+              }
+            ],
+            "deployments": [
+              {
+                "name": "inference",
+                "generation": 1,
+                "observed_generation": 1,
+                "desired_replicas": 2,
+                "ready_replicas": 2,
+                "available_replicas": 2,
+                "updated_replicas": 2,
+                "conditions": [
+                  {
+                    "type": "Available",
+                    "status": "True",
+                    "reason": "MinimumReplicasAvailable"
+                  },
+                  {
+                    "type": "Progressing",
+                    "status": "True",
+                    "reason": "NewReplicaSetAvailable"
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "image": "mlops-assignment3-inference:c20e0106c52d",
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "192Mi"
+                    },
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "512Mi"
+                    },
+                    "readiness_path": "/readyz",
+                    "liveness_path": "/livez"
+                  }
+                ]
+              }
+            ],
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 237.20766700000695
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_services",
+          "observed_at": "2026-11-15T04:05:13.111161Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "services": [
+              {
+                "name": "inference",
+                "type": "ClusterIP",
+                "cluster_ip": "10.96.207.167",
+                "selector": {
+                  "app.kubernetes.io/name": "inference"
+                },
+                "ports": [
+                  {
+                    "port": 8000,
+                    "target_port": "http"
+                  }
+                ]
+              }
+            ],
+            "endpoints": [
+              {
+                "addresses": [
+                  "10.244.0.2"
+                ],
+                "ready": true,
+                "pod": "inference-b4cf4fcf9-shz8x"
+              },
+              {
+                "addresses": [
+                  "10.244.0.3"
+                ],
+                "ready": true,
+                "pod": "inference-b4cf4fcf9-rclrx"
+              }
+            ],
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 199.68854199998987
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_health",
+          "observed_at": "2026-11-15T04:05:13.324921Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "service": "inference",
+            "transport": "GET service proxy",
+            "liveness": {
+              "status": "alive"
+            },
+            "readiness": {
+              "status": "ready",
+              "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+            },
+            "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+            "model": {
+              "run_id": "f1aa8c88b5d645418f17e18898805dba",
+              "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+              "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+              "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset": {
+                "path": "data/iris.csv",
+                "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+                "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+              },
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "sklearn_version": "1.7.2",
+              "numpy_version": "2.5.4",
+              "cloudpickle_version": "3.1.2"
+            },
+            "scope": "Service sampled one or more backends; use workloads for all replica states"
+          },
+          "error": null,
+          "duration_ms": 213.53037500000482
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-rclrx"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_diagnostics",
+          "observed_at": "2026-11-15T04:05:13.525884Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": {
+              "name": "inference-b4cf4fcf9-rclrx",
+              "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+              "phase": "Running",
+              "ready": true,
+              "deleting": false,
+              "conditions": [
+                {
+                  "type": "PodReadyToStartContainers",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Initialized",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Ready",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "ContainersReady",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "PodScheduled",
+                  "status": "True",
+                  "reason": null
+                }
+              ],
+              "containers": [
+                {
+                  "name": "inference",
+                  "ready": true,
+                  "restart_count": 1,
+                  "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                  "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                  "state": "running",
+                  "reason": null,
+                  "exit_code": null,
+                  "last_termination_reason": "Unknown"
+                }
+              ]
+            },
+            "events": [
+              {
+                "type": "Normal",
+                "reason": "SandboxChanged",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Pulled",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Created",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Started",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Warning",
+                "reason": "Unhealthy",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:59+00:00",
+                "last_timestamp": "2026-11-15 04:00:59+00:00",
+                "component": "kubelet"
+              }
+            ],
+            "event_messages_omitted": "Arbitrary text excluded; reason/count are observations",
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 200.70804200003067
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-shz8x"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_diagnostics",
+          "observed_at": "2026-11-15T04:05:13.725721Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": {
+              "name": "inference-b4cf4fcf9-shz8x",
+              "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+              "phase": "Running",
+              "ready": true,
+              "deleting": false,
+              "conditions": [
+                {
+                  "type": "PodReadyToStartContainers",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Initialized",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Ready",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "ContainersReady",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "PodScheduled",
+                  "status": "True",
+                  "reason": null
+                }
+              ],
+              "containers": [
+                {
+                  "name": "inference",
+                  "ready": true,
+                  "restart_count": 1,
+                  "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                  "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                  "state": "running",
+                  "reason": null,
+                  "exit_code": null,
+                  "last_termination_reason": "Unknown"
+                }
+              ]
+            },
+            "events": [
+              {
+                "type": "Normal",
+                "reason": "SandboxChanged",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Pulled",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Created",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Started",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Warning",
+                "reason": "Unhealthy",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:59+00:00",
+                "last_timestamp": "2026-11-15 04:00:59+00:00",
+                "component": "kubelet"
+              }
+            ],
+            "event_messages_omitted": "Arbitrary text excluded; reason/count are observations",
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 199.57691700000169
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-rclrx",
+          "tail_lines": 30,
+          "previous": false
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_logs",
+          "observed_at": "2026-11-15T04:05:13.936575Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": "inference-b4cf4fcf9-rclrx",
+            "previous": false,
+            "entries": [
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.189,
+                "request_id": "a1f36ff8-3896-46a5-aea9-685c1a61ed45"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.815,
+                "request_id": "05ce9270-b0e9-4b2e-a823-b4a1223054dc"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.691,
+                "request_id": "3636ab4a-136a-4f7d-8c1d-db4942826b53"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.807,
+                "request_id": "4edb85b0-0624-49b6-bdc9-974c8d06f991"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.785,
+                "request_id": "23aecf0d-93a5-4a69-a3f7-7f8e7522d740"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.326,
+                "request_id": "f1c7d193-5420-431e-a7a6-3b030a7cab91"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.861,
+                "request_id": "3ceaa02b-b9d5-420b-bb17-f6ac852c775c"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.853,
+                "request_id": "16dee542-5e78-4244-9f14-bc38f39a3b0f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.821,
+                "request_id": "b75bb057-a543-434f-b025-3b127e388b10"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.232,
+                "request_id": "7b8ff60f-1c49-4da2-8069-ea10fee1cbed"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.467,
+                "request_id": "7331dd2c-c8f7-48ec-98e1-0cd3536e476f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.268,
+                "request_id": "95f4dbd2-a9b1-4591-8d94-9c433889944d"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.233,
+                "request_id": "acdac3eb-740b-44e2-badf-6aaa222f31a1"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.624,
+                "request_id": "eae3f10c-79d9-412a-af13-17b40ee81656"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.319,
+                "request_id": "3365ed98-5003-4d17-b175-ee2d17e277ba"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.237,
+                "request_id": "9d9f7d1a-28ee-44c9-873b-bd8f832766f7"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.814,
+                "request_id": "8aead8e0-f1cf-45de-a2a2-b4d01a7265e9"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.803,
+                "request_id": "6a817886-f4a6-4d12-be5f-99d0f9441b40"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.817,
+                "request_id": "690ca056-d243-46e4-a70c-d637be47dfef"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.647,
+                "request_id": "1aabd745-63c7-44ff-b9af-439c26c942ca"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.778,
+                "request_id": "8ee40479-5d54-4271-8ec8-9dde748ea8a0"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.456,
+                "request_id": "97d7173e-2d97-4dd4-9060-6b75b7846859"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.445,
+                "request_id": "47b38115-36d9-48b4-acfc-3092ed2d455a"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.719,
+                "request_id": "88e13b7f-9eeb-4148-ada4-ac5e628e5c47"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.774,
+                "request_id": "1a0f6b41-4a0b-4147-aef8-804445518390"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.631,
+                "request_id": "0b5e177c-8ddf-4798-8d10-269ca34e91a6"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.438,
+                "request_id": "530c7796-3633-40d5-b532-384575b8783d"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.409,
+                "request_id": "d0d42a8c-6daa-4d76-8f48-0c172499f85f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.754,
+                "request_id": "b2606618-9de4-4aec-90c0-40d452fb2e62"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.478,
+                "request_id": "25731ad2-c0d6-4209-9378-835cf0458684"
+              }
+            ],
+            "bounded_tail": true,
+            "raw_text_omitted": true,
+            "untrusted_observations": true
+          },
+          "error": null,
+          "duration_ms": 210.5962499999805
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-shz8x",
+          "tail_lines": 30,
+          "previous": false
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_logs",
+          "observed_at": "2026-11-15T04:05:14.149798Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": "inference-b4cf4fcf9-shz8x",
+            "previous": false,
+            "entries": [
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.746,
+                "request_id": "765cff1b-a26a-4d94-99ea-e015a31d7483"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.592,
+                "request_id": "eae2eec1-c46a-4817-85d7-116e7e12793c"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.58,
+                "request_id": "4fb6aa7f-02e2-4056-a8eb-86b90c086198"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.798,
+                "request_id": "c82c0197-e16f-4786-ba89-3c8318ac7ff8"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.55,
+                "request_id": "7ba78109-a6ca-4e85-85f7-fa754bb39c9a"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.828,
+                "request_id": "a8102c97-05e7-4b5d-b7d7-4e5187d8fab8"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.222,
+                "request_id": "dc53c888-dd20-4b57-bc02-21d09206e7e3"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.23,
+                "request_id": "6379f2a6-ff9d-4d27-96c3-32c1381b1e36"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.237,
+                "request_id": "d7839efb-8aca-47b3-a3c7-8f1ce5a945cc"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.506,
+                "request_id": "8c9a1dab-0f16-4d78-97fc-d3c73d2d78e6"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.241,
+                "request_id": "96669e33-ca0f-4413-85a6-7af51264c6f0"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.543,
+                "request_id": "3bdb09de-e982-4993-b8cb-f333090d3e75"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.371,
+                "request_id": "6fbdb640-da28-41a4-b957-a3aadb4983f1"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.262,
+                "request_id": "cbf1f7ee-4116-41ca-8373-b4ba6e5604fb"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.818,
+                "request_id": "5d8ca2bc-b87f-4e5c-9246-64352530e0d7"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.81,
+                "request_id": "82669007-906a-47fe-9883-a8a138ee23d4"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.799,
+                "request_id": "73ea79df-9690-4234-9f53-0fd8dff57080"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.864,
+                "request_id": "4a5f3a64-fcce-4859-82af-a0de71d2f2aa"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.86,
+                "request_id": "6a65969e-d847-4739-afcd-efa8b4736692"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.769,
+                "request_id": "379892f1-423b-44e9-a103-99d710ceef29"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.756,
+                "request_id": "bcd935f4-7607-4479-aab5-46ee8fae001e"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.564,
+                "request_id": "6abda456-821a-4f99-bcee-cd2f1b5b30b5"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.732,
+                "request_id": "7240d436-8c05-41e5-8efa-c63de9694e23"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.773,
+                "request_id": "b144981a-1019-4878-9d9e-18a9beac0f32"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.517,
+                "request_id": "6ae1da3e-246a-473a-8704-be2e10514923"
+              },
+              {
+                "tool_name": "inference.version",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.26,
+                "request_id": "9c559580-116b-481a-98ff-54af208ce17a"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.48,
+                "request_id": "3bacdf8e-0554-4e4e-b88c-e008e74034b8"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.45,
+                "request_id": "2e3d9549-aa4e-4d6b-9a8a-f5c786d6e13f"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.432,
+                "request_id": "b0c41e94-936a-41b0-9501-460cbd82a00f"
+              },
+              {
+                "tool_name": "inference.version",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.946,
+                "request_id": "d0780216-f2e2-47df-b59e-e15f5e862c9f"
+              }
+            ],
+            "bounded_tail": true,
+            "raw_text_omitted": true,
+            "untrusted_observations": true
+          },
+          "error": null,
+          "duration_ms": 212.91683399999783
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_workloads",
+          "observed_at": "2026-11-15T04:05:22.279947Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pods": [
+              {
+                "name": "inference-b4cf4fcf9-rclrx",
+                "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+                "phase": "Running",
+                "ready": true,
+                "deleting": false,
+                "conditions": [
+                  {
+                    "type": "PodReadyToStartContainers",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Initialized",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Ready",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "ContainersReady",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "PodScheduled",
+                    "status": "True",
+                    "reason": null
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "ready": true,
+                    "restart_count": 1,
+                    "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                    "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                    "state": "running",
+                    "reason": null,
+                    "exit_code": null,
+                    "last_termination_reason": "Unknown"
+                  }
+                ]
+              },
+              {
+                "name": "inference-b4cf4fcf9-shz8x",
+                "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+                "phase": "Running",
+                "ready": true,
+                "deleting": false,
+                "conditions": [
+                  {
+                    "type": "PodReadyToStartContainers",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Initialized",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "Ready",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "ContainersReady",
+                    "status": "True",
+                    "reason": null
+                  },
+                  {
+                    "type": "PodScheduled",
+                    "status": "True",
+                    "reason": null
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "ready": true,
+                    "restart_count": 1,
+                    "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                    "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                    "state": "running",
+                    "reason": null,
+                    "exit_code": null,
+                    "last_termination_reason": "Unknown"
+                  }
+                ]
+              }
+            ],
+            "deployments": [
+              {
+                "name": "inference",
+                "generation": 1,
+                "observed_generation": 1,
+                "desired_replicas": 2,
+                "ready_replicas": 2,
+                "available_replicas": 2,
+                "updated_replicas": 2,
+                "conditions": [
+                  {
+                    "type": "Available",
+                    "status": "True",
+                    "reason": "MinimumReplicasAvailable"
+                  },
+                  {
+                    "type": "Progressing",
+                    "status": "True",
+                    "reason": "NewReplicaSetAvailable"
+                  }
+                ],
+                "containers": [
+                  {
+                    "name": "inference",
+                    "image": "mlops-assignment3-inference:c20e0106c52d",
+                    "requests": {
+                      "cpu": "100m",
+                      "memory": "192Mi"
+                    },
+                    "limits": {
+                      "cpu": "1",
+                      "memory": "512Mi"
+                    },
+                    "readiness_path": "/readyz",
+                    "liveness_path": "/livez"
+                  }
+                ]
+              }
+            ],
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 237.81370799997603
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_services",
+          "observed_at": "2026-11-15T04:05:22.479119Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "services": [
+              {
+                "name": "inference",
+                "type": "ClusterIP",
+                "cluster_ip": "10.96.207.167",
+                "selector": {
+                  "app.kubernetes.io/name": "inference"
+                },
+                "ports": [
+                  {
+                    "port": 8000,
+                    "target_port": "http"
+                  }
+                ]
+              }
+            ],
+            "endpoints": [
+              {
+                "addresses": [
+                  "10.244.0.2"
+                ],
+                "ready": true,
+                "pod": "inference-b4cf4fcf9-shz8x"
+              },
+              {
+                "addresses": [
+                  "10.244.0.3"
+                ],
+                "ready": true,
+                "pod": "inference-b4cf4fcf9-rclrx"
+              }
+            ],
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 198.89825000001338
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_health",
+          "observed_at": "2026-11-15T04:05:22.690690Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "service": "inference",
+            "transport": "GET service proxy",
+            "liveness": {
+              "status": "alive"
+            },
+            "readiness": {
+              "status": "ready",
+              "model_run_id": "f1aa8c88b5d645418f17e18898805dba"
+            },
+            "app_version": "c20e0106c52d69cd2f28573cf6405d7880ccb353",
+            "model": {
+              "run_id": "f1aa8c88b5d645418f17e18898805dba",
+              "model_id": "m-be27d8728a7f4331a812c37b663e8098",
+              "model_sha256": "c5f8c425cde85bdaa4ba2fd7fc01eab0237fb3e0d8082a147041fae681507781",
+              "training_code_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+              "dataset": {
+                "path": "data/iris.csv",
+                "git_revision": "ca3ed572fe61845c3781d11a8a59c4ecbf61f55e",
+                "dvc_md5": "c53cf26bbf3cda572dfcbfeee37b4b37"
+              },
+              "evaluation_id": "5f079144dd19531869301418fd8af5092ea35c6bd2439b53c87ec084f7f79dcb",
+              "sklearn_version": "1.7.2",
+              "numpy_version": "2.5.4",
+              "cloudpickle_version": "3.1.2"
+            },
+            "scope": "Service sampled one or more backends; use workloads for all replica states"
+          },
+          "error": null,
+          "duration_ms": 211.34741700001314
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-rclrx"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_diagnostics",
+          "observed_at": "2026-11-15T04:05:22.909832Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": {
+              "name": "inference-b4cf4fcf9-rclrx",
+              "uid": "7ab7b6c4-bc8d-4be4-826f-e94c2cd7857c",
+              "phase": "Running",
+              "ready": true,
+              "deleting": false,
+              "conditions": [
+                {
+                  "type": "PodReadyToStartContainers",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Initialized",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Ready",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "ContainersReady",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "PodScheduled",
+                  "status": "True",
+                  "reason": null
+                }
+              ],
+              "containers": [
+                {
+                  "name": "inference",
+                  "ready": true,
+                  "restart_count": 1,
+                  "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                  "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                  "state": "running",
+                  "reason": null,
+                  "exit_code": null,
+                  "last_termination_reason": "Unknown"
+                }
+              ]
+            },
+            "events": [
+              {
+                "type": "Normal",
+                "reason": "SandboxChanged",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Pulled",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Created",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Started",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Warning",
+                "reason": "Unhealthy",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:59+00:00",
+                "last_timestamp": "2026-11-15 04:00:59+00:00",
+                "component": "kubelet"
+              }
+            ],
+            "event_messages_omitted": "Arbitrary text excluded; reason/count are observations",
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 218.89991599999803
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-shz8x"
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_diagnostics",
+          "observed_at": "2026-11-15T04:05:23.111872Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": {
+              "name": "inference-b4cf4fcf9-shz8x",
+              "uid": "86341887-d575-4f1a-b339-1aa7a84eccac",
+              "phase": "Running",
+              "ready": true,
+              "deleting": false,
+              "conditions": [
+                {
+                  "type": "PodReadyToStartContainers",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Initialized",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "Ready",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "ContainersReady",
+                  "status": "True",
+                  "reason": null
+                },
+                {
+                  "type": "PodScheduled",
+                  "status": "True",
+                  "reason": null
+                }
+              ],
+              "containers": [
+                {
+                  "name": "inference",
+                  "ready": true,
+                  "restart_count": 1,
+                  "image": "docker.io/library/mlops-assignment3-inference:c20e0106c52d",
+                  "image_id": "sha256:179e1438462bfbe4e3e9844aef3a0cc79d3d5277e51c1001d6f23d0d389322a4",
+                  "state": "running",
+                  "reason": null,
+                  "exit_code": null,
+                  "last_termination_reason": "Unknown"
+                }
+              ]
+            },
+            "events": [
+              {
+                "type": "Normal",
+                "reason": "SandboxChanged",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Pulled",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Created",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Normal",
+                "reason": "Started",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:57+00:00",
+                "last_timestamp": "2026-11-15 04:00:57+00:00",
+                "component": "kubelet"
+              },
+              {
+                "type": "Warning",
+                "reason": "Unhealthy",
+                "count": 1,
+                "first_timestamp": "2026-11-15 04:00:59+00:00",
+                "last_timestamp": "2026-11-15 04:00:59+00:00",
+                "component": "kubelet"
+              }
+            ],
+            "event_messages_omitted": "Arbitrary text excluded; reason/count are observations",
+            "truncated": false
+          },
+          "error": null,
+          "duration_ms": 201.79045800000495
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-rclrx",
+          "tail_lines": 30,
+          "previous": false
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_logs",
+          "observed_at": "2026-11-15T04:05:23.314060Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": "inference-b4cf4fcf9-rclrx",
+            "previous": false,
+            "entries": [
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.326,
+                "request_id": "f1c7d193-5420-431e-a7a6-3b030a7cab91"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.861,
+                "request_id": "3ceaa02b-b9d5-420b-bb17-f6ac852c775c"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.853,
+                "request_id": "16dee542-5e78-4244-9f14-bc38f39a3b0f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.821,
+                "request_id": "b75bb057-a543-434f-b025-3b127e388b10"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.232,
+                "request_id": "7b8ff60f-1c49-4da2-8069-ea10fee1cbed"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.467,
+                "request_id": "7331dd2c-c8f7-48ec-98e1-0cd3536e476f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.268,
+                "request_id": "95f4dbd2-a9b1-4591-8d94-9c433889944d"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.233,
+                "request_id": "acdac3eb-740b-44e2-badf-6aaa222f31a1"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.624,
+                "request_id": "eae3f10c-79d9-412a-af13-17b40ee81656"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.319,
+                "request_id": "3365ed98-5003-4d17-b175-ee2d17e277ba"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.237,
+                "request_id": "9d9f7d1a-28ee-44c9-873b-bd8f832766f7"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.814,
+                "request_id": "8aead8e0-f1cf-45de-a2a2-b4d01a7265e9"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.803,
+                "request_id": "6a817886-f4a6-4d12-be5f-99d0f9441b40"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.817,
+                "request_id": "690ca056-d243-46e4-a70c-d637be47dfef"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.647,
+                "request_id": "1aabd745-63c7-44ff-b9af-439c26c942ca"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.778,
+                "request_id": "8ee40479-5d54-4271-8ec8-9dde748ea8a0"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.456,
+                "request_id": "97d7173e-2d97-4dd4-9060-6b75b7846859"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.445,
+                "request_id": "47b38115-36d9-48b4-acfc-3092ed2d455a"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.719,
+                "request_id": "88e13b7f-9eeb-4148-ada4-ac5e628e5c47"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.774,
+                "request_id": "1a0f6b41-4a0b-4147-aef8-804445518390"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.631,
+                "request_id": "0b5e177c-8ddf-4798-8d10-269ca34e91a6"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.438,
+                "request_id": "530c7796-3633-40d5-b532-384575b8783d"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.409,
+                "request_id": "d0d42a8c-6daa-4d76-8f48-0c172499f85f"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.754,
+                "request_id": "b2606618-9de4-4aec-90c0-40d452fb2e62"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.478,
+                "request_id": "25731ad2-c0d6-4209-9378-835cf0458684"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.763,
+                "request_id": "0ed89805-3ec1-4aca-a99d-cfa6189a3be3"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.793,
+                "request_id": "158f262f-cb38-4093-98ff-0d14932f9fa2"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.774,
+                "request_id": "7ecef7ac-1bb9-410a-ad34-f4281d3051d3"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.718,
+                "request_id": "de08a768-74e3-43e8-90e3-52e62765d89c"
+              },
+              {
+                "tool_name": "inference.version",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.168,
+                "request_id": "63be5a09-b76b-43bc-a70e-1bdebfebcab8"
+              }
+            ],
+            "bounded_tail": true,
+            "raw_text_omitted": true,
+            "untrusted_observations": true
+          },
+          "error": null,
+          "duration_ms": 201.92491599999585
+        }
+      },
+      {
+        "arguments": {
+          "namespace": "mlops-agent",
+          "pod": "inference-b4cf4fcf9-shz8x",
+          "tail_lines": 30,
+          "previous": false
+        },
+        "result": {
+          "request_id": "54a8ec07-fd63-4b7e-9a0d-5d27e29ab1f5",
+          "tool": "kubernetes_logs",
+          "observed_at": "2026-11-15T04:05:23.517664Z",
+          "status": "ok",
+          "evidence": {
+            "namespace": "mlops-agent",
+            "pod": "inference-b4cf4fcf9-shz8x",
+            "previous": false,
+            "entries": [
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.55,
+                "request_id": "7ba78109-a6ca-4e85-85f7-fa754bb39c9a"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.828,
+                "request_id": "a8102c97-05e7-4b5d-b7d7-4e5187d8fab8"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.222,
+                "request_id": "dc53c888-dd20-4b57-bc02-21d09206e7e3"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.23,
+                "request_id": "6379f2a6-ff9d-4d27-96c3-32c1381b1e36"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.237,
+                "request_id": "d7839efb-8aca-47b3-a3c7-8f1ce5a945cc"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.506,
+                "request_id": "8c9a1dab-0f16-4d78-97fc-d3c73d2d78e6"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.241,
+                "request_id": "96669e33-ca0f-4413-85a6-7af51264c6f0"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.543,
+                "request_id": "3bdb09de-e982-4993-b8cb-f333090d3e75"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.371,
+                "request_id": "6fbdb640-da28-41a4-b957-a3aadb4983f1"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.262,
+                "request_id": "cbf1f7ee-4116-41ca-8373-b4ba6e5604fb"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.818,
+                "request_id": "5d8ca2bc-b87f-4e5c-9246-64352530e0d7"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.81,
+                "request_id": "82669007-906a-47fe-9883-a8a138ee23d4"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.799,
+                "request_id": "73ea79df-9690-4234-9f53-0fd8dff57080"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.864,
+                "request_id": "4a5f3a64-fcce-4859-82af-a0de71d2f2aa"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.86,
+                "request_id": "6a65969e-d847-4739-afcd-efa8b4736692"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.769,
+                "request_id": "379892f1-423b-44e9-a103-99d710ceef29"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.756,
+                "request_id": "bcd935f4-7607-4479-aab5-46ee8fae001e"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.564,
+                "request_id": "6abda456-821a-4f99-bcee-cd2f1b5b30b5"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.732,
+                "request_id": "7240d436-8c05-41e5-8efa-c63de9694e23"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.773,
+                "request_id": "b144981a-1019-4878-9d9e-18a9beac0f32"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.517,
+                "request_id": "6ae1da3e-246a-473a-8704-be2e10514923"
+              },
+              {
+                "tool_name": "inference.version",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 1.26,
+                "request_id": "9c559580-116b-481a-98ff-54af208ce17a"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.48,
+                "request_id": "3bacdf8e-0554-4e4e-b88c-e008e74034b8"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.45,
+                "request_id": "2e3d9549-aa4e-4d6b-9a8a-f5c786d6e13f"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.432,
+                "request_id": "b0c41e94-936a-41b0-9501-460cbd82a00f"
+              },
+              {
+                "tool_name": "inference.version",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.946,
+                "request_id": "d0780216-f2e2-47df-b59e-e15f5e862c9f"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.78,
+                "request_id": "ba40a11d-e4ca-4d0c-9ffc-007f608d6b69"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.796,
+                "request_id": "86b07010-ea06-45a6-8f43-2fcf08c9adcc"
+              },
+              {
+                "tool_name": "inference.readiness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.775,
+                "request_id": "6cebb71a-baeb-43f3-b816-49f531a5030b"
+              },
+              {
+                "tool_name": "inference.liveness",
+                "status": "ok",
+                "http_status": 200,
+                "duration_ms": 0.77,
+                "request_id": "7eed8881-70ab-4c21-8982-f08febbf9591"
+              }
+            ],
+            "bounded_tail": true,
+            "raw_text_omitted": true,
+            "untrusted_observations": true
+          },
+          "error": null,
+          "duration_ms": 203.29341600000816
+        }
+      }
+    ],
+    "policy_events": [],
+    "known_facts": [
+      {
+        "result_index": 14,
+        "tool": "kubernetes_workloads",
+        "pointer": "/deployments/0/ready_replicas",
+        "observed_at": "2026-11-15T04:05:22.279947Z",
+        "value": 2
+      },
+      {
+        "result_index": 14,
+        "tool": "kubernetes_workloads",
+        "pointer": "/deployments/0/conditions/0/status",
+        "observed_at": "2026-11-15T04:05:22.279947Z",
+        "value": "True"
+      },
+      {
+        "result_index": 14,
+        "tool": "kubernetes_workloads",
+        "pointer": "/pods/0/containers/0/restart_count",
+        "observed_at": "2026-11-15T04:05:22.279947Z",
+        "value": 1
+      },
+      {
+        "result_index": 14,
+        "tool": "kubernetes_workloads",
+        "pointer": "/pods/0/containers/0/last_termination_reason",
+        "observed_at": "2026-11-15T04:05:22.279947Z",
+        "value": "Unknown"
+      },
+      {
+        "result_index": 14,
+        "tool": "kubernetes_workloads",
+        "pointer": "/pods/1/containers/0/restart_count",
+        "observed_at": "2026-11-15T04:05:22.279947Z",
+        "value": 1
+      },
+      {
+        "result_index": 17,
+        "tool": "kubernetes_diagnostics",
+        "pointer": "/events/4/reason",
+        "observed_at": "2026-11-15T04:05:22.909832Z",
+        "value": "Unhealthy"
+      },
+      {
+        "result_index": 18,
+        "tool": "kubernetes_diagnostics",
+        "pointer": "/events/4/reason",
+        "observed_at": "2026-11-15T04:05:23.111872Z",
+        "value": "Unhealthy"
+      },
+      {
+        "result_index": 15,
+        "tool": "kubernetes_services",
+        "pointer": "/endpoints/0/ready",
+        "observed_at": "2026-11-15T04:05:22.479119Z",
+        "value": true
+      },
+      {
+        "result_index": 16,
+        "tool": "kubernetes_health",
+        "pointer": "/liveness/status",
+        "observed_at": "2026-11-15T04:05:22.690690Z",
+        "value": "alive"
+      },
+      {
+        "result_index": 16,
+        "tool": "kubernetes_health",
+        "pointer": "/readiness/status",
+        "observed_at": "2026-11-15T04:05:22.690690Z",
+        "value": "ready"
+      },
+      {
+        "result_index": 16,
+        "tool": "kubernetes_health",
+        "pointer": "/app_version",
+        "observed_at": "2026-11-15T04:05:22.690690Z",
+        "value": "c20e0106c52d69cd2f28573cf6405d7880ccb353"
+      },
+      {
+        "result_index": 19,
+        "tool": "kubernetes_logs",
+        "pointer": "/entries/0/status",
+        "observed_at": "2026-11-15T04:05:23.314060Z",
+        "value": "ok"
+      }
+    ],
+    "uncertainties": [
+      "Production readiness and retraining necessity are not established by best F1.",
+      "No approved freshness policy or current degradation measurements were supplied; historical controlled test failures do not establish production degradation."
+    ],
+    "recommendations": [
+      "Inspect failed task diagnostics; distinguish controlled tests from operational failures."
+    ],
+    "correlation": {
+      "selected_run_id": null,
+      "selected_lineage_verified": false,
+      "deployed_run_id": "f1aa8c88b5d645418f17e18898805dba",
+      "candidate_is_deployed": null,
+      "candidate_is_production_ready": "not_established",
+      "observations_are_atomic_snapshot": false
+    },
+    "retraining": {
+      "decision": "not_established",
+      "initiated_by_assessment": false,
+      "policy": "Explicit training mode plus exact user confirmation required"
+    },
+    "error": null
+  }
+}

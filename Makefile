@@ -81,3 +81,7 @@ agent-api:
 	$(UV) run --frozen uvicorn mlops_agent.agent_api:app --host 127.0.0.1 --port 8090 --no-access-log
 verify-agent:
 	$(UV) run --frozen python scripts/verify-agent.py
+
+.PHONY: verify-submission
+verify-submission:
+	$(UV) run --frozen python scripts/verify-submission.py

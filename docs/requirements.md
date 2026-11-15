@@ -88,8 +88,8 @@ Mocked test results do not satisfy a live demonstration requirement.
 ## Testing, reliability, safety - 10 marks
 
 - [x] At least eight meaningful pytest tests; external services mocked in ordinary CI.
-      310 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/agent/isolation tests pass; later
-      failure-investigation requirements remain below.
+      314 config/dataset/DVC/MLflow/training/inference/Kubernetes/workflow/agent/isolation tests pass; later
+      failure investigations are linked below.
 - [x] Test successful tool selection and execution.
 - [x] Test timeouts, invalid requests, and service failures across adapters/provider.
 - [x] Test that an unavailable tool cannot produce invented operational results.
@@ -97,10 +97,10 @@ Mocked test results do not satisfy a live demonstration requirement.
 - [x] Structured logs include tool name, status, duration, and request ID without secrets.
       [Reliability audit and test coverage](reliability.md), including identity,
       namespace, malformed-response and redaction regressions; ordinary CI is mocked.
-- [ ] Inject at least two failures and explain diagnosis, root cause, and resolution.
+- [x] Inject at least two failures and explain diagnosis, root cause, and resolution.
       Isolated validation and candidate-gate failures are observed and recovered in
       [workflow evidence](evidence/airflow-dag.md); the required Kubernetes readiness
-      exercise and combined final investigations remain pending.
+      exercise and combined final investigations are complete in [the report](failure-investigations.md).
 
 ## Repository and CI - 5 marks
 
@@ -121,18 +121,22 @@ Mocked test results do not satisfy a live demonstration requirement.
 
 - [x] Demonstrate dataset provenance with a reproducible DVC reference.
 - [x] Demonstrate model selection with real MLflow metrics and justification.
-      [MLflow results](evidence/mlflow.md); integrated conversations remain pending.
+      [MLflow results](evidence/mlflow.md); [five actual conversations](evidence/conversations/README.md).
 - [x] Demonstrate pipeline execution with a real Airflow run and task statuses.
       [Actual smoke/failure/recovery export](evidence/airflow-dag-live.json);
-      conversational trigger demonstration remains pending.
+      [successful conversational trigger](evidence/conversations/03-pipeline.json).
 - [x] Demonstrate Kubernetes diagnosis with actual health data and logs.
-      [Direct tool export](evidence/kubernetes-live.json); LLM conversation remains pending.
+      [Direct tool export](evidence/kubernetes-live.json); [actual diagnostic conversation](evidence/conversations/04-deployment.json).
 - [x] Demonstrate multi-tool reasoning using all four technologies.
 - [x] README covers installation, configuration, each service, tests, and interaction.
       [Runbook](../README.md) distinguishes existing runtime startup from fresh-machine
-      historical model/image prerequisites; full reproduction audit remains pending.
-- [ ] Short technical report covers architecture and tool definitions/permissions.
-- [ ] Report includes screenshots or exported evidence from all four integrations.
-- [ ] Report includes five tested conversations linked to actual tool evidence.
-- [ ] Report includes two failure investigations, limitations, and proposed improvements.
-- [ ] Prepare architecture/tool-choice explanations and an unexpected-failure diagnosis.
+      historical model/image prerequisites; [fresh-checkout reproduction](evidence/reproduction-live.json) is recorded with its exact scope.
+- [x] Short technical report covers architecture and tool definitions/permissions.
+- [x] Report includes screenshots or exported evidence from all four integrations.
+- [x] Report includes five tested conversations linked to actual tool evidence.
+- [x] Report includes two failure investigations, limitations, and proposed improvements.
+- [x] Prepare architecture/tool-choice explanations and an unexpected-failure diagnosis.
+
+Final submission evidence: [technical report](report.md), [tool schemas](tool-catalog.json),
+[five conversations](evidence/conversations/README.md), [two investigations](failure-investigations.md),
+[defense guide](defense.md), and [offline acceptance verifier](../scripts/verify-submission.py).

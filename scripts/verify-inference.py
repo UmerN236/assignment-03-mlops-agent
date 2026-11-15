@@ -202,7 +202,7 @@ def main():
         "observations": observations,
         "structured_log_sample": logs[-5:],
         "limitations": [
-            "Local Docker verification; Kubernetes deployment is a later milestone.",
+            "Docker verification; Kubernetes has a separate live routing/RBAC export.",
             "Candidate selection is explicit; no production promotion or drift claim.",
         ],
     }
